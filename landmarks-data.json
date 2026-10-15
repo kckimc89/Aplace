@@ -1,7 +1,7 @@
 {
   "title": "세계 명소대백과",
-  "version": "Stage 0.2",
-  "release": "Stage 0.2 · 검색엔진 참여 대표명소 선정 / 다국어 별칭 / 국가 일치 재검토",
+  "version": "Stage 0.3",
+  "release": "Stage 0.3 · 검색엔진 참여 대표명소 선정 / 다국어 별칭 / 국가 일치 재검토",
   "basedOn": "Stage 0.1 (40개 명소 초안과 사진/화면 보존)",
   "categories": [
     {
