@@ -45,7 +45,7 @@ function countView(){const all=allLandmarks();return `<span class="stat">🌐 ${
 function controls(){const b=$('#parentToggle');b.classList.toggle('on',state.admin);b.textContent=state.admin?'🔓 부모모드 ON · 끄기':'🔒 부모모드 OFF · 켜기';$('#headerStats').innerHTML=countView();document.querySelectorAll('[data-go]').forEach(n=>n.classList.toggle('active',n.dataset.go===state.view));}
 function renderHome(){const items=allLandmarks(),feature=items.find(x=>x.id==='FR-L01')||items[0],pilot=BASE.pilotCountries.map(x=>COUNTRY_MAP.get(x));return `<section class="panel"><div class="section-head"><h2>✨ 오늘의 명소</h2><small>사진으로 세계를 만나요</small></div><div class="home-feature"><div>${photoFrame(feature,'landscape')}</div><div class="home-feature-info"><span class="eyebrow">🌍 세계 명소 탐험의 시작</span><h2 class="feature-title">${esc(feature.name)}</h2><div class="pill-row"><span class="pill">🇫🇷 프랑스</span><span class="pill">${esc(typeEmoji(feature.category))} ${esc(category(feature.category).name)}</span></div><p class="feature-desc">${esc(feature.description)}</p><button class="btn primary" type="button" data-act="open-detail" data-id="${esc(feature.id)}">🔍 사진과 이야기 살펴보기 →</button></div></div></section>
  <section class="panel"><div class="section-head"><h2>🌐 먼저 떠나는 15개국</h2><small>나라별 공통설명 준비</small></div><div class="category-grid pilot-country-grid">${pilot.map(c=>`<button type="button" class="category-button" data-act="country-go" data-code="${esc(c.code)}"><span>${esc(c.flag)}</span>${esc(c.name)}</button>`).join('')}</div><div class="action-row"><button class="btn" data-go="countries">우선 15개국 나라 목록 →</button></div></section>
- <section class="panel"><div class="section-head"><h2>🎧 나라 사진 여행</h2><small>전체화면 사진과 짧은 관광가이드</small></div><p class="lead">명소의 대표사진을 크게 보면서, 나라의 이야기를 짧고 인상적으로 들어보세요. 이번에는 핵심 6개국의 명소를 모두 여행합니다. 사진은 온라인 상황에 따라 일부 준비 중일 수 있습니다.</p><div class="action-row"><button class="btn primary" data-act="start-country-tour" data-code="FR">🇫🇷 프랑스 사진 여행</button><button class="btn " data-act="start-country-tour" data-code="KR">🇰🇷 대한민국 사진 여행</button><button class="btn " data-act="start-country-tour" data-code="JP">🇯🇵 일본 사진 여행</button><button class="btn " data-act="start-country-tour" data-code="CN">🇨🇳 중국 사진 여행</button><button class="btn " data-act="start-country-tour" data-code="IT">🇮🇹 이탈리아 사진 여행</button><button class="btn " data-act="start-country-tour" data-code="ES">🇪🇸 스페인 사진 여행</button></div></section>
+ <section class="panel"><div class="section-head"><h2>🎧 나라 사진 여행</h2><small>전체화면 사진과 짧은 관광가이드</small></div><p class="lead">명소의 대표사진을 크게 보면서, 나라의 이야기를 짧고 인상적으로 들어보세요. 먼저 프랑스와 대한민국부터 시작합니다.</p><div class="action-row"><button class="btn primary" data-act="start-country-tour" data-code="FR">🇫🇷 프랑스 사진 여행</button><button class="btn" data-act="start-country-tour" data-code="KR">🇰🇷 대한민국 사진 여행</button></div></section>
  <section class="panel"><div class="section-head"><h2>🧭 일곱 가지 명소 탐험</h2><small>원하는 종류를 선택하세요</small></div><div class="category-grid">${CATS.map(c=>`<button class="category-button" type="button" data-act="cat-go" data-cat="${esc(c.id)}"><span>${c.icon}</span>${esc(c.name)}</button>`).join('')}</div></section>
  <section class="panel"><div class="section-head"><h2>📷 대표명소 먼저 만나기</h2><small>첫 5개국 40개 초안 · 인기 15개국 확대 준비</small></div><div class="card-grid">${['KR-L01','CN-L01','JP-L01','TW-L01','FR-L03','FR-L01'].map(id=>items.find(x=>x.id===id)).filter(Boolean).map(landmarkCard).join('')}</div></section>
  <div class="info">🌱 <b>첫 기본자료 안내:</b> 40개 명소의 이름·분류·설명·별칭은 미확정 기초자료입니다. 부모모드에서 검색 결과를 비교하세요. 사진은 위키미디어에서 온라인으로 불러오며, 검색된 사진은 부모가 정확성과 이용조건을 확인한 후 사진첩에 넣도록 설계했습니다.</div>`;}
@@ -60,7 +60,7 @@ function renderPhotos(){let a=filteredByCat(allLandmarks(),state.photoCat).filte
 function searchText(f){return [f.name,f.region,cName(f.countryCode),...(f.aliases||[]),f.wikiTitle,category(f.category).name,...(f.extraCategories||[]).map(a=>category(a).name)].join(' ');}
 function renderSearch(){const arr=state.search?allLandmarks().filter(x=>match(searchText(x),state.search)):allLandmarks().slice(0,12);return `<section class="panel"><div class="section-head"><h2>🔎 세계 명소 검색</h2><small>한국어 · 영어 · 현지어 · 부분검색</small></div><form class="search-form" id="landmarkSearchForm"><input id="landmarkSearchInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="경, Eiffel, 清水寺, 박물관" value="${esc(state.search)}"><button>검색</button></form><p class="muted small">iPad 한글 입력 보호: 입력 중 화면을 다시 그리지 않고, 검색 버튼을 누르면 결과가 표시됩니다.</p><h3>${state.search?`“${esc(state.search)}” 검색 결과 ${arr.length}개`:'처음 만나볼 명소'}</h3>${arr.length?`<div class="card-grid">${arr.map(landmarkCard).join('')}</div>`:`<div class="blank"><span class="icon">🔎</span>등록된 명소 중에는 검색 결과가 없습니다. 부모모드에서 위키데이터로 새 후보를 찾아볼 수 있습니다.</div>`}</section>`;}
 function renderSaved(kind){const ids=kind==='wish'?edits.wish:edits.favorite;const title=kind==='wish'?'⭐ 가보고 싶어요':'❤️ 즐겨찾기';const a=ids.map(getLandmark).filter(Boolean);return `<section class="panel"><div class="section-head"><h2>${title}</h2><small>${a.length}곳</small></div>${a.length?`<div class="card-grid">${a.map(landmarkCard).join('')}</div>`:`<div class="blank"><span class="icon">${kind==='wish'?'⭐':'❤️'}</span>명소 상세화면에서 마음에 드는 장소를 저장해 보세요.</div>`}</section>`;}
-function renderParent(){const items=allLandmarks(),numConfirmed=items.filter(f=>f.verified).length,numPhotographed=items.filter(f=>(f.photos||[]).length).length,editable=state.editorId?getLandmark(state.editorId):null;return `<section class="panel"><div class="section-head"><h2>👨‍👩‍👧 부모모드</h2><small>Stage 1.0 · 다국어 별칭 및 다중 사진검색</small></div>${!state.admin?`<div class="info">위의 <b>부모모드 켜기</b>를 눌러 수정·검색·저장 기능을 사용해 주세요. 아이가 보는 동안에는 꺼 두면 좋습니다.</div>`:`<div class="parent-stats"><div class="parent-stat"><strong>101</strong>나라</div><div class="parent-stat"><strong>${items.length}</strong>명소 초안</div><div class="parent-stat"><strong>${numConfirmed}</strong>명소 설명 확인 완료</div><div class="parent-stat"><strong>${numPhotographed}</strong>사진첩 저장됨</div></div><div class="info">대표이름과 별칭은 검색엔진의 제안 및 국가 일치 확인 후 부모가 승인합니다. 기초 등록 명소는 자료 검증 상태를 구분해 표시하며, 검색 결과만으로 설명·사진이 검증되었다고 표시하지 않습니다. 사진은 위키미디어에서 찾아 직접 고릅니다.</div><div class="action-row"><button class="btn primary" data-act="parent-new">＋ 새 명소 등록</button><button class="btn green" data-act="download-backup">⬇ 전체 백업</button><label class="btn blue" style="cursor:pointer">⬆ 백업 복원<input type="file" id="importBackup" accept=".json,application/json" style="display:none"></label></div>`}</section>
+function renderParent(){const items=allLandmarks(),numConfirmed=items.filter(f=>f.verified).length,numPhotographed=items.filter(f=>(f.photos||[]).length).length,editable=state.editorId?getLandmark(state.editorId):null;return `<section class="panel"><div class="section-head"><h2>👨‍👩‍👧 부모모드</h2><small>Stage 0.9 · 명소 카드 디자인·연속보기</small></div>${!state.admin?`<div class="info">위의 <b>부모모드 켜기</b>를 눌러 수정·검색·저장 기능을 사용해 주세요. 아이가 보는 동안에는 꺼 두면 좋습니다.</div>`:`<div class="parent-stats"><div class="parent-stat"><strong>101</strong>나라</div><div class="parent-stat"><strong>${items.length}</strong>명소 초안</div><div class="parent-stat"><strong>${numConfirmed}</strong>명소 설명 확인 완료</div><div class="parent-stat"><strong>${numPhotographed}</strong>사진첩 저장됨</div></div><div class="info">대표이름과 별칭은 검색엔진의 제안 및 국가 일치 확인 후 부모가 승인합니다. 기존 40개는 미검증 초안이며, 검색 결과만으로 설명·사진이 검증되었다고 표시하지 않습니다. 사진은 위키미디어에서 찾아 직접 고릅니다.</div><div class="action-row"><button class="btn primary" data-act="parent-new">＋ 새 명소 등록</button><button class="btn green" data-act="download-backup">⬇ 전체 백업</button><label class="btn blue" style="cursor:pointer">⬆ 백업 복원<input type="file" id="importBackup" accept=".json,application/json" style="display:none"></label></div>`}</section>
  ${state.admin?`${renderSelectionEngine()}${renderWikidataSearch()}${renderEditor(editable)}${renderCountryEditor()}<section class="panel"><div class="section-head"><h2>🗂️ 등록 명소 관리</h2><small>이름·분류·별칭·설명 수정</small></div>${items.map(f=>`<div class="result-row"><div><b>${esc(COUNTRY_MAP.get(f.countryCode)?.flag)} ${esc(f.name)}</b><div class="muted small">${esc(f.region)} · ${esc(category(f.category).name)} · ${f.nameAudit?.countryStatus==='matched'?'이름·국가 부모확인':(f.verified?'설명 검토완료':'기초자료/확인 전')} · 사진 ${(f.photos||[]).length}장</div></div><div class="action-row" style="margin-top:0"><button class="btn btn-small" data-act="edit-place" data-id="${esc(f.id)}">수정</button><button class="btn btn-small" data-act="open-detail" data-id="${esc(f.id)}">사진</button></div></div>`).join('')}</section>`:''}`;}
 
 // Stage 0.2: Search engine joins selection, identity checking, multilingual aliases.
@@ -217,25 +217,18 @@ const TOUR_STORIES={
  FR:{
  'FR-L01':['파리의 하늘을 가르는 에펠탑입니다. 1889년 만국박람회를 위해 세워졌지만, 처음에는 이 철탑의 모습을 못마땅해하는 사람들도 있었답니다.','수많은 철제 부재가 정교하게 이어져 있습니다. 밤에 빛나는 모습까지, 파리의 상징이 된 이유를 사진으로 느껴 보세요.'],
  'FR-L02':['이번에는 예술의 세계로 떠납니다. 루브르 박물관은 한때 프랑스 왕들이 사용하던 궁전이었습니다.','지금은 모나리자를 비롯한 수많은 작품을 만날 수 있지요. 거대한 건물 자체도 중요한 역사 이야기입니다.'],
- 'FR-L03':['노르망디 해안에 솟은 몽생미셸입니다. 바다 위에 작은 도시와 수도원이 떠 있는 것처럼 보이지요.','건물들이 겹겹이 이어진 섬 위에는 오래된 수도원이 자리하고 있습니다. 바위 위에 어떻게 이런 건물을 세웠을까요?','세 번째 장면에는 주변 바다도 펼쳐집니다. 밀물과 썰물에 따라 갯벌과 물길이 달라져, 같은 섬도 전혀 다른 모습으로 보인답니다.'],
+ 'FR-L03':['노르망디 해안에 솟은 몽생미셸입니다. 바다 위에 작은 도시와 수도원이 떠 있는 것처럼 보이지요.','건물들이 겹겹이 이어진 섬 위에는 오래된 수도원이 자리하고 있습니다. 바위 위에 어떻게 이런 건물을 세웠을까요?','이번에는 주변 바다도 살펴보세요. 밀물과 썰물에 따라 갯벌과 물길이 달라져, 같은 섬도 전혀 다른 모습으로 보인답니다.'],
  'FR-L04':['베르사유 궁전에 도착했습니다. 프랑스 왕실이 화려한 권력을 보여 주던 장소입니다.','궁전의 넓은 방과 정원을 떠올려 보세요. 건축과 정원이 하나의 거대한 작품처럼 이어집니다.'],
  'FR-L05':['이번에는 파리의 샹젤리제 거리입니다. 나무가 늘어선 길을 따라 카페와 상점이 이어집니다.','길 끝에는 개선문이 보이지요. 파리에서는 걷는 길 자체가 특별한 풍경이 되기도 합니다.'],
  'FR-L06':['커다란 문처럼 보이지만, 이곳은 에투알 개선문입니다. 프랑스의 군사 역사와 기억을 담은 기념물이지요.','여러 갈래의 길이 이 주변에서 별처럼 펼쳐집니다. 높은 곳에서 내려다보면 도시의 모양도 흥미롭습니다.'],
  'FR-L07':['센강의 섬 위에 선 노트르담 대성당입니다. 돌로 쌓아 올린 높은 공간과 정교한 조각이 눈길을 끕니다.','커다란 장미창과 고딕 양식의 구조는 오랜 세월 건축가들이 남긴 놀라운 솜씨를 보여 줍니다.'],
  'FR-L08':['이제 파리에서 벗어나 베르동 협곡으로 향합니다. 높은 석회암 절벽 사이로 푸른 물이 흐릅니다.','사람이 만든 건축물과는 다른 아름다움이지요. 오랜 시간 물이 깎아 만든 자연의 조각 작품입니다.']},
  KR:{
- 'KR-L01':['서울 한복판에 있는 경복궁입니다. 조선 왕조의 중심 궁궐이었지요.','넓은 마당과 지붕의 선에는 조선 건축의 아름다움이 담겨 있습니다. 오래전 사람들이 생각한 아름다운 공간이 오늘까지 전해집니다.']}
+ 'KR-L01':['서울 한복판에 있는 경복궁입니다. 조선 왕조의 중심 궁궐이었지요.','넓은 마당과 지붕의 선을 살펴보세요. 오래전 사람들이 생각한 아름다운 공간이 오늘까지 전해집니다.']}
 };
 let tourPending=false,tourCountryCode='FR',tourFinishing=false;
 function tourElement(){return document.getElementById('countryTour');}
-function tourSentences(f){
- const special=TOUR_STORIES[f.countryCode]?.[f.id];if(special)return special;
- const pieces=String(f.description||'').match(/[^.!?。]+[.!?。]?/g)?.map(x=>x.trim()).filter(Boolean)||[];
- if(!pieces.length)return [`${f.name}에 도착했습니다. 이 명소의 이야기는 아직 준비하고 있습니다.`];
- const first=`이번에는 ${f.region||cName(f.countryCode)}의 ${f.name}입니다. ${pieces.slice(0,2).join(' ')}`;
- const second=pieces.slice(2).join(' ');
- return second?[first,second]:[first];
-}
+function tourSentences(f){return TOUR_STORIES[f.countryCode]?.[f.id]||[`${f.name}에 도착했습니다. ${f.description||'이 명소는 아직 설명을 준비하고 있습니다.'}`.trim()];}
 async function tourWikiPhoto(f){
  if(!f.wikiTitle)return null;
  try{const lang=/^[a-z-]+$/.test(f.wikiLang||'')?f.wikiLang:'en';const u=new URL(`https://${lang}.wikipedia.org/w/api.php`);
@@ -262,7 +255,7 @@ async function makeCountryTour(code){
   // now gets a dedicated narration instead of being silently skipped.
   const count=pics.length?Math.max(texts.length,pics.length):1;
   for(let j=0;j<count;j++){
-   const text=texts[j]||(j< pics.length ? `${f.name}의 모습이 다른 각도에서 이어집니다. 사진마다 건축과 풍경의 새로운 특징이 보입니다.`:'');
+   const text=texts[j]||(j< pics.length ? `${f.name}의 또 다른 모습을 감상해 보세요. 사진에서 처음 장면과 달라진 부분을 찾아보세요.`:'');
    slides.push({id:f.id,name:f.name,photo:pics[j]||pics[pics.length-1]||null,text,landmarkIndex:i+1,landmarkTotal:all.length});
   }
  });
@@ -351,8 +344,8 @@ function guideSupported(){return 'speechSynthesis' in window && 'SpeechSynthesis
 function guideCaption(f,p,i){
  const custom=(p&&typeof p.guideText==='string')?p.guideText.trim():'';
  if(custom)return custom;
- if(i===0){return `지금부터 ${f.name}을 함께 둘러볼까요? ${f.region?f.region+'에 있는 ':''}${f.name}입니다. ${f.description||'이 장소에는 오랜 이야기와 특별한 풍경이 담겨 있습니다.'}`;}
- return `${f.name}의 ${i+1}번째 사진입니다. 같은 장소도 보는 위치에 따라 전혀 다른 풍경이 펼쳐집니다. 서로 다른 모습이 이곳의 매력을 보여 줍니다.`;
+ if(i===0){return `지금부터 ${f.name}을 함께 둘러볼까요? ${f.region?f.region+'에 있는 ':''}${f.name}입니다. ${f.description||'이곳은 어떤 모습일까요? 사진을 자세히 살펴보세요.'}`;}
+ return `${f.name}의 ${i+1}번째 사진입니다. 첫 번째 사진과 어떤 점이 다른지 살펴보세요. 눈에 띄는 부분을 찾아볼까요?`;
 }
 function guideStop(){guideRun++;state.guidePlaying=false;if(guideSupported())try{window.speechSynthesis.cancel();}catch(_){}const x=document.querySelector('#guideStatus');if(x)x.textContent='가이드가 멈췄습니다.';}
 function guideStatus(msg){const x=document.querySelector('#guideStatus');if(x)x.textContent=msg;}
@@ -407,116 +400,30 @@ function renderDetail(f){const photos=gallery(f),p=photos[state.galleryIndex]||p
  <div id="commonsArea">${state.commonsMsg?`<div class="loading">${esc(state.commonsMsg)}</div>`:''}${renderCommons(f)}</div>`;
 }
 function updateModalPhoto(){if(!state.detailId)return;const f=getLandmark(state.detailId);if(!f)return;const oldScroll=$('#detailOverlay').scrollTop;renderDetail(f);$('#detailOverlay').scrollTop=oldScroll;}
-function renderCommons(f){const cached=commonsCache.get(f.id);if(!cached)return '';return `<div class="line"></div><h3>🔍 추가 사진 후보 (${cached.length}장)</h3><div class="warning">⚠️ 자동검색 결과입니다. 다른 장소 또는 비슷한 사진이 섞여 있을 수 있습니다. <b>사진과 장소의 일치 여부 및 사용조건을 꼭 확인</b>해 주세요.</div>${cached.length?`<div class="photo-candidate-grid">${cached.map((ph,i)=>`<div class="candidate-photo"><img src="${esc(uri(ph.thumb||ph.url))}" alt="${esc(ph.title)}" loading="lazy"><p><b>${esc(ph.title)}</b></p><p><span class="pill blue">${esc(ph.sourceType||'위키미디어')}</span> · 이용조건: ${esc(ph.license||'정보 없음')}</p><a class="link small" href="${esc(uri(ph.source))}" target="_blank" rel="noopener noreferrer">원본·저작자 확인 ↗</a>${state.admin?`<div class="action-row"><button class="btn btn-small green" data-act="approve-photo" data-id="${esc(f.id)}" data-index="${i}" ${!ph.allowed?'disabled title="사진 사용조건을 먼저 확인해야 합니다"':''}>사진첩에 추가</button></div>`:'<p class="muted small">부모모드에서 사진을 선택할 수 있어요.</p>'}</div>`).join('')}</div>`:'<div class="blank">검색된 사진이 없습니다. 다른 자료원을 확인해 주세요.</div>'}${renderSourcePortals(f)}`;}
+function renderCommons(f){const cached=commonsCache.get(f.id);if(!cached)return '';return `<div class="line"></div><h3>🔍 추가 사진 후보 (${cached.length}장)</h3><div class="warning">⚠️ 자동검색 결과입니다. 다른 장소 또는 비슷한 사진이 섞여 있을 수 있습니다. <b>사진과 장소의 일치 여부 및 사용조건을 꼭 확인</b>해 주세요.</div>${cached.length?`<div class="photo-candidate-grid">${cached.map((ph,i)=>`<div class="candidate-photo"><img src="${esc(uri(ph.thumb||ph.url))}" alt="${esc(ph.title)}" loading="lazy"><p><b>${esc(ph.title)}</b></p><p>이용조건: ${esc(ph.license||'정보 없음')}</p><a class="link small" href="${esc(uri(ph.source))}" target="_blank" rel="noopener noreferrer">원본·저작자 확인 ↗</a>${state.admin?`<div class="action-row"><button class="btn btn-small green" data-act="approve-photo" data-id="${esc(f.id)}" data-index="${i}" ${!ph.allowed?'disabled title="사진 사용조건을 먼저 확인해야 합니다"':''}>사진첩에 추가</button></div>`:'<p class="muted small">부모모드에서 사진을 선택할 수 있어요.</p>'}</div>`).join('')}</div>`:'<div class="blank">사진을 찾지 못했습니다. 영어/현지어 별칭이나 인터넷 연결을 확인해 주세요.</div>'}`;}
 function setGallery(n){const f=getLandmark(state.detailId),len=gallery(f).length;if(!len)return;state.galleryIndex=(n+len)%len;updateModalPhoto();}
 function openLightbox(){const f=getLandmark(state.detailId);if(!f)return;const photos=gallery(f);if(!photos.length)return;state.lightbox=photos;state.photoIndex=state.galleryIndex;state.zoom=1;$('#photoOverlay').classList.add('open');$('#photoOverlay').setAttribute('aria-hidden','false');updateLightbox();}
 function updateLightbox(){const p=state.lightbox[state.photoIndex];if(!p)return;$('#photoCounter').textContent=`${state.photoIndex+1} / ${state.lightbox.length}`;$('#lightboxImage').src=uri(p.url);$('#lightboxImage').style.transform=`scale(${state.zoom})`;$('#photoAttribution').textContent=`${p.title||''} · ${p.license||'이용조건 확인 필요'}${p.artist?' · '+p.artist:''}`;}
-// Stage 1.0 - identity-oriented multi-source photo discovery.
-// Search never automatically approves photographs: the adult checks identity and license.
-function distinctPhotoQueries(f){
- const aliases=(f.aliases||[]).filter(a=>a.length>2&&!/\s{3}/.test(a));
- const western=aliases.filter(a=>/[A-Za-zÀ-ÿ]/.test(a)&&!/[\u3400-\u9fff]/.test(a));
- const native=aliases.filter(a=>/[\u3400-\u9fff]/.test(a));
- const queries=[f.wikiTitle,...western.slice(0,3),...native.slice(0,2),f.name].filter(Boolean);
- // Specific region is a supplementary search, not required: Commons titles often omit it.
- if(f.region&&western.length)queries.push(`${western[0]} ${f.region}`);
- return [...new Set(queries.map(x=>x.trim()).filter(Boolean))].slice(0,7);
-}
-function stripMarkup(s){return String(s||'').replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|amp|quot|#39);/g,' ').replace(/\s+/g,' ').trim().slice(0,350);}
-function photoRelevance(ph,f,query){
- const title=(ph.title||'').replace(/^File:/i,'').replace(/[_-]/g,' ').toLowerCase();
- const stop=new Set(['the','of','de','la','der','di','and','palace','city','museum','photo','image','jpg','jpeg','png','commons','view','from']);
- const keywords=[f.wikiTitle,...(f.aliases||[]),f.name].filter(Boolean).flatMap(x=>x.toLowerCase().normalize('NFKC').split(/[^\p{L}\p{N}]+/u)).filter(x=>x.length>=3&&!stop.has(x));
- const matching=[...new Set(keywords)].filter(w=>title.includes(w));
- const q=String(query||'').toLowerCase();
- return matching.length*4+(q&&title.includes(q)?10:0)+(ph.width>=1000?2:0)-(ph.width<650?5:0)-(ph.height<420?4:0);
-}
-async function searchCommonsQuery(query){
- const u=new URL('https://commons.wikimedia.org/w/api.php');
- Object.entries({action:'query',format:'json',origin:'*',generator:'search',gsrsearch:query,gsrnamespace:'6',gsrlimit:'24',prop:'imageinfo',iiprop:'url|mime|size|extmetadata',iiurlwidth:'960',iiextmetadatafilter:'LicenseShortName|Artist|Credit|UsageTerms'}).forEach(([k,v])=>u.searchParams.set(k,v));
- const d=await fetchJSON(u);return Object.values(d.query?.pages||{}).map(p=>{
-  const x=p.imageinfo?.[0];if(!x||!/^image\/(jpeg|png|webp)$/i.test(x.mime||''))return null;
-  const meta=x.extmetadata||{},lic=stripMarkup(meta.LicenseShortName?.value||meta.UsageTerms?.value||'');
-  const author=stripMarkup(meta.Artist?.value||'');
-  return {title:p.title||'',url:x.url,thumb:x.thumburl||x.url,source:x.descriptionurl||'',license:lic,artist:author,width:x.width||0,height:x.height||0,allowed:/\bCC\s*(?:BY|0)|public\s*domain|^PD\b|GFDL/i.test(lic),query};
- }).filter(x=>x&&uri(x.url));
-}
-// Stage 1.1: source diversity. Wikimedia Commons category members are a distinct
-// discovery path from filename search; national tourism archives are external research
-// pointers only, not silently copied into the app.
-const OFFICIAL_PHOTO_PORTALS={
- KR:[['한국관광공사 대한민국 구석구석','https://korean.visitkorea.or.kr/'],['한국관광공사 관광사진 갤러리','https://kto.visitkorea.or.kr/']],
- JP:[['일본정부관광국 JNTO','https://www.japan.travel/ko/']],
- CN:[['중국 문화여유부','https://www.mct.gov.cn/']],
- FR:[['프랑스 관광 공식 포털','https://www.france.fr/']],
- IT:[['이탈리아 관광 공식 포털','https://www.italia.it/'],['이탈리아 관광청 ENIT','https://www.enit.it/']],
- ES:[['스페인 공식 관광 포털','https://www.spain.info/ko/']]
-};
-function renderSourcePortals(f){
- const external=OFFICIAL_PHOTO_PORTALS[f.countryCode]||[];
- const known=(f.wikiTitle||f.aliases?.[0]||f.name).trim();
- const commonsCategory='https://commons.wikimedia.org/w/index.php?search='+encodeURIComponent(known)+'&title=Special:MediaSearch&type=image';
- const links=[['위키미디어 사진 전체보기',commonsCategory],...external];
- return `<div class="source-portal"><h4>🌍 사진 자료원 더 찾아보기</h4><p class="muted small">공용 사진 후보 외에 관광청·정부의 공식 자료도 참고할 수 있습니다. 외부 사이트의 사진은 이용허락을 확인한 뒤 사용하세요. 외부 자료는 자동 저장되지 않습니다.</p><div class="action-row">${links.map(([label,url])=>`<a class="btn btn-small ghost" target="_blank" rel="noopener noreferrer" href="${esc(url)}">${esc(label)} ↗</a>`).join('')}</div></div>`;
-}
-// ImageInfo handling is shared by both file-title and Commons-category retrieval.
-function mediaPages(d,query,sourceType){return Object.values(d.query?.pages||{}).map(p=>{
- const x=p.imageinfo?.[0];if(!x||!/^image\/(jpeg|png|webp)$/i.test(x.mime||''))return null;
- const meta=x.extmetadata||{},lic=stripMarkup(meta.LicenseShortName?.value||meta.UsageTerms?.value||'');
- return {title:p.title||'',url:x.url,thumb:x.thumburl||x.url,source:x.descriptionurl||'',license:lic,artist:stripMarkup(meta.Artist?.value||''),width:x.width||0,height:x.height||0,allowed:/\bCC\s*(?:BY|0)|public\s*domain|^PD\b|GFDL/i.test(lic),query,sourceType};
- }).filter(x=>x&&uri(x.url));}
-const COMMONS_IMAGE_PARAMS={action:'query',format:'json',origin:'*',prop:'imageinfo',iiprop:'url|mime|size|extmetadata',iiurlwidth:'960',iiextmetadatafilter:'LicenseShortName|Artist|Credit|UsageTerms'};
-async function discoverCommonsCategories(f){
- const name=(f.wikiTitle||f.aliases?.find(v=>/[A-Za-z]/.test(v))||f.name).trim();
- const u=new URL('https://commons.wikimedia.org/w/api.php');
- Object.entries({action:'query',format:'json',origin:'*',list:'search',srsearch:name,srnamespace:'14',srlimit:'12'}).forEach(([k,v])=>u.searchParams.set(k,v));
- const d=await fetchJSON(u),records=d.query?.search||[];
- const tokens=name.toLowerCase().replace(/\([^)]*\)/g,'').split(/[^a-z\p{L}\p{N}]+/u).filter(t=>t.length>=4&&!['national','museum','palace','park','great','tower'].includes(t));
- return records.filter(c=>{const title=c.title.toLowerCase();return tokens.length?tokens.some(t=>title.includes(t)):title.includes(name.toLowerCase());}).slice(0,4).map(c=>c.title);
-}
-async function photosFromCommonsCategory(category){
- const u=new URL('https://commons.wikimedia.org/w/api.php');
- Object.entries({...COMMONS_IMAGE_PARAMS,generator:'categorymembers',gcmtitle:category,gcmtype:'file',gcmlimit:'50'}).forEach(([k,v])=>u.searchParams.set(k,v));
- return mediaPages(await fetchJSON(u),category,'위키미디어 분류');
-}
-function diversityBonus(ph){
- const x=ph.title.toLowerCase();
- return /(aerial|panorama|interior|inside|night|sunset|snow|detail|roof|garden|courtyard|winter|summer|view)/i.test(x)?3:0;
-}
-async function findCommons(id){
- if(state.commonsLoading)return;const f=getLandmark(id);if(!f)return;
- state.commonsLoading=true;state.commonsMsg='위키미디어 사진 검색과 명소별 사진 분류를 함께 찾고 있습니다…';updateModalPhoto();
- const queries=distinctPhotoQueries(f),hits=new Map(),errors=[];
- let categories=[],categoryCount=0;
- const add=(ph)=>{
-  const key=(ph.source||ph.title).toLowerCase();if(!key)return;
-  // A Commons category is specific to a place; still requires manual confirmation.
-  const score=photoRelevance(ph,f,ph.query)+(ph.sourceType==='위키미디어 분류'?7:0)+diversityBonus(ph);
-  if(ph.sourceType!=='위키미디어 분류'&&score<4)return;
-  const old=hits.get(key);if(!old||score>old.score)hits.set(key,{...ph,score});
- };
- try{
-  // Preserve usable candidates if a particular Commons endpoint fails.
-  for(let n=0;n<queries.length;n+=2){
-   const groups=await Promise.allSettled(queries.slice(n,n+2).map(searchCommonsQuery));
-   for(const g of groups){if(g.status==='rejected'){errors.push(String(g.reason?.message||'접속 실패'));continue;}
-    g.value.forEach(ph=>add({...ph,sourceType:'파일 이름 검색'}));
-   }
-  }
-  try{categories=await discoverCommonsCategories(f);}catch(e){errors.push('분류 검색: '+e.message);}
-  for(let n=0;n<categories.length;n+=2){
-   const groups=await Promise.allSettled(categories.slice(n,n+2).map(photosFromCommonsCategory));
-   for(const g of groups){if(g.status==='rejected'){errors.push('분류 사진: '+g.reason?.message);continue;}
-    categoryCount+=g.value.length;g.value.forEach(add);
-   }
-  }
-  const items=[...hits.values()].sort((a,b)=>b.score-a.score||b.width-a.width).slice(0,90);
-  commonsCache.set(id,items);
-  state.commonsMsg=items.length?`이름 검색 ${queries.length}종 · 관련 사진 분류 ${categories.length}곳 · 분류 원본 ${categoryCount}장 확인 · 중복 제거 후 후보 ${items.length}장. 장소와 저작권은 등록 전 직접 확인해 주세요.`:errors.length?`확보된 후보가 없습니다. 일부 자료원에 연결하지 못했습니다(${errors.length}건). 아래 공식 관광 자료원도 확인해 주세요.`:'현재 확보된 사진 후보가 없습니다. 아래 사진 자료원을 참고하세요.';
- }catch(e){state.commonsMsg='검색 중 오류: '+e.message;}
- finally{state.commonsLoading=false;updateModalPhoto();}
-}
-
+// PHOTO FIRST: Wikidata exact entity -> Commons category -> subcategories -> keyword fallback.
+const PHOTO_LIMIT=48;
+const commonsParams=(args)=>wdURL('https://commons.wikimedia.org/w/api.php',{action:'query',format:'json',origin:'*',...args});
+function plainText(x){return String(x||'').replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|amp|quot);/g,' ').replace(/\s+/g,' ').trim();}
+function filePhoto(page,categoryLabel){const x=page.imageinfo?.[0];if(!x||!/^image\/(?:jpeg|png|webp)$/i.test(x.mime||''))return null;const meta=x.extmetadata||{},lic=plainText(meta.LicenseShortName?.value||meta.UsageTerms?.value),author=plainText(meta.Artist?.value).slice(0,180);return {title:page.title||'',url:x.thumburl||x.url,thumb:x.thumburl||x.url,originalUrl:x.url,source:x.descriptionurl||'',license:lic,artist:author,allowed:/\bCC\s*(?:BY|0)|public\s*domain|^PD\b|GFDL/i.test(lic),category:categoryLabel,confirmed:false};}
+async function commonsImageInfo(titles){const out=[];for(let i=0;i<titles.length;i+=40){const part=titles.slice(i,i+40);const d=await fetchJSON(commonsParams({titles:part.join('|'),prop:'imageinfo',iiprop:'url|mime|extmetadata',iiurlwidth:'1600',iiextmetadatafilter:'LicenseShortName|Artist|Credit|UsageTerms'}));for(const page of Object.values(d.query?.pages||{})){const ph=filePhoto(page,'분류 탐색');if(ph)out.push(ph);}}return out;}
+async function findCategoryFromEntity(f){let qid=f.qid;if(!qid){try{qid=(await wdQidFromWikipedia(f))?.qid;}catch(e){/* alias search still available */}}if(!/^Q\d+$/.test(qid||''))return null;
+ const d=await fetchJSON(wdURL('https://www.wikidata.org/w/api.php',{action:'wbgetentities',ids:qid,props:'claims|sitelinks',format:'json',origin:'*'}));const ent=d.entities?.[qid];const val=ent?.claims?.P373?.[0]?.mainsnak?.datavalue?.value;const site=ent?.sitelinks?.commonswiki?.title;const raw=typeof val==='string'?val:(typeof site==='string'&&site.startsWith('Category:')?site.slice(9):'');return raw?('Category:'+raw.replace(/^Category:/i,'')):null;}
+async function membersOf(cat,type,limit=120){const names=[];let cont=null;for(let page=0;page<2&&names.length<limit;page++){const args={list:'categorymembers',cmtitle:cat,cmtype:type,cmlimit:'max'};if(cont)args.cmcontinue=cont;const d=await fetchJSON(commonsParams(args));names.push(...(d.query?.categorymembers||[]).map(x=>x.title));cont=d.continue?.cmcontinue;if(!cont)break;}return names.slice(0,limit);}
+async function searchCommonsFiles(search){const d=await fetchJSON(commonsParams({generator:'search',gsrsearch:search,gsrnamespace:'6',gsrlimit:'30',prop:'imageinfo',iiprop:'url|mime|extmetadata',iiurlwidth:'1600',iiextmetadatafilter:'LicenseShortName|Artist|Credit|UsageTerms'}));return Object.values(d.query?.pages||{}).sort((a,b)=>(a.index||0)-(b.index||0)).map(x=>filePhoto(x,'이름 검색')).filter(Boolean);}
+async function findCommons(id){if(state.commonsLoading)return;const f=getLandmark(id);if(!f)return;state.commonsLoading=true;state.commonsMsg='명소 식별번호와 위키미디어 사진 분류를 따라 탐색합니다…';updateModalPhoto();let paths=[],all=[];try{
+ const cat=await findCategoryFromEntity(f).catch(()=>null);
+ if(cat){paths.push(cat);let names=await membersOf(cat,'file',130);const subs=await membersOf(cat,'subcat',18);for(const sub of subs.slice(0,6)){if(names.length>=110)break;try{const got=await membersOf(sub,'file',28);names.push(...got);paths.push(sub);}catch(e){/* Skip one unavailable category */}}
+ names=[...new Set(names)].slice(0,130);if(names.length)all.push(...await commonsImageInfo(names));}
+ const alias=f.wikiTitle||(f.aliases||[]).find(a=>/^[\x00-\x7F\s\-’]+$/.test(a))||f.name;
+ if(all.length<20){const words=[alias,`${alias} ${f.region||''}`.trim()].filter(Boolean);for(const term of [...new Set(words)]){try{all.push(...await searchCommonsFiles(term));paths.push('이름 검색: '+term);}catch(e){/* Remaining candidates survive */}if(all.length>=45)break;}}
+ const unique=new Map();for(const ph of all){const key=(ph.source||ph.title).toLowerCase();if(!unique.has(key))unique.set(key,ph);}const results=[...unique.values()].filter(x=>uri(x.url)).slice(0,PHOTO_LIMIT);
+ commonsCache.set(id,results);state.commonsMsg=`PHOTO FIRST · 후보 ${results.length}장 · 탐색 경로 ${paths.length}개. 정확한 장소인지 원본을 확인한 뒤 부모모드에서 선택하세요.`+(cat?'':' (정확한 사진 분류를 찾지 못해 이름 검색을 사용했습니다.)');
+ }catch(e){commonsCache.set(id,[...new Map(all.filter(x=>uri(x.url)).map(x=>[x.source,x])).values()].slice(0,PHOTO_LIMIT));state.commonsMsg=`사진 분류 탐색이 완료되지 않았습니다. 수집된 후보 ${commonsCache.get(id).length}장은 검토할 수 있습니다. (인터넷·위키미디어 접속을 확인하세요.)`;}
+ finally{state.commonsLoading=false;if(state.detailId===id)updateModalPhoto();}}
 function approvePhoto(id,index){if(!state.admin)return notify('부모모드를 먼저 켜 주세요.');const f=getLandmark(id),ph=commonsCache.get(id)?.[index];if(!f||!ph||!ph.allowed)return alert('사진의 이용조건이 확인되지 않아 추가할 수 없습니다.');if(!confirm(`이 사진이 실제로 “${f.name}”을 보여주는지 원본에서 확인하셨나요?\n\n라이선스: ${ph.license}\n\n정확성이 확인된 경우에만 사진첩에 추가합니다.`))return;const images=(f.photos||[]).slice();if(images.some(p=>p.source===ph.source))return notify('이미 사진첩에 등록된 사진입니다.');images.push({...ph,hero:!images.length,confirmed:true});edits.overrides[id]={...(edits.overrides[id]||{}),photos:images};if(save()){state.galleryIndex=images.length-1;notify('사진첩에 추가했습니다.');render();updateModalPhoto();}}
 function setView(view){if(tourActive)stopCountryTour();if(view==='parent'&&!state.admin){state.view=view;render();return;}state.view=view;render();window.scrollTo({top:0,behavior:'instant'});}
 function editRecord(id){if(!state.admin){notify('부모모드를 켜 주세요.');return;}state.editorId=id;$('#detailOverlay').classList.remove('open');state.detailId='';state.view='parent';render();$('#editArea')?.scrollIntoView({behavior:'smooth',block:'start'});}
