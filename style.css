@@ -27,3 +27,18 @@
 .tour-collage-center strong{font-size:clamp(54px,11vw,120px);line-height:1.15;color:#fff;font-weight:900;letter-spacing:.04em}
 .tour-collage-center span{color:#fff0d4;font-size:clamp(15px,3vw,29px);font-weight:700}
 @media(max-width:600px){.tour-collage{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr))}}
+
+/* Stage 0.8 — calm, photo-led detail view */
+.modal-photo-main{position:relative;margin-top:16px}
+.detail-photo-toolbar{display:flex;justify-content:flex-end;margin-bottom:9px}
+.detail-photo-toolbar .btn{box-shadow:0 3px 10px rgba(75,48,22,.07)}
+.modal-photo-main .photo-frame{aspect-ratio:auto;min-height:min(58vh,490px);display:flex;align-items:center;justify-content:center}
+.modal-photo-main .photo-frame img{width:100%;height:auto;max-height:66vh;object-fit:contain}
+.modal-photo-main .photo-fallback{min-height:260px}
+.desc-section{margin:18px 0 22px}
+.desc-section .lead{line-height:1.85;font-size:16px;color:#503e32}
+.detail-place-navigation{margin:25px 0 8px;padding:15px 12px;border-top:1px solid #ebdbc5;border-bottom:1px solid #ebdbc5;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffaf3;border-radius:14px}
+.detail-place-navigation .btn{flex:1;max-width:42%;white-space:normal;line-height:1.4}
+.detail-place-navigation .btn:disabled{opacity:.35;cursor:default}
+.detail-position{font-size:13px;color:#896e58;font-weight:800;white-space:nowrap}
+@media(max-width:560px){.detail-place-navigation{padding:11px 7px;gap:5px}.detail-place-navigation .btn{font-size:12px;padding:9px 7px}.modal-photo-main .photo-frame{min-height:230px}.modal-photo-main .photo-frame img{max-height:58vh}}
