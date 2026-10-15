@@ -407,7 +407,7 @@ function renderDetail(f){const photos=gallery(f),p=photos[state.galleryIndex]||p
  <div id="commonsArea">${state.commonsMsg?`<div class="loading">${esc(state.commonsMsg)}</div>`:''}${renderCommons(f)}</div>`;
 }
 function updateModalPhoto(){if(!state.detailId)return;const f=getLandmark(state.detailId);if(!f)return;const oldScroll=$('#detailOverlay').scrollTop;renderDetail(f);$('#detailOverlay').scrollTop=oldScroll;}
-function renderCommons(f){const cached=commonsCache.get(f.id);if(!cached)return '';return `<div class="line"></div><h3>🔍 추가 사진 후보 (${cached.length}장)</h3><div class="warning">⚠️ 자동검색 결과입니다. 다른 장소 또는 비슷한 사진이 섞여 있을 수 있습니다. <b>사진과 장소의 일치 여부 및 사용조건을 꼭 확인</b>해 주세요.</div>${cached.length?`<div class="photo-candidate-grid">${cached.map((ph,i)=>`<div class="candidate-photo"><img src="${esc(uri(ph.thumb||ph.url))}" alt="${esc(ph.title)}" loading="lazy"><p><b>${esc(ph.title)}</b></p><p>이용조건: ${esc(ph.license||'정보 없음')}</p><a class="link small" href="${esc(uri(ph.source))}" target="_blank" rel="noopener noreferrer">원본·저작자 확인 ↗</a>${state.admin?`<div class="action-row"><button class="btn btn-small green" data-act="approve-photo" data-id="${esc(f.id)}" data-index="${i}" ${!ph.allowed?'disabled title="사진 사용조건을 먼저 확인해야 합니다"':''}>사진첩에 추가</button></div>`:'<p class="muted small">부모모드에서 사진을 선택할 수 있어요.</p>'}</div>`).join('')}</div>`:'<div class="blank">사진을 찾지 못했습니다. 영어/현지어 별칭이나 인터넷 연결을 확인해 주세요.</div>'}`;}
+function renderCommons(f){const cached=commonsCache.get(f.id);if(!cached)return '';return `<div class="line"></div><h3>🔍 추가 사진 후보 (${cached.length}장)</h3><div class="warning">⚠️ 자동검색 결과입니다. 다른 장소 또는 비슷한 사진이 섞여 있을 수 있습니다. <b>사진과 장소의 일치 여부 및 사용조건을 꼭 확인</b>해 주세요.</div>${cached.length?`<div class="photo-candidate-grid">${cached.map((ph,i)=>`<div class="candidate-photo"><img src="${esc(uri(ph.thumb||ph.url))}" alt="${esc(ph.title)}" loading="lazy"><p><b>${esc(ph.title)}</b></p><p><span class="pill blue">${esc(ph.sourceType||'위키미디어')}</span> · 이용조건: ${esc(ph.license||'정보 없음')}</p><a class="link small" href="${esc(uri(ph.source))}" target="_blank" rel="noopener noreferrer">원본·저작자 확인 ↗</a>${state.admin?`<div class="action-row"><button class="btn btn-small green" data-act="approve-photo" data-id="${esc(f.id)}" data-index="${i}" ${!ph.allowed?'disabled title="사진 사용조건을 먼저 확인해야 합니다"':''}>사진첩에 추가</button></div>`:'<p class="muted small">부모모드에서 사진을 선택할 수 있어요.</p>'}</div>`).join('')}</div>`:'<div class="blank">검색된 사진이 없습니다. 다른 자료원을 확인해 주세요.</div>'}${renderSourcePortals(f)}`;}
 function setGallery(n){const f=getLandmark(state.detailId),len=gallery(f).length;if(!len)return;state.galleryIndex=(n+len)%len;updateModalPhoto();}
 function openLightbox(){const f=getLandmark(state.detailId);if(!f)return;const photos=gallery(f);if(!photos.length)return;state.lightbox=photos;state.photoIndex=state.galleryIndex;state.zoom=1;$('#photoOverlay').classList.add('open');$('#photoOverlay').setAttribute('aria-hidden','false');updateLightbox();}
 function updateLightbox(){const p=state.lightbox[state.photoIndex];if(!p)return;$('#photoCounter').textContent=`${state.photoIndex+1} / ${state.lightbox.length}`;$('#lightboxImage').src=uri(p.url);$('#lightboxImage').style.transform=`scale(${state.zoom})`;$('#photoAttribution').textContent=`${p.title||''} · ${p.license||'이용조건 확인 필요'}${p.artist?' · '+p.artist:''}`;}
@@ -441,24 +441,78 @@ async function searchCommonsQuery(query){
   return {title:p.title||'',url:x.url,thumb:x.thumburl||x.url,source:x.descriptionurl||'',license:lic,artist:author,width:x.width||0,height:x.height||0,allowed:/\bCC\s*(?:BY|0)|public\s*domain|^PD\b|GFDL/i.test(lic),query};
  }).filter(x=>x&&uri(x.url));
 }
+// Stage 1.1: source diversity. Wikimedia Commons category members are a distinct
+// discovery path from filename search; national tourism archives are external research
+// pointers only, not silently copied into the app.
+const OFFICIAL_PHOTO_PORTALS={
+ KR:[['한국관광공사 대한민국 구석구석','https://korean.visitkorea.or.kr/'],['한국관광공사 관광사진 갤러리','https://kto.visitkorea.or.kr/']],
+ JP:[['일본정부관광국 JNTO','https://www.japan.travel/ko/']],
+ CN:[['중국 문화여유부','https://www.mct.gov.cn/']],
+ FR:[['프랑스 관광 공식 포털','https://www.france.fr/']],
+ IT:[['이탈리아 관광 공식 포털','https://www.italia.it/'],['이탈리아 관광청 ENIT','https://www.enit.it/']],
+ ES:[['스페인 공식 관광 포털','https://www.spain.info/ko/']]
+};
+function renderSourcePortals(f){
+ const external=OFFICIAL_PHOTO_PORTALS[f.countryCode]||[];
+ const known=(f.wikiTitle||f.aliases?.[0]||f.name).trim();
+ const commonsCategory='https://commons.wikimedia.org/w/index.php?search='+encodeURIComponent(known)+'&title=Special:MediaSearch&type=image';
+ const links=[['위키미디어 사진 전체보기',commonsCategory],...external];
+ return `<div class="source-portal"><h4>🌍 사진 자료원 더 찾아보기</h4><p class="muted small">공용 사진 후보 외에 관광청·정부의 공식 자료도 참고할 수 있습니다. 외부 사이트의 사진은 이용허락을 확인한 뒤 사용하세요. 외부 자료는 자동 저장되지 않습니다.</p><div class="action-row">${links.map(([label,url])=>`<a class="btn btn-small ghost" target="_blank" rel="noopener noreferrer" href="${esc(url)}">${esc(label)} ↗</a>`).join('')}</div></div>`;
+}
+// ImageInfo handling is shared by both file-title and Commons-category retrieval.
+function mediaPages(d,query,sourceType){return Object.values(d.query?.pages||{}).map(p=>{
+ const x=p.imageinfo?.[0];if(!x||!/^image\/(jpeg|png|webp)$/i.test(x.mime||''))return null;
+ const meta=x.extmetadata||{},lic=stripMarkup(meta.LicenseShortName?.value||meta.UsageTerms?.value||'');
+ return {title:p.title||'',url:x.url,thumb:x.thumburl||x.url,source:x.descriptionurl||'',license:lic,artist:stripMarkup(meta.Artist?.value||''),width:x.width||0,height:x.height||0,allowed:/\bCC\s*(?:BY|0)|public\s*domain|^PD\b|GFDL/i.test(lic),query,sourceType};
+ }).filter(x=>x&&uri(x.url));}
+const COMMONS_IMAGE_PARAMS={action:'query',format:'json',origin:'*',prop:'imageinfo',iiprop:'url|mime|size|extmetadata',iiurlwidth:'960',iiextmetadatafilter:'LicenseShortName|Artist|Credit|UsageTerms'};
+async function discoverCommonsCategories(f){
+ const name=(f.wikiTitle||f.aliases?.find(v=>/[A-Za-z]/.test(v))||f.name).trim();
+ const u=new URL('https://commons.wikimedia.org/w/api.php');
+ Object.entries({action:'query',format:'json',origin:'*',list:'search',srsearch:name,srnamespace:'14',srlimit:'12'}).forEach(([k,v])=>u.searchParams.set(k,v));
+ const d=await fetchJSON(u),records=d.query?.search||[];
+ const tokens=name.toLowerCase().replace(/\([^)]*\)/g,'').split(/[^a-z\p{L}\p{N}]+/u).filter(t=>t.length>=4&&!['national','museum','palace','park','great','tower'].includes(t));
+ return records.filter(c=>{const title=c.title.toLowerCase();return tokens.length?tokens.some(t=>title.includes(t)):title.includes(name.toLowerCase());}).slice(0,4).map(c=>c.title);
+}
+async function photosFromCommonsCategory(category){
+ const u=new URL('https://commons.wikimedia.org/w/api.php');
+ Object.entries({...COMMONS_IMAGE_PARAMS,generator:'categorymembers',gcmtitle:category,gcmtype:'file',gcmlimit:'50'}).forEach(([k,v])=>u.searchParams.set(k,v));
+ return mediaPages(await fetchJSON(u),category,'위키미디어 분류');
+}
+function diversityBonus(ph){
+ const x=ph.title.toLowerCase();
+ return /(aerial|panorama|interior|inside|night|sunset|snow|detail|roof|garden|courtyard|winter|summer|view)/i.test(x)?3:0;
+}
 async function findCommons(id){
  if(state.commonsLoading)return;const f=getLandmark(id);if(!f)return;
- state.commonsLoading=true;state.commonsMsg='영어·현지어·한국어 별칭으로 사진을 비교 검색하고 있습니다…';updateModalPhoto();
+ state.commonsLoading=true;state.commonsMsg='위키미디어 사진 검색과 명소별 사진 분류를 함께 찾고 있습니다…';updateModalPhoto();
  const queries=distinctPhotoQueries(f),hits=new Map(),errors=[];
+ let categories=[],categoryCount=0;
+ const add=(ph)=>{
+  const key=(ph.source||ph.title).toLowerCase();if(!key)return;
+  // A Commons category is specific to a place; still requires manual confirmation.
+  const score=photoRelevance(ph,f,ph.query)+(ph.sourceType==='위키미디어 분류'?7:0)+diversityBonus(ph);
+  if(ph.sourceType!=='위키미디어 분류'&&score<4)return;
+  const old=hits.get(key);if(!old||score>old.score)hits.set(key,{...ph,score});
+ };
  try{
-  // Two requests at a time to reduce throttling; keep earlier results even if one query fails.
+  // Preserve usable candidates if a particular Commons endpoint fails.
   for(let n=0;n<queries.length;n+=2){
    const groups=await Promise.allSettled(queries.slice(n,n+2).map(searchCommonsQuery));
-   for(const g of groups){if(g.status==='rejected'){errors.push(g.reason?.message||'접속 실패');continue;}
-    for(const ph of g.value){const key=(ph.source||ph.title).toLowerCase();if(!key)continue;const score=photoRelevance(ph,f,ph.query);
-     if(score<4)continue;
-     const old=hits.get(key);if(!old||score>old.score)hits.set(key,{...ph,score});
-    }
+   for(const g of groups){if(g.status==='rejected'){errors.push(String(g.reason?.message||'접속 실패'));continue;}
+    g.value.forEach(ph=>add({...ph,sourceType:'파일 이름 검색'}));
    }
   }
-  const items=[...hits.values()].sort((a,b)=>b.score-a.score||b.width-a.width).slice(0,60);
+  try{categories=await discoverCommonsCategories(f);}catch(e){errors.push('분류 검색: '+e.message);}
+  for(let n=0;n<categories.length;n+=2){
+   const groups=await Promise.allSettled(categories.slice(n,n+2).map(photosFromCommonsCategory));
+   for(const g of groups){if(g.status==='rejected'){errors.push('분류 사진: '+g.reason?.message);continue;}
+    categoryCount+=g.value.length;g.value.forEach(add);
+   }
+  }
+  const items=[...hits.values()].sort((a,b)=>b.score-a.score||b.width-a.width).slice(0,90);
   commonsCache.set(id,items);
-  state.commonsMsg=items.length?`별칭 ${queries.length}가지로 검색해 후보 ${items.length}장을 찾았습니다. 상위 사진부터 장소·화질·저작권을 직접 확인해 주세요.`:errors.length===queries.length?'사진 검색 서버에 연결하지 못했습니다. 네트워크 또는 위키미디어 접속상태를 확인해 주세요.':'일치하는 사진 후보를 찾지 못했습니다. 부모모드에서 별칭과 위키 문서명을 보강해 주세요.';
+  state.commonsMsg=items.length?`이름 검색 ${queries.length}종 · 관련 사진 분류 ${categories.length}곳 · 분류 원본 ${categoryCount}장 확인 · 중복 제거 후 후보 ${items.length}장. 장소와 저작권은 등록 전 직접 확인해 주세요.`:errors.length?`확보된 후보가 없습니다. 일부 자료원에 연결하지 못했습니다(${errors.length}건). 아래 공식 관광 자료원도 확인해 주세요.`:'현재 확보된 사진 후보가 없습니다. 아래 사진 자료원을 참고하세요.';
  }catch(e){state.commonsMsg='검색 중 오류: '+e.message;}
  finally{state.commonsLoading=false;updateModalPhoto();}
 }
