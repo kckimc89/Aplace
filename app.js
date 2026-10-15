@@ -210,31 +210,61 @@ function renderWikidataSearch(){return `<section class="panel"><div class="secti
 function renderEditor(f){const x=f||{},cats=CATS.map(c=>`<option value="${c.id}" ${x.category===c.id?'selected':''}>${esc(c.name)}</option>`).join('');return `<section class="panel" id="editArea"><div class="section-head"><h2>${f?'✏️ 명소 정보 수정':'📝 대표명소 후보 등록'}</h2><small>대표이름·분류·검색 별칭</small></div><div class="editor"><form id="placeEditForm"><input type="hidden" name="id" value="${esc(x.id||'')}"><div class="form-grid"><label class="field">국가<select name="countryCode" required>${countries().map(c=>`<option value="${esc(c.code)}" ${x.countryCode===c.code?'selected':''}>${esc(c.flag)} ${esc(c.name)}</option>`).join('')}</select></label><label class="field">대표 분류<select name="category">${cats}</select></label><label class="field full">한국어 대표이름<input name="name" required placeholder="예: 에펠탑" value="${esc(x.name||'')}"></label><label class="field">도시·지역<input name="region" placeholder="예: 파리" value="${esc(x.region||'')}"></label><label class="field">위키데이터 식별번호(선택)<input name="qid" placeholder="예: Q243" value="${esc(x.qid||'')}"></label><label class="field full">다국어 검색 별칭 (줄바꿈 또는 쉼표 구분)<textarea name="aliases" placeholder="Eiffel Tower\nTour Eiffel">${esc((x.aliases||[]).join('\n'))}</textarea></label><label class="field full">한국어 설명<textarea name="description" placeholder="어떤 장소인지, 어디에 있는지, 왜 유명한지">${esc(x.description||'')}</textarea></label><label class="field">영어 위키 문서명 (사진 참고검색)<input name="wikiTitle" placeholder="Eiffel Tower" value="${esc(x.wikiTitle||'')}"></label><label class="field">추가 분류<select name="extraCategory"><option value="">없음</option>${CATS.filter(c=>c.id!==(x.category||'')).map(c=>`<option value="${c.id}" ${(x.extraCategories||[]).includes(c.id)?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label><label class="field full" style="display:flex;flex-direction:row;align-items:center;gap:8px"><input type="checkbox" name="verified" style="width:18px;height:18px" ${x.verified?'checked':''}>이름·나라·설명·분류를 확인했습니다 (초록 완성으로 표시)</label></div><div class="action-row"><button class="btn primary" type="submit">💾 ${f?'수정 저장':'후보 명소 등록'}</button><button class="btn ghost" type="button" data-act="parent-new">새 항목으로</button>${f&&!seedMap.has(f.id)?`<button class="btn" type="button" data-act="delete-added" data-id="${esc(f.id)}">🗑️ 직접 추가한 항목 삭제</button>`:''}</div></form></div></section>`;}
 function renderCountryEditor(){return `<section class="panel"><div class="section-head"><h2>📖 나라별 공통설명</h2><small>101개국 기초자료</small></div><form id="overviewForm" class="editor"><div class="form-grid"><label class="field">나라 선택<select name="code" id="overviewCode">${countries().map(c=>`<option value="${c.code}" ${state.country===c.code?'selected':''}>${esc(c.flag)} ${esc(c.name)}</option>`).join('')}</select></label><div></div><label class="field full">공통설명<textarea name="overview" id="overviewText">${esc(countryIntro(COUNTRY_MAP.get(state.country)))}</textarea></label></div><div class="action-row"><button class="btn primary">공통설명 저장</button></div></form></section>`;}
 
-// Country travel uses the same existing landmark photos: no duplicate photo storage.
-// Editorial scenes are deliberately limited to places with known photos; others stay pending.
+// Stage 0.5: the country tour includes EVERY registered landmark for France and Korea.
+// Existing reviewed photos are reused. Wikipedia page images are temporary references only,
+// not automatically approved or stored, and no unrelated substitute photos are shown.
 const TOUR_STORIES={
- FR:{'FR-L01':['지금 파리의 상징 앞에 섰습니다. 1889년 만국박람회를 위해 세운 에펠탑! 처음에는 낯설다는 반응도 있었지만, 오늘은 파리를 대표하는 풍경이 되었지요.','조금 다른 방향에서 탑을 살펴보세요. 철로 만든 수많은 선이 위로 모여들지요. 멀리서 본 모습과 가까이서 본 모습은 어떻게 다를까요?'],
- 'FR-L03':['이제 노르망디 해안으로 떠납니다. 바다 위에 솟아오른 듯한 몽생미셸! 섬 위로 오래된 수도원이 우뚝 서 있어요.','같은 섬도 바라보는 곳에 따라 인상이 달라집니다. 이곳은 밀물과 썰물에 따라 주변 바다의 모습이 크게 바뀌는 장소랍니다.']},
- KR:{'KR-L01':['우리나라 서울의 한복판으로 떠나볼까요? 여기는 조선의 법궁, 경복궁입니다. 왕과 신하들이 나라의 중요한 일을 논의하던 곳이지요.','궁궐의 지붕과 건물 배치를 찬찬히 살펴보세요. 오래전 사람들이 어떤 공간에서 생활했는지 상상해 보면 역사가 조금 더 가까워집니다.']}
+ FR:{
+ 'FR-L01':['파리의 하늘을 가르는 에펠탑입니다. 1889년 만국박람회를 위해 세워졌지만, 처음에는 이 철탑의 모습을 못마땅해하는 사람들도 있었답니다.','수많은 철제 부재가 정교하게 이어져 있습니다. 밤에 빛나는 모습까지, 파리의 상징이 된 이유를 사진으로 느껴 보세요.'],
+ 'FR-L02':['이번에는 예술의 세계로 떠납니다. 루브르 박물관은 한때 프랑스 왕들이 사용하던 궁전이었습니다.','지금은 모나리자를 비롯한 수많은 작품을 만날 수 있지요. 거대한 건물 자체도 중요한 역사 이야기입니다.'],
+ 'FR-L03':['노르망디 해안에 솟은 몽생미셸입니다. 바다 위에 작은 도시와 수도원이 떠 있는 것처럼 보이지요.','이곳은 밀물과 썰물에 따라 주변 풍경이 놀랍게 달라집니다. 바다가 풍경을 다시 그리는 셈이지요.'],
+ 'FR-L04':['베르사유 궁전에 도착했습니다. 프랑스 왕실이 화려한 권력을 보여 주던 장소입니다.','궁전의 넓은 방과 정원을 떠올려 보세요. 건축과 정원이 하나의 거대한 작품처럼 이어집니다.'],
+ 'FR-L05':['이번에는 파리의 샹젤리제 거리입니다. 나무가 늘어선 길을 따라 카페와 상점이 이어집니다.','길 끝에는 개선문이 보이지요. 파리에서는 걷는 길 자체가 특별한 풍경이 되기도 합니다.'],
+ 'FR-L06':['커다란 문처럼 보이지만, 이곳은 에투알 개선문입니다. 프랑스의 군사 역사와 기억을 담은 기념물이지요.','여러 갈래의 길이 이 주변에서 별처럼 펼쳐집니다. 높은 곳에서 내려다보면 도시의 모양도 흥미롭습니다.'],
+ 'FR-L07':['센강의 섬 위에 선 노트르담 대성당입니다. 돌로 쌓아 올린 높은 공간과 정교한 조각이 눈길을 끕니다.','커다란 장미창과 고딕 양식의 구조는 오랜 세월 건축가들이 남긴 놀라운 솜씨를 보여 줍니다.'],
+ 'FR-L08':['이제 파리에서 벗어나 베르동 협곡으로 향합니다. 높은 석회암 절벽 사이로 푸른 물이 흐릅니다.','사람이 만든 건축물과는 다른 아름다움이지요. 오랜 시간 물이 깎아 만든 자연의 조각 작품입니다.']},
+ KR:{
+ 'KR-L01':['서울 한복판에 있는 경복궁입니다. 조선 왕조의 중심 궁궐이었지요.','넓은 마당과 지붕의 선을 살펴보세요. 오래전 사람들이 생각한 아름다운 공간이 오늘까지 전해집니다.']}
 };
-function makeCountryTour(code){
- const captions=TOUR_STORIES[code];if(!captions)return [];
- const scenes=[];
- for(const [id,texts] of Object.entries(captions)){
-  const f=getLandmark(id);if(!f)continue;
-  const pics=gallery(f).filter(p=>p.confirmed&&uri(p.url));
-  pics.slice(0,2).forEach((p,i)=>scenes.push({id:f.id,name:f.name,photo:p,text:texts[i]||texts[0]}));
- }
- return scenes;
-}
+let tourPending=false;
 function tourElement(){return document.getElementById('countryTour');}
-function stopCountryTour(){tourRun++;tourActive=false;try{speechSynthesis.cancel();}catch(_){}tourElement()?.classList.remove('open');tourElement()?.setAttribute('aria-hidden','true');}
+function tourSentences(f){return TOUR_STORIES[f.countryCode]?.[f.id]||[`${f.name}에 도착했습니다. ${f.description||'이 명소는 아직 설명을 준비하고 있습니다.'}`.trim()];}
+async function tourWikiPhoto(f){
+ if(!f.wikiTitle)return null;
+ try{const lang=/^[a-z-]+$/.test(f.wikiLang||'')?f.wikiLang:'en';const u=new URL(`https://${lang}.wikipedia.org/w/api.php`);
+ for(const [k,v] of Object.entries({action:'query',format:'json',origin:'*',prop:'pageimages',piprop:'thumbnail|name',pithumbsize:'1400',titles:f.wikiTitle,redirects:'1'}))u.searchParams.set(k,v);
+ const d=await fetchJSON(u);const x=Object.values(d.query?.pages||{}).find(x=>x.thumbnail?.source);
+ if(x&&uri(x.thumbnail.source))return {url:x.thumbnail.source,title:x.pageimage||f.wikiTitle,source:wikiLink(f),artist:'Wikipedia',license:'사진 이용조건 확인 필요',confirmed:false};
+ }catch(e){}return null;
+}
+async function makeCountryTour(code){
+ const all=allLandmarks().filter(x=>x.countryCode===code);
+ if(!all.length)return [];
+ const pictureSets=await Promise.all(all.map(async f=>{
+  const confirmed=gallery(f).filter(p=>p.confirmed&&uri(p.url));
+  const extra=await tourWikiPhoto(f);
+  if(extra&&!confirmed.some(p=>p.url===extra.url))confirmed.push(extra);
+  return confirmed;
+ }));
+ const slides=[];
+ all.forEach((f,i)=>{
+  const pics=pictureSets[i];const texts=tourSentences(f);
+  // One or two short narration sections per landmark. Without a second picture,
+  // the same photograph can stay on-screen but no fictitious new viewpoint is claimed.
+  const pieces=pics.length>=2?texts:[texts.join(' ')];
+  pieces.forEach((text,j)=>slides.push({id:f.id,name:f.name,photo:pics[j%Math.max(pics.length,1)]||null,text,landmarkIndex:i+1,landmarkTotal:all.length}));
+ });
+ return slides;
+}
+function stopCountryTour(){tourRun++;tourActive=false;tourPending=false;try{speechSynthesis.cancel();}catch(_){}tourElement()?.classList.remove('open');tourElement()?.setAttribute('aria-hidden','true');}
 function drawCountryTour(){
  const x=tourList[tourIndex],root=tourElement();if(!x||!root)return;
- root.querySelector('#tourPhoto').src=uri(x.photo.url);root.querySelector('#tourPhoto').alt=x.name;
- root.querySelector('#tourTitle').textContent=`${x.name} · ${tourIndex+1}/${tourList.length}`;
+ const image=root.querySelector('#tourPhoto');const photoUrl=x.photo?uri(x.photo.url):'';
+ image.style.display=photoUrl?'block':'none';image.src=photoUrl;image.alt=x.name;
+ const fallback=root.querySelector('#tourPhotoFallback');if(fallback){fallback.style.display=photoUrl?'none':'flex';fallback.textContent=`${x.name} · 사진 자료 준비 중`;}
+ root.querySelector('#tourTitle').textContent=`${x.name} · 명소 ${x.landmarkIndex}/${x.landmarkTotal} · 장면 ${tourIndex+1}/${tourList.length}`;
  root.querySelector('#tourCaption').textContent=x.text;
- root.querySelector('#tourCredit').textContent=`${x.photo.title||'명소 사진'} · ${x.photo.artist||'Wikimedia Commons'} · ${x.photo.license||'출처 정보 확인 필요'}`;
+ root.querySelector('#tourCredit').textContent=x.photo?`${x.photo.confirmed?'확인된 사진':'온라인 참고사진 · 검토 전'} · ${x.photo.title||''} · ${x.photo.artist||'Wikimedia Commons'} · ${x.photo.license||'이용조건 확인 필요'}`:'해당 명소의 사진을 아직 확보하지 못했습니다.';
  root.querySelector('#tourToggle').textContent=tourActive?'⏸ 잠시 멈추기':'▶ 계속 듣기';
 }
 function narrateCountryTour(){
@@ -242,19 +272,27 @@ function narrateCountryTour(){
  const x=tourList[tourIndex];if(!x)return;
  drawCountryTour();
  if(!guideSupported()){tourActive=false;drawCountryTour();notify('이 기기에서는 음성합성을 사용할 수 없습니다. 사진과 자막으로 감상해 주세요.');return;}
- try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(x.text);u.lang='ko-KR';u.rate=.9;
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(x.text);u.lang='ko-KR';u.rate=.94;
  u.onend=()=>{if(run!==tourRun||!tourActive)return;if(tourIndex+1<tourList.length){tourIndex++;narrateCountryTour();}else{tourActive=false;drawCountryTour();notify('🎉 사진 여행을 마쳤습니다. 명소 카드를 살펴보세요!');}};
  u.onerror=()=>{if(run===tourRun){tourActive=false;drawCountryTour();}};
  speechSynthesis.speak(u);
  }catch(e){tourActive=false;drawCountryTour();}
 }
-function startCountryTour(code){
- guideStop();tourList=makeCountryTour(code);
- if(!tourList.length){notify('이 나라의 사진 여행은 아직 준비 중입니다. 명소 카드를 먼저 살펴보세요.');return;}
- tourIndex=0;tourActive=true;tourElement().classList.add('open');tourElement().setAttribute('aria-hidden','false');drawCountryTour();narrateCountryTour();
+async function startCountryTour(code){
+ guideStop();const run=++tourRun;tourPending=true;
+ const root=tourElement();root.classList.add('open');root.setAttribute('aria-hidden','false');
+ root.querySelector('#tourTitle').textContent=`${cName(code)} 사진 여행을 준비하고 있습니다`;
+ root.querySelector('#tourCaption').textContent='등록된 명소의 사진을 확인하고 있습니다. 잠시 기다려 주세요.';
+ root.querySelector('#tourPhoto').style.display='none';
+ root.querySelector('#tourPhotoFallback').style.display='flex';root.querySelector('#tourPhotoFallback').textContent='🌍 사진 여행 준비 중';
+ root.querySelector('#tourCredit').textContent='사진은 네트워크 상태에 따라 표시되지 않을 수 있습니다.';
+ const list=await makeCountryTour(code);if(run!==tourRun)return;
+ tourPending=false;tourList=list;
+ if(!list.length){stopCountryTour();notify('등록된 명소가 없습니다. 먼저 명소를 등록해 주세요.');return;}
+ tourIndex=0;tourActive=true;drawCountryTour();narrateCountryTour();
 }
-function advanceCountryTour(delta){if(!tourList.length)return;tourRun++;try{speechSynthesis.cancel();}catch(_){}tourIndex=Math.max(0,Math.min(tourList.length-1,tourIndex+delta));if(tourActive)narrateCountryTour();else drawCountryTour();}
-function toggleCountryTour(){tourActive=!tourActive;tourRun++;try{speechSynthesis.cancel();}catch(_){}if(tourActive)narrateCountryTour();else drawCountryTour();}
+function advanceCountryTour(delta){if(!tourList.length||tourPending)return;tourRun++;try{speechSynthesis.cancel();}catch(_){}tourIndex=Math.max(0,Math.min(tourList.length-1,tourIndex+delta));if(tourActive)narrateCountryTour();else drawCountryTour();}
+function toggleCountryTour(){if(!tourList.length||tourPending)return;tourActive=!tourActive;tourRun++;try{speechSynthesis.cancel();}catch(_){}if(tourActive)narrateCountryTour();else drawCountryTour();}
 
 function render(){controls();const mapping={home:renderHome,countries:renderCountries,landmarks:renderLandmarks,photos:renderPhotos,search:renderSearch,wish:()=>renderSaved('wish'),favorites:()=>renderSaved('favorite'),parent:renderParent};$('#view').innerHTML=(mapping[state.view]||renderHome)();observePhotos();}
 function refreshPhotoNode(id){const f=getLandmark(id);if(!f)return;document.querySelectorAll('[data-photo-for="'+keyPhoto(id)+'"]').forEach(el=>{const picture=namedPhoto(f);const img=el.querySelector('img');const fallback=el.querySelector('.photo-fallback');const tag=el.querySelector('.photo-tag');if(picture){if(img){img.src=uri(picture.url);img.style.display='block';}else{const im=document.createElement('img');im.src=uri(picture.url);im.alt=f.name;im.loading='lazy';im.addEventListener('error',()=>{im.style.display='none';if(fallback)fallback.style.display='flex';});el.insertBefore(im,fallback);}if(fallback)fallback.style.display='none';}if(tag)tag.textContent=photoTag(f);});}
