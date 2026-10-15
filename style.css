@@ -18,3 +18,12 @@
 
 /* Stage 0.5 — don't claim photos exist when they are unavailable */
 .tour-photo-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;background:radial-gradient(circle at 50% 30%,#493e55,#17131b);color:#f5e6c7;font-size:clamp(23px,5vw,54px);font-weight:800}
+
+/* Stage 0.7 · 여행 사진 추억 모자이크 */
+.tour-collage[hidden]{display:none!important}
+.tour-collage{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:5px;background:linear-gradient(145deg,#423123,#161d30);z-index:1;overflow:hidden}
+.tour-collage>img{width:100%;height:100%;object-fit:cover;opacity:.75;filter:brightness(.75)}
+.tour-collage-center{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-shadow:0 3px 16px #000,0 1px 4px #000;pointer-events:none}
+.tour-collage-center strong{font-size:clamp(54px,11vw,120px);line-height:1.15;color:#fff;font-weight:900;letter-spacing:.04em}
+.tour-collage-center span{color:#fff0d4;font-size:clamp(15px,3vw,29px);font-weight:700}
+@media(max-width:600px){.tour-collage{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr))}}

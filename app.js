@@ -264,6 +264,7 @@ async function makeCountryTour(code){
 function stopCountryTour(){tourRun++;tourActive=false;tourFinishing=false;tourPending=false;try{speechSynthesis.cancel();}catch(_){}tourElement()?.classList.remove('open');tourElement()?.setAttribute('aria-hidden','true');}
 function drawCountryTour(){
  const x=tourList[tourIndex],root=tourElement();if(!x||!root)return;
+ const collage=root.querySelector('#tourCollage');if(collage)collage.hidden=true;
  const image=root.querySelector('#tourPhoto');const photoUrl=x.photo?uri(x.photo.url):'';
  image.style.display=photoUrl?'block':'none';image.src=photoUrl;image.alt=x.name;
  const fallback=root.querySelector('#tourPhotoFallback');if(fallback){fallback.style.display=photoUrl?'none':'flex';fallback.textContent=`${x.name} · 사진 자료 준비 중`;}
@@ -280,15 +281,27 @@ function finishCountryTour(){
  root.querySelector('#tourToggle').textContent='🟢 명소 이름표 보기';
  root.querySelector('#tourCredit').textContent='여행을 마친 뒤에는 명소 이름표와 사진 카드를 살펴볼 수 있습니다.';
  root.querySelector('#tourPhoto').style.display='none';
- root.querySelector('#tourPhotoFallback').style.display='flex';
- root.querySelector('#tourPhotoFallback').textContent=`🎉 ${cName(tourCountryCode)} 여행 완료`;
+ root.querySelector('#tourPhotoFallback').style.display='none';
+ // 모자이크는 실제 이번 여행에서 표시한 서로 다른 사진을 다시 사용합니다.
+ const collage=root.querySelector('#tourCollage');
+ if(collage){
+  collage.replaceChildren();
+  const seen=new Set();
+  const photos=tourList.filter(x=>x.photo&&uri(x.photo.url)).filter(x=>{const key=x.photo.url;if(seen.has(key))return false;seen.add(key);return true;}).slice(0,12);
+  photos.forEach(x=>{const img=document.createElement('img');img.src=uri(x.photo.url);img.alt=x.name;img.loading='eager';img.onerror=()=>img.remove();collage.appendChild(img);});
+  const label=document.createElement('div');label.className='tour-collage-center';
+  const heading=document.createElement('strong');heading.textContent=cName(tourCountryCode);
+  const sub=document.createElement('span');sub.textContent='우리의 사진 여행';
+  label.append(heading,sub);collage.appendChild(label);
+  collage.hidden=false;
+ }
  root.querySelector('#tourPrev').style.display='none';root.querySelector('#tourNext').style.display='none';
  const message='사진 여행을 마쳤습니다. 가장 마음에 남은 명소는 어디인가요? 이제 명소의 이름표를 누르면서 사진과 이야기를 더 자세히 살펴보세요.';
  if(!guideSupported())return;
  const run=++tourRun;
  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(message);u.lang='ko-KR';u.rate=.94;
- u.onend=()=>{if(run===tourRun&&tourFinishing)showCountryAfterTour();};
- u.onerror=()=>{if(run===tourRun&&tourFinishing)showCountryAfterTour();};speechSynthesis.speak(u);}catch(e){/* finish button remains usable */}
+ u.onend=()=>{/* 추억 모자이크를 감상하고 버튼으로 명소 목록으로 이동 */};
+ u.onerror=()=>{/* 종료 화면은 계속 표시 */};speechSynthesis.speak(u);}catch(e){/* finish button remains usable */}
 }
 function showCountryAfterTour(){const code=tourCountryCode;stopCountryTour();state.country=code;state.countrySearch='';state.countryFilter='all';state.countryCardsVisible=false;state.view='countries';state.countryExpanded=false;render();window.scrollTo({top:0,behavior:'instant'});requestAnimationFrame(()=>document.querySelector('.nameplate-grid')?.scrollIntoView({behavior:'smooth',block:'center'}));}
 function narrateCountryTour(){
@@ -365,14 +378,14 @@ function guideStart(){
 }
 function showDetail(id){guideStop();const f=getLandmark(id);if(!f)return;state.detailId=id;state.galleryIndex=0;state.commonsMsg='';$('#detailOverlay').classList.add('open');$('#detailOverlay').setAttribute('aria-hidden','false');renderDetail(f);loadWikiPhoto(id);}
 const CARD_SUMMARIES={
- 'FR-L01':'1889년 파리 만국박람회를 위해 세운 철탑입니다. 복잡한 철골 구조와 밤의 불빛을 함께 살펴보세요.',
- 'FR-L02':'옛 왕궁에서 세계적인 미술관으로 변신한 장소입니다. 궁전 건축과 유리 피라미드가 서로 다른 시대를 보여 줍니다.',
- 'FR-L03':'노르망디 바닷가의 바위섬 위에 수도원이 솟아 있습니다. 밀물과 썰물에 따라 물길과 주변 풍경이 크게 바뀝니다.',
- 'FR-L04':'프랑스 왕실의 화려한 궁전입니다. 거울의 방과 넓은 정원은 당시 왕실의 권력과 예술을 보여 줍니다.',
- 'FR-L05':'파리의 대표적인 대로입니다. 길 양옆의 가로수와 상점, 멀리 보이는 개선문이 특별한 도시 풍경을 만듭니다.',
- 'FR-L06':'나폴레옹 시대의 승리를 기념해 세운 개선문입니다. 문 위에는 조각이 새겨져 있고, 주위로 큰 길이 뻗어 나갑니다.',
- 'FR-L07':'센강의 시테섬에 자리한 고딕 대성당입니다. 높은 첨탑과 장미창, 정교한 석조 장식에 주목해 보세요.',
- 'FR-L08':'석회암 절벽 사이에 에메랄드빛 물길이 굽이치는 협곡입니다. 오랜 세월 물이 깎아 만든 거대한 자연 풍경입니다.'
+ 'FR-L01':'파리의 하늘에 우뚝 선 에펠탑은 1889년 만국박람회를 위해 만들어진 철탑입니다. 가까이 다가가면 수많은 철제 부재가 그물처럼 연결된 구조를 볼 수 있습니다. 처음에는 외관을 두고 논쟁이 있었지만, 오늘날에는 파리를 대표하는 상징이 되었습니다. 낮에는 철골 구조를, 밤에는 조명이 만들어내는 분위기를 비교해 보세요.',
+ 'FR-L02':'루브르 박물관은 원래 요새와 왕궁으로 사용되던 건물에서 세계적인 미술관으로 발전한 곳입니다. 넓은 궁전 건물 사이에는 현대적인 유리 피라미드가 자리합니다. 수백 년 된 건축과 새로운 건축이 한 공간에서 만나는 모습이 흥미롭습니다. 모나리자처럼 유명한 작품뿐 아니라 궁전의 긴 복도와 건물 외관도 눈여겨보세요.',
+ 'FR-L03':'몽생미셸은 프랑스 노르망디 해안의 바위섬 위에 자리한 수도원과 마을입니다. 섬 위로 층층이 쌓인 건물과 높은 수도원 탑이 마치 동화 속 성처럼 보입니다. 특히 이곳은 밀물과 썰물에 따라 주변 바다와 갯벌의 모습이 달라지는 것으로 유명합니다. 멀리서 본 전체 모습, 좁은 골목, 물이 들어오고 빠지는 풍경을 차례로 비교해 보세요.',
+ 'FR-L04':'베르사유 궁전은 프랑스 왕실의 권력과 화려한 문화를 보여 주는 곳입니다. 루이 14세 시대에 크게 확장되었고, 궁전 내부의 거울의 방은 빛과 장식이 어우러진 대표적인 공간입니다. 바깥으로 나가면 기하학적으로 꾸민 넓은 정원과 분수를 만날 수 있습니다. 궁전 안팎의 사진을 비교하면 당시 왕실이 공간을 어떻게 꾸몄는지 느낄 수 있습니다.',
+ 'FR-L05':'샹젤리제 거리는 파리의 콩코르드 광장과 에투알 개선문을 잇는 유명한 거리입니다. 넓은 도로 옆으로 나무와 상점, 카페가 늘어서 있고 멀리 개선문이 시선을 끕니다. 프랑스의 국경일 행사나 자전거 경기 투르 드 프랑스의 마지막 구간으로도 잘 알려져 있습니다. 거리의 풍경을 자세히 보면 파리 사람들의 일상과 도시의 활기가 느껴집니다.',
+ 'FR-L06':'에투알 개선문은 나폴레옹이 프랑스 군대의 승리를 기념하기 위해 건립을 명한 거대한 기념문입니다. 완공은 나폴레옹 사후인 1836년에 이루어졌습니다. 외벽의 인물 조각과 전투 이름들은 프랑스 역사의 한 부분을 보여 줍니다. 개선문이 서 있는 광장에서 여러 대로가 별처럼 뻗어 나가는 모습을 사진으로 찾아보세요.',
+ 'FR-L07':'노트르담 대성당은 파리 센강의 시테섬에 자리한 대표적인 고딕 건축물입니다. 뾰족하게 솟은 탑, 정교한 돌 조각, 둥근 장미창에서 중세 건축의 아름다움을 느낄 수 있습니다. 2019년 큰 화재를 겪은 뒤 복원 작업이 진행되었고 2024년 다시 문을 열었습니다. 건물 전체와 입구의 세밀한 조각을 비교해 보세요.',
+ 'FR-L08':'베르동 협곡은 프랑스 남동부의 석회암 지대를 오랜 세월 강물이 깎아 만든 깊은 협곡입니다. 가파른 절벽 사이로 에메랄드빛 물길이 굽이쳐 흐르는 모습이 특히 인상적입니다. 위에서 내려다본 협곡과 물가에서 바라본 절벽은 전혀 다른 느낌을 줍니다. 자연이 아주 긴 시간에 걸쳐 어떻게 거대한 풍경을 만들었는지 생각하며 감상해 보세요.'
 };
 function renderDetail(f){const photos=gallery(f),p=photos[state.galleryIndex]||photos[0];const isFav=edits.favorite.includes(f.id),isWish=edits.wish.includes(f.id);const approvedCount=(f.photos||[]).length;$('#detailContent').innerHTML=`<div class="modal-top"><div><span class="eyebrow">${esc(COUNTRY_MAP.get(f.countryCode)?.flag)} ${esc(cName(f.countryCode))} · ${esc(f.region)}</span><h2>${esc(f.name)}</h2><div class="pill-row"><span class="pill ${f.verified?'green':'purple'}">${f.verified?'✅ 설명 확인':'🔎 이름·설명 검토 초안'}</span><span class="pill">${esc(typeEmoji(f.category))} ${esc(category(f.category).name)}</span>${(f.extraCategories||[]).map(k=>`<span class="pill blue">${esc(category(k).name)}</span>`).join('')}</div></div><button class="close" data-act="close-detail" aria-label="닫기">✕</button></div>
  <div class="modal-photo-main"><div class="photo-frame landscape" data-act="expand-photo"><img src="${esc(uri(p?.url||''))}" alt="${esc(f.name)}" style="${p?'':'display:none'}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback" style="${p?'display:none':''}"><span class="symbol">${esc(typeEmoji(f.category))}</span><b>${esc(f.name)}</b><span class="small">사진을 찾아보세요</span></div></div></div>
