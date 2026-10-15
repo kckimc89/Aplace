@@ -1,7 +1,7 @@
 {
   "title": "세계 명소대백과",
-  "version": "Stage 0.3",
-  "release": "Stage 0.3 · 검색엔진 참여 대표명소 선정 / 다국어 별칭 / 국가 일치 재검토",
+  "version": "Stage 0.9",
+  "release": "Stage 0.9 · 핵심 6개국 각 10개 명소 · 프랑스 카드/사진여행 계승",
   "basedOn": "Stage 0.1 (40개 명소 초안과 사진/화면 보존)",
   "categories": [
     {
@@ -382,7 +382,7 @@
       "name": "스페인",
       "flag": "🇪🇸",
       "continent": "유럽",
-      "overview": "",
+      "overview": "스페인은 이베리아반도에 있는 나라로 지중해와 대서양, 다채로운 도시와 오랜 역사를 품고 있습니다. 바르셀로나에서는 가우디의 독특한 건축을 만나고, 그라나다에서는 이슬람 시대의 궁전과 정원을 볼 수 있습니다. 세비야와 톨레도에서는 광장과 골목을 통해 서로 다른 문화가 쌓아 올린 도시의 모습을 느낄 수 있습니다.",
       "status": "준비 중"
     },
     {
@@ -462,7 +462,7 @@
       "name": "이탈리아",
       "flag": "🇮🇹",
       "continent": "유럽",
-      "overview": "",
+      "overview": "이탈리아는 고대 로마의 유적과 르네상스 예술, 운하가 흐르는 도시와 지중해 해안이 어우러진 나라입니다. 로마의 원형 경기장에서 고대 사람들의 생활을 떠올리고, 피렌체에서는 예술가들이 남긴 성당의 거대한 돔을 만날 수 있습니다. 베네치아의 물길과 아말피 해안의 절벽 마을까지, 지역마다 전혀 다른 풍경이 펼쳐집니다.",
       "status": "준비 중"
     },
     {
@@ -1871,6 +1871,594 @@
       "source": "starter-editorial",
       "selectionStatus": "검색엔진 확인 전",
       "researchProvenance": "Stage 0.1 수동선정 초안; 위키데이터 조회 및 부모 검토 전"
+    },
+    {
+      "id": "FR-L09",
+      "countryCode": "FR",
+      "name": "카르카손 성채",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "옥시타니",
+      "aliases": [
+        "Cité de Carcassonne",
+        "Cité de Carcassonne"
+      ],
+      "description": "프랑스 남부의 카르카손 성채는 이중 성벽과 망루가 이어지는 거대한 중세 요새 도시입니다. 오늘날 보이는 모습에는 19세기 복원 작업의 흔적도 남아 있습니다. 성벽 안의 좁은 골목과 성채의 지붕들이 당시 도시의 방어와 생활을 보여 줍니다.",
+      "wikiTitle": "Cité de Carcassonne",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "FR-L10",
+      "countryCode": "FR",
+      "name": "니스 영국인 산책로",
+      "category": "market",
+      "extraCategories": [],
+      "region": "니스",
+      "aliases": [
+        "Promenade des Anglais",
+        "Promenade des Anglais"
+      ],
+      "description": "프랑스 남동부 니스의 해안선을 따라 길게 뻗은 산책로입니다. 한쪽에는 지중해의 푸른 바다가, 다른 쪽에는 호텔과 도시 풍경이 펼쳐집니다. 영국인들이 겨울을 보내러 니스를 찾던 19세기부터 발전한 이 길은 오늘날 니스를 대표하는 도시 풍경입니다.",
+      "wikiTitle": "Promenade des Anglais",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "KR-L09",
+      "countryCode": "KR",
+      "name": "불국사",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "경주",
+      "aliases": [
+        "Bulguksa",
+        "佛國寺"
+      ],
+      "description": "경주 불국사는 통일신라 시대의 불교문화를 대표하는 사찰입니다. 돌계단과 석축, 다보탑과 석가탑이 유명하며, 건축과 불교 예술이 정교하게 조화를 이룹니다. 석굴암과 함께 유네스코 세계유산으로 등재되어 있어 신라 사람들이 꿈꾸었던 이상적인 불교 세계를 전합니다.",
+      "wikiTitle": "Bulguksa",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "KR-L10",
+      "countryCode": "KR",
+      "name": "성산일출봉",
+      "category": "nature",
+      "extraCategories": [],
+      "region": "제주 서귀포",
+      "aliases": [
+        "Seongsan Ilchulbong",
+        "城山日出峰"
+      ],
+      "description": "제주도 동쪽 바다에서 솟아오른 성산일출봉은 물속 화산 활동으로 생긴 응회구입니다. 둘레가 가파른 절벽으로 둘러싸인 모습이 독특하고, 정상에서 바라보는 일출이 유명합니다. 주변의 바다와 마을이 어우러져 제주 화산지형의 특징을 한눈에 보여 줍니다.",
+      "wikiTitle": "Seongsan Ilchulbong",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "JP-L09",
+      "countryCode": "JP",
+      "name": "금각사",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "교토",
+      "aliases": [
+        "Kinkaku-ji",
+        "金閣寺 鹿苑寺"
+      ],
+      "description": "교토의 금각사는 연못 곁에 금빛으로 빛나는 누각이 서 있는 사찰입니다. 정식 명칭은 로쿠온지이며, 현재의 금각은 1950년 화재로 소실된 뒤 재건되었습니다. 연못에 비치는 누각과 주변 정원의 풍경은 일본 전통 정원과 건축의 조화를 보여 줍니다.",
+      "wikiTitle": "Kinkaku-ji",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "JP-L10",
+      "countryCode": "JP",
+      "name": "히메지성",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "효고현 히메지",
+      "aliases": [
+        "Himeji Castle",
+        "姫路城"
+      ],
+      "description": "히메지성은 흰색 회벽이 겹겹이 솟은 일본의 대표적인 성입니다. 멀리서 보면 흰 왜가리가 날개를 펼친 듯하다 하여 백로성이라고도 불립니다. 복잡한 통로와 성벽, 높은 천수각에는 외부 침입을 막으려던 옛 성의 설계가 남아 있습니다.",
+      "wikiTitle": "Himeji Castle",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "CN-L09",
+      "countryCode": "CN",
+      "name": "이화원",
+      "category": "park",
+      "extraCategories": [],
+      "region": "베이징",
+      "aliases": [
+        "Summer Palace Beijing",
+        "颐和园 頤和園"
+      ],
+      "description": "베이징의 이화원은 황실이 여름에 머물며 쉬던 거대한 정원입니다. 쿤밍호와 완서우산, 긴 회랑, 호수의 다리와 누각이 하나의 풍경을 이룹니다. 자연 풍경을 세심하게 꾸미고 건축물을 배치한 중국 황실 정원의 특징을 볼 수 있습니다.",
+      "wikiTitle": "Summer Palace Beijing",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "CN-L10",
+      "countryCode": "CN",
+      "name": "황산",
+      "category": "nature",
+      "extraCategories": [],
+      "region": "안후이성 황산",
+      "aliases": [
+        "Huangshan",
+        "黄山 黃山"
+      ],
+      "description": "황산은 안후이성에 있는 산악 경관으로 뾰족한 화강암 봉우리와 기묘한 소나무, 바위 사이로 떠오르는 구름바다가 유명합니다. 날씨가 바뀔 때마다 산의 분위기가 극적으로 달라집니다. 오랫동안 중국의 시인과 화가들이 즐겨 묘사한 풍경이기도 합니다.",
+      "wikiTitle": "Huangshan",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L01",
+      "countryCode": "IT",
+      "name": "콜로세움",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "로마",
+      "aliases": [
+        "Colosseum",
+        "Colosseo"
+      ],
+      "description": "로마의 콜로세움은 고대 로마제국이 건설한 거대한 원형 경기장입니다. 약 2천 년 전 검투사 경기와 여러 공개 행사가 열렸습니다. 층층이 반복되는 아치와 경기장 아래의 복잡한 공간은 당시 로마의 건축 기술과 사회를 보여 줍니다.",
+      "wikiTitle": "Colosseum",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L02",
+      "countryCode": "IT",
+      "name": "베네치아 대운하",
+      "category": "market",
+      "extraCategories": [],
+      "region": "베네치아",
+      "aliases": [
+        "Grand Canal Venice",
+        "Canal Grande"
+      ],
+      "description": "베네치아 대운하는 도시를 크게 굽이쳐 흐르는 물길입니다. 양쪽에는 수백 년 된 궁전과 건물이 늘어서고, 배와 수상버스가 길을 대신합니다. 육지가 아닌 물 위에서 도시를 감상하는 독특한 베네치아의 생활과 풍경을 만날 수 있습니다.",
+      "wikiTitle": "Grand Canal Venice",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L03",
+      "countryCode": "IT",
+      "name": "피사의 사탑",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "피사",
+      "aliases": [
+        "Leaning Tower of Pisa",
+        "Torre pendente di Pisa"
+      ],
+      "description": "피사의 사탑은 대성당의 종탑으로 세우다가 지반이 약해 기울기 시작했습니다. 여러 차례 보강 공사를 거쳐 현재는 기울어진 모습으로 안전하게 보존되고 있습니다. 하얀 대리석 아치가 반복되는 둥근 탑은 도시를 대표하는 상징이 되었습니다.",
+      "wikiTitle": "Leaning Tower of Pisa",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L04",
+      "countryCode": "IT",
+      "name": "트레비 분수",
+      "category": "modern",
+      "extraCategories": [],
+      "region": "로마",
+      "aliases": [
+        "Trevi Fountain",
+        "Fontana di Trevi"
+      ],
+      "description": "트레비 분수는 로마 도심의 건물 사이에 놓인 웅장한 바로크 양식 분수입니다. 거대한 암벽과 바다의 신을 표현한 조각 사이로 물이 흘러내립니다. 여행객들이 동전을 던지는 전통으로도 알려져 있지만, 분수 자체가 도시의 역사와 조각예술을 보여 줍니다.",
+      "wikiTitle": "Trevi Fountain",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L05",
+      "countryCode": "IT",
+      "name": "포로 로마노",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "로마",
+      "aliases": [
+        "Roman Forum",
+        "Foro Romano"
+      ],
+      "description": "포로 로마노는 고대 로마의 정치와 상업, 종교 활동이 모이던 중심 공간입니다. 오늘날에는 신전과 공공건물의 기둥, 아치와 터가 남아 있습니다. 유적 사이를 따라가면 오래전 로마 사람들이 모여 토론하고 시장을 찾던 도시의 모습을 상상할 수 있습니다.",
+      "wikiTitle": "Roman Forum",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L06",
+      "countryCode": "IT",
+      "name": "피렌체 대성당",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "피렌체",
+      "aliases": [
+        "Florence Cathedral",
+        "Cattedrale di Santa Maria del Fiore Duomo di Firenze"
+      ],
+      "description": "피렌체 대성당의 거대한 붉은 돔은 도시의 하늘선을 대표합니다. 브루넬레스키가 설계한 돔은 르네상스 건축의 중요한 성취로 꼽힙니다. 대성당 외벽의 색색 대리석과 가까이 있는 종탑, 세례당이 함께 피렌체의 예술도시 풍경을 완성합니다.",
+      "wikiTitle": "Florence Cathedral",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L07",
+      "countryCode": "IT",
+      "name": "아말피 해안",
+      "category": "nature",
+      "extraCategories": [],
+      "region": "캄파니아",
+      "aliases": [
+        "Amalfi Coast",
+        "Costiera Amalfitana"
+      ],
+      "description": "아말피 해안은 이탈리아 남부의 가파른 절벽과 푸른 지중해가 만나는 해안 지대입니다. 절벽을 따라 굽이치는 길과 파스텔빛 마을, 바다를 향한 계단식 밭이 특징입니다. 자연 지형과 오랜 세월 이어진 마을 생활이 하나의 경관을 이룹니다.",
+      "wikiTitle": "Amalfi Coast",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L08",
+      "countryCode": "IT",
+      "name": "밀라노 대성당",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "밀라노",
+      "aliases": [
+        "Milan Cathedral",
+        "Duomo di Milano"
+      ],
+      "description": "밀라노 대성당은 수많은 첨탑과 조각으로 꾸며진 거대한 고딕 양식 성당입니다. 건설은 14세기에 시작되어 오랫동안 이어졌습니다. 높은 지붕 위의 첨탑과 도시 광장을 바라보는 모습이 특히 인상적이며, 밀라노의 중심을 이루는 건축물입니다.",
+      "wikiTitle": "Milan Cathedral",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L09",
+      "countryCode": "IT",
+      "name": "친퀘테레",
+      "category": "market",
+      "extraCategories": [],
+      "region": "리구리아",
+      "aliases": [
+        "Cinque Terre",
+        "Cinque Terre"
+      ],
+      "description": "친퀘테레는 리구리아 해안의 가파른 언덕에 자리 잡은 다섯 마을 지역입니다. 형형색색 집들이 바닷가 절벽에 모여 있고, 마을 사이에는 산책길과 철도가 이어집니다. 포도밭을 일군 계단식 지형과 어촌 풍경에서 사람과 바다가 함께 만든 경관을 볼 수 있습니다.",
+      "wikiTitle": "Cinque Terre",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "IT-L10",
+      "countryCode": "IT",
+      "name": "판테온",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "로마",
+      "aliases": [
+        "Pantheon Rome",
+        "Pantheon Roma"
+      ],
+      "description": "로마의 판테온은 고대 로마 시대의 돔 건축을 잘 보여 주는 신전 건물입니다. 거대한 둥근 지붕의 중앙에는 빛이 들어오는 열린 구멍이 있습니다. 햇빛이 실내를 따라 움직이는 장면은 2천 년 가까이 이어진 건축 기술의 놀라움을 느끼게 합니다.",
+      "wikiTitle": "Pantheon Rome",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L01",
+      "countryCode": "ES",
+      "name": "사그라다 파밀리아",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "바르셀로나",
+      "aliases": [
+        "Sagrada Família",
+        "Basílica de la Sagrada Família"
+      ],
+      "description": "사그라다 파밀리아는 건축가 안토니 가우디가 설계에 깊이 참여한 바르셀로나의 독특한 성당입니다. 높은 탑과 자연에서 영감을 얻은 기둥, 빛이 물드는 스테인드글라스가 특징입니다. 건축에 오랜 시간이 걸리고 있으며, 내부는 돌로 만든 숲에 들어온 듯한 느낌을 줍니다.",
+      "wikiTitle": "Sagrada Família",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L02",
+      "countryCode": "ES",
+      "name": "구엘 공원",
+      "category": "park",
+      "extraCategories": [],
+      "region": "바르셀로나",
+      "aliases": [
+        "Park Güell",
+        "Parc Güell"
+      ],
+      "description": "구엘 공원은 가우디가 설계한 바르셀로나의 공원입니다. 구불구불한 벤치와 모자이크 타일, 독특한 기둥과 계단이 자연 풍경과 어우러집니다. 알록달록한 용 모양 장식과 도시를 내려다보는 전망대는 공원 전체를 하나의 예술 작품처럼 보여 줍니다.",
+      "wikiTitle": "Park Güell",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L03",
+      "countryCode": "ES",
+      "name": "알함브라 궁전",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "그라나다",
+      "aliases": [
+        "Alhambra",
+        "La Alhambra"
+      ],
+      "description": "그라나다의 알함브라는 이슬람 왕조가 만든 궁전과 요새가 모인 공간입니다. 섬세한 무늬의 벽면과 아치, 물이 흐르는 중정이 인상적입니다. 그늘과 물, 정원이 어우러진 건축을 통해 중세 안달루시아의 역사와 문화를 만날 수 있습니다.",
+      "wikiTitle": "Alhambra",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L04",
+      "countryCode": "ES",
+      "name": "세비야 스페인 광장",
+      "category": "modern",
+      "extraCategories": [],
+      "region": "세비야",
+      "aliases": [
+        "Plaza de España Seville",
+        "Plaza de España Sevilla"
+      ],
+      "description": "세비야의 스페인 광장은 반원형 건축물과 수로, 다리로 이루어진 넓은 광장입니다. 1929년 이베로아메리카 박람회를 위해 조성되었습니다. 타일 장식에는 스페인의 여러 지방을 상징하는 장면이 담겨 있어 광장을 따라 걸으며 각 지역을 여행하는 느낌을 줍니다.",
+      "wikiTitle": "Plaza de España",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L05",
+      "countryCode": "ES",
+      "name": "톨레도 구시가지",
+      "category": "heritage",
+      "extraCategories": [],
+      "region": "톨레도",
+      "aliases": [
+        "Historic City of Toledo",
+        "Casco histórico de Toledo"
+      ],
+      "description": "톨레도의 구시가지는 타호강에 둘러싸인 언덕 위 역사도시입니다. 좁은 골목 사이로 성당과 옛 건축물이 이어지고, 기독교·이슬람·유대교 문화가 쌓인 흔적이 남아 있습니다. 강 건너 전망대에서는 중세 도시의 지붕들이 한눈에 들어옵니다.",
+      "wikiTitle": "Historic City of Toledo",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L06",
+      "countryCode": "ES",
+      "name": "코르도바 메스키타",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "코르도바",
+      "aliases": [
+        "Mosque–Cathedral of Córdoba",
+        "Mezquita-Catedral de Córdoba"
+      ],
+      "description": "코르도바의 메스키타 대성당은 이슬람 사원으로 지어졌다가 이후 가톨릭 대성당이 된 건축물입니다. 붉고 흰 줄무늬가 반복되는 아치 기둥 숲이 특히 유명합니다. 한 건물 안에서 서로 다른 시대의 종교와 건축 역사를 볼 수 있습니다.",
+      "wikiTitle": "Mosque–Cathedral of Córdoba",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L07",
+      "countryCode": "ES",
+      "name": "마드리드 왕궁",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "마드리드",
+      "aliases": [
+        "Royal Palace of Madrid",
+        "Palacio Real de Madrid"
+      ],
+      "description": "마드리드 왕궁은 스페인 왕실의 공식 궁전으로, 지금은 주로 국가 행사에 사용됩니다. 웅장한 계단과 장식된 방, 넓은 광장이 특징입니다. 궁전의 규모와 내부 장식을 통해 왕실이 중요한 행사를 치르던 공간의 모습을 살펴볼 수 있습니다.",
+      "wikiTitle": "Royal Palace of Madrid",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L08",
+      "countryCode": "ES",
+      "name": "카사 바트요",
+      "category": "modern",
+      "extraCategories": [],
+      "region": "바르셀로나",
+      "aliases": [
+        "Casa Batlló",
+        "Casa Batlló"
+      ],
+      "description": "카사 바트요는 건축가 가우디가 바르셀로나의 기존 주택을 새롭게 디자인한 건축물입니다. 물결치는 듯한 외벽과 색색의 유리, 뼈를 닮은 기둥이 특징입니다. 지붕의 굴곡과 타일은 마치 상상 속 생명체를 떠올리게 합니다.",
+      "wikiTitle": "Casa Batlló",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L09",
+      "countryCode": "ES",
+      "name": "산티아고 대성당",
+      "category": "traditional",
+      "extraCategories": [],
+      "region": "산티아고데콤포스텔라",
+      "aliases": [
+        "Santiago de Compostela Cathedral",
+        "Catedral de Santiago de Compostela"
+      ],
+      "description": "산티아고 대성당은 오랜 순례길의 종착지로 널리 알려진 성당입니다. 중세부터 많은 사람들이 걸어서 이 도시를 찾아왔습니다. 거대한 정면과 광장, 여러 시대의 건축 요소에는 수많은 여행자와 순례자가 남긴 역사가 이어집니다.",
+      "wikiTitle": "Santiago de Compostela Cathedral",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
+    },
+    {
+      "id": "ES-L10",
+      "countryCode": "ES",
+      "name": "바르셀로나 고딕 지구",
+      "category": "market",
+      "extraCategories": [],
+      "region": "바르셀로나",
+      "aliases": [
+        "Gothic Quarter Barcelona",
+        "Barri Gòtic"
+      ],
+      "description": "바르셀로나 고딕 지구는 좁은 돌길과 오래된 광장, 중세 건물이 이어지는 역사 지역입니다. 바르셀로나 대성당 주변의 골목과 작은 상점을 따라 걸으면 여러 시대가 겹쳐 있는 도시의 모습을 느낄 수 있습니다. 현대적인 바르셀로나와 대비되는 오래된 중심지입니다.",
+      "wikiTitle": "Gothic Quarter Barcelona",
+      "wikiLang": "en",
+      "photos": [],
+      "status": "초안",
+      "verified": false,
+      "source": "stage09-editorial",
+      "selectionStatus": "사진·검색 검증 대기",
+      "researchProvenance": "대표명소 후보 수동 편집; 온라인 식별자/사진 미검증"
     }
   ],
   "pilotCountries": [
