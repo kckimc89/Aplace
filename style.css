@@ -109,3 +109,7 @@
 .card-manage-panel h3{font-size:17px;margin:0 0 6px;color:#714923}
 .card-manage-panel .action-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
 .card-manage-panel .btn{min-height:44px}
+
+/* Stage 2.0 — stable, touch-friendly album controls */
+.album-journey-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0;padding:12px 14px;background:#fff7e8;border:1px solid #efd7b7;border-radius:16px;color:#704020} 
+.album-journey-bar .btn{min-height:44px} .candidate-choose{display:flex;gap:10px;align-items:center;background:#f7faee;padding:10px;border-radius:10px;font-weight:700;min-height:44px;} .candidate-choose input{width:22px;height:22px;accent-color:#43814b} .album-speed{display:flex;align-items:center;gap:5px;font-size:13px;white-space:nowrap;color:white}.album-speed select{font-size:16px;border-radius:8px;padding:8px;color:#352820;background:#fff}.viewer-controls button{min-height:44px} 
