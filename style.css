@@ -42,7 +42,3 @@
 .detail-place-navigation .btn:disabled{opacity:.35;cursor:default}
 .detail-position{font-size:13px;color:#896e58;font-weight:800;white-space:nowrap}
 @media(max-width:560px){.detail-place-navigation{padding:11px 7px;gap:5px}.detail-place-navigation .btn{font-size:12px;padding:9px 7px}.modal-photo-main .photo-frame{min-height:230px}.modal-photo-main .photo-frame img{max-height:58vh}}
-
-/* Stage 0.9: photo candidates accessible and comfortably readable on iPad */
-.photo-candidate-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));}
-.candidate-photo img{width:100%;height:180px;object-fit:contain;background:#f6f2ea}
