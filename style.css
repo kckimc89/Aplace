@@ -81,3 +81,31 @@
 .travel-journal-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.travel-journal h3{font-size:23px;color:#6b381d;margin:3px 0 10px}.journal-eyebrow{font-size:11px;letter-spacing:.14em;color:#ad825b;font-weight:900}
 .travel-journal-text{white-space:normal;font-size:clamp(18px,2.3vw,21px);line-height:1.85;word-break:keep-all}.travel-journal-empty{color:#97775c;line-height:1.75}.travel-journal-hint{font-size:12px;color:#927964;margin:12px 0 0}
 @media(max-width:560px){.story-cover{height:235px}.story-cover-name{font-size:32px}.story-cover-label{bottom:70px}.travel-journal h3{font-size:20px}}
+
+/* Stage 1.8.1: stable full-screen photo viewer. Controls never scale with photograph. */
+.photo-overlay.viewer-fixed{padding:0;justify-content:stretch;align-items:stretch;overflow:hidden;height:100%;height:100dvh;box-sizing:border-box;gap:0}
+.viewer-fixed .viewer-header{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:58px;padding:8px max(16px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left));color:white;font-weight:850;background:#24201b;z-index:2}
+.viewer-fixed .viewer-header button{border:1px solid #76675b;border-radius:14px;min-height:44px;padding:8px 15px;background:#49392d;color:white;font-size:16px;font-weight:800}
+.viewer-fixed .viewer-canvas{min-height:0;min-width:0;flex:1 1 auto;display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:pan-x pan-y;background:#13110f;padding:12px}
+.viewer-fixed .viewer-canvas img{display:block;max-width:100%;max-height:100%;height:auto;width:auto;min-height:0;object-fit:contain;transform-origin:center center;transition:transform .12s ease;touch-action:pan-x pan-y}
+.viewer-fixed .viewer-bottom{flex:0 0 auto;width:100%;background:#24201b;padding:8px max(12px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));z-index:3}
+.viewer-fixed .viewer-bottom .photo-credit{margin:0 auto 7px;max-height:2.8em;overflow:auto;line-height:1.4;font-size:11px;text-align:center}
+.viewer-fixed .viewer-controls{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;max-width:960px;margin:0 auto}
+.viewer-fixed .viewer-controls button{min-height:46px;min-width:85px;flex:1 1 92px;max-width:160px;border:1px solid #75685d;background:#44372c;border-radius:13px;color:#fff;font-size:15px;font-weight:800;padding:9px}
+.viewer-fixed .viewer-controls button:active{background:#775b41}
+/* Candidate slideshow retains a separate, stable lower control panel. */
+.photo-overlay.candidate-slideshow{padding:0;justify-content:stretch;align-items:stretch;height:100%;height:100dvh;overflow:hidden}
+.candidate-slideshow .candidate-slide-top{flex:0 0 auto;margin:0 auto;min-height:57px;background:#24201b;max-width:none;padding:9px 16px}
+.candidate-slideshow #candidateImage{display:block;flex:1 1 auto;min-height:0;max-height:none;width:100%;max-width:100%;object-fit:contain;margin:0 auto;padding:8px 12px}
+.candidate-slideshow .candidate-slide-bottom{max-width:none;flex:0 0 auto;min-height:0;background:#24201b;margin:0 auto;padding:9px 14px calc(12px + env(safe-area-inset-bottom));}
+.candidate-slideshow .candidate-slide-bottom strong{font-size:14px;max-width:80ch;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.candidate-slideshow .candidate-slide-bottom small{max-height:2.6em;overflow:auto}
+.candidate-slideshow .candidate-slide-bottom .action-row{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+.candidate-slideshow .candidate-slide-bottom .btn{min-height:43px;font-size:14px}
+@media(max-width:600px){.viewer-fixed .viewer-controls{gap:6px}.viewer-fixed .viewer-controls button{font-size:13px;min-width:72px;min-height:44px;flex-basis:26%}.candidate-slideshow .candidate-slide-bottom .btn{font-size:12px}}
+
+/* Stage 1.9 parent-only management: compact, secondary to story and photos */
+.card-manage-panel{margin:22px 0 8px;padding:16px;border:1px solid #e4d8bd;border-radius:16px;background:#fffaf0}
+.card-manage-panel h3{font-size:17px;margin:0 0 6px;color:#714923}
+.card-manage-panel .action-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.card-manage-panel .btn{min-height:44px}
