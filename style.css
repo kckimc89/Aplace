@@ -67,3 +67,17 @@
 #candidateSave{background:#266f40!important;border-color:#62ae78!important;color:#fff!important;min-height:43px}
 #candidateSave[hidden]{display:none!important}
 @media(max-width:560px){.story-paper{padding:27px 20px}.story-prose{font-size:19px;line-height:1.92}.story-tab{font-size:15px;min-height:50px}.story-heading{font-size:29px}.story-next .btn{font-size:16px}}
+
+/* Stage 1.8 · warm photographic story cover + personal travel notebook */
+.story-paper{padding:0 0 clamp(24px,3.5vw,40px);overflow:hidden}
+.story-paper>.story-ornament{margin-top:28px}
+.story-paper>.story-ornament,.story-paper>.story-kicker,.story-paper>.story-heading,.story-paper>.story-rule,.story-paper>.story-prose,.story-paper>.story-tail{margin-left:clamp(22px,5vw,55px);margin-right:clamp(22px,5vw,55px)}
+.story-cover{position:relative;isolation:isolate;height:clamp(240px,37vw,380px);background:linear-gradient(140deg,#d9a66c,#764a30);overflow:hidden}
+.story-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.story-cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 10%,rgba(38,24,14,.18) 36%,rgba(37,22,13,.78) 100%)}
+.story-cover-label,.story-cover-name{position:absolute;left:clamp(22px,5vw,55px);right:24px;color:#fff;text-shadow:0 2px 9px rgba(0,0,0,.26)}
+.story-cover-label{bottom:82px;font-size:15px;font-weight:850}.story-cover-name{bottom:25px;font-size:clamp(32px,5vw,48px);font-weight:900}
+.travel-journal{margin:18px 0 8px;background:linear-gradient(135deg,#fff9ec,#fffefb);border:1px solid #e7cfa9;border-radius:22px;padding:clamp(18px,3vw,28px)}
+.travel-journal-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.travel-journal h3{font-size:23px;color:#6b381d;margin:3px 0 10px}.journal-eyebrow{font-size:11px;letter-spacing:.14em;color:#ad825b;font-weight:900}
+.travel-journal-text{white-space:normal;font-size:clamp(18px,2.3vw,21px);line-height:1.85;word-break:keep-all}.travel-journal-empty{color:#97775c;line-height:1.75}.travel-journal-hint{font-size:12px;color:#927964;margin:12px 0 0}
+@media(max-width:560px){.story-cover{height:235px}.story-cover-name{font-size:32px}.story-cover-label{bottom:70px}.travel-journal h3{font-size:20px}}
