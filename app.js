@@ -23,15 +23,24 @@ function hangulKey(input){let s='';for(const c of String(input)){const n=c.codeP
 function match(text,q){return !q||norm(text).includes(norm(q))||hangulKey(text).includes(hangulKey(q));}
 function readStore(){try{const a=JSON.parse(localStorage.getItem(STORE)||'{}');return {added:Array.isArray(a.added)?a.added:[],overrides:a.overrides&&typeof a.overrides==='object'?a.overrides:{},countryOverviews:a.countryOverviews&&typeof a.countryOverviews==='object'?a.countryOverviews:{},favorite:Array.isArray(a.favorite)?a.favorite:[],wish:Array.isArray(a.wish)?a.wish:[]};}catch(e){return {added:[],overrides:{},countryOverviews:{},favorite:[],wish:[]};}}
 let edits=readStore();
-let state={view:'home',country:'KR',countrySearch:'',countryExpanded:false,countryCardsVisible:false,countryFilter:'all',guidePlaying:false,cat:'all',search:'',photoCat:'all',photoCountry:'all',admin:false,detailId:'',galleryIndex:0,photoIndex:0,zoom:1,lightbox:[],editorId:'',wikidataResults:[],wikidataQuery:'',wikidataMessage:'',wikidataLoading:false,researchCountry:'KR',researchCategory:'all',researchDiscovery:[],researchLoading:false,researchMessage:'',researchPreview:null,researchPreviewError:'',researchSeedId:'',researchQuery:'',pendingResearch:null,commonsMsg:'',commonsLoading:false};
+let state={candidateFilter:'all',candidateSlideIndex:0,candidateSlidePlaying:false,view:'home',country:'KR',countrySearch:'',countryExpanded:false,countryCardsVisible:false,countryFilter:'all',guidePlaying:false,cat:'all',search:'',photoCat:'all',photoCountry:'all',admin:false,detailId:'',galleryIndex:0,photoIndex:0,zoom:1,lightbox:[],editorId:'',wikidataResults:[],wikidataQuery:'',wikidataMessage:'',wikidataLoading:false,researchCountry:'KR',researchCategory:'all',researchDiscovery:[],researchLoading:false,researchMessage:'',researchPreview:null,researchPreviewError:'',researchSeedId:'',researchQuery:'',pendingResearch:null,commonsMsg:'',commonsLoading:false};
 const wikiCache=new Map(), commonsCache=new Map(),entityCache=new Map();
+const storedPhotoRecords=new Map();let candidateTimer=null;
 const seedMap=new Map(BASE.landmarks.map(x=>[x.id,x]));
 let photosObserver=null,toastTimeout=0;
-function allLandmarks(){return [...BASE.landmarks,...edits.added].map(x=>({...x,...(edits.overrides[x.id]||{})}));}
+function allLandmarks(){return [...BASE.landmarks,...edits.added].map(x=>{
+ const f={...x,...(edits.overrides[x.id]||{})};
+ const photos=(f.photos||[]).slice();const keys=new Set(photos.map(p=>p.url));
+ for(const entry of storedPhotoRecords.values())if(entry.placeId===f.id){
+  const url='localphoto:'+entry.id;if(keys.has(url))continue;
+  photos.push({url,title:entry.title||f.name,artist:entry.artist||'사용자 등록',license:entry.license||'원본 이용조건 확인 필요',licenseUrl:entry.licenseUrl||'',source:entry.source||'',confirmed:true,hero:photos.length===0,storedBytes:entry.blob?.size||0});keys.add(url);
+ }
+ f.photos=photos;return f;
+});}
 function getLandmark(id){return allLandmarks().find(x=>x.id===id)||null;}
 function countries(){return BASE.countries.slice().sort(countrySort);}
 function countryIntro(c){return edits.countryOverviews[c.code]??c.overview??'';}
-function save(){try{localStorage.setItem(STORE,JSON.stringify(edits));return true;}catch(e){alert('저장공간이 부족하거나 브라우저 저장이 제한되어 있습니다. 먼저 백업해 주세요.');return false;}}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(edits));return true;}catch(e){alert('명소 설명/설정의 저장에 실패했습니다. 저장공간 또는 Safari 설정을 확인하고 현재 자료를 백업해 주세요. 사진 파일은 별도 저장소에 보관됩니다.\n'+(e.message||e));return false;}}
 function notify(message){document.querySelector('.toast')?.remove();const div=document.createElement('div');div.className='toast';div.textContent=message;document.body.append(div);clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>div.remove(),2700);}
 // Stage 1.3: self-contained, app-only image library (not the Photos app).
 const PHOTO_DB='world_landmarks_photo_library_v1', PHOTO_STORE='images';
@@ -42,20 +51,26 @@ async function dbAll(){const d=await db();return new Promise((resolve,reject)=>{
 async function dbPut(entry){const d=await db();return new Promise((resolve,reject)=>{const t=d.transaction(PHOTO_STORE,'readwrite');t.objectStore(PHOTO_STORE).put(entry);t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error);});}
 async function dbDelete(id){const d=await db();return new Promise((resolve,reject)=>{const t=d.transaction(PHOTO_STORE,'readwrite');t.objectStore(PHOTO_STORE).delete(id);t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error);});}
 function localKey(url){return String(url||'').startsWith('localphoto:')?String(url).slice('localphoto:'.length):'';}
-function photoObject(entry){const old=photoObjects.get(entry.id);if(old)URL.revokeObjectURL(old);photoObjects.set(entry.id,URL.createObjectURL(entry.blob));}
+function photoObject(entry){const old=photoObjects.get(entry.id);if(old)URL.revokeObjectURL(old);photoObjects.set(entry.id,URL.createObjectURL(entry.blob));storedPhotoRecords.set(entry.id,entry);}
 async function hydratePhotoLibrary(){try{for(const e of await dbAll())photoObject(e);render();if(state.detailId)updateModalPhoto();}catch(e){console.warn('사진보관함을 열 수 없음',e);notify('사진 저장소를 열지 못했습니다. Safari 저장 설정을 확인해 주세요.');}}
 async function normalizeImage(blob){if(!blob||!blob.type.startsWith('image/'))throw Error('이미지 파일만 등록할 수 있습니다.');if(blob.size>30*1024*1024)throw Error('원본사진이 30MB를 초과합니다.');const u=URL.createObjectURL(blob);try{const img=await new Promise((resolve,reject)=>{const x=new Image();x.onload=()=>resolve(x);x.onerror=()=>reject(Error('사진을 읽을 수 없습니다.'));x.src=u;});const ratio=Math.min(1,1600/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(img.naturalHeight*ratio));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);return await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('사진 압축 실패')),'image/jpeg',0.8));}finally{URL.revokeObjectURL(u);}}
-async function savePhotoBlob(id,blob,metadata={}){const compressed=await normalizeImage(blob);const key='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,9);const entry={id:key,placeId:id,blob:compressed,created:new Date().toISOString(),...metadata};await dbPut(entry);photoObject(entry);return {key,bytes:compressed.size};}
-async function addPhotoToAlbum(id,blob,metadata={}){const f=getLandmark(id);if(!f)throw Error('명소를 찾지 못했습니다.');const saved=await savePhotoBlob(id,blob,metadata);const item={url:'localphoto:'+saved.key,title:metadata.title||f.name,artist:metadata.artist||'사용자 제공',license:metadata.license||'이용조건 확인 필요',source:metadata.source||'',hero:!(f.photos||[]).length,confirmed:true,storedBytes:saved.bytes};const old=(f.photos||[]).slice();edits.overrides[id]={...(edits.overrides[id]||{}),photos:[...old,item]};if(!save()){edits.overrides[id].photos=old;await dbDelete(saved.key);throw Error('사진 정보 저장에 실패했습니다.');}state.galleryIndex=old.length;render();if(state.detailId===id)updateModalPhoto();return saved;}
+async function savePhotoBlob(id,blob,metadata={}){const compressed=await normalizeImage(blob);const key='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,9);const entry={id:key,placeId:id,blob:compressed,created:new Date().toISOString(),...metadata};try{await dbPut(entry);}catch(e){throw Error('앱 전용 사진저장소(IndexedDB) 저장 실패: '+(e.name||'')+' '+(e.message||'')+'. 저장공간 확인 및 사진 포함 백업이 필요합니다.');}photoObject(entry);return {key,bytes:compressed.size};}
+async function addPhotoToAlbum(id,blob,metadata={}){
+ const f=getLandmark(id);if(!f)throw Error('명소를 찾지 못했습니다.');
+ if(metadata.source&&(f.photos||[]).some(p=>p.source===metadata.source))throw Error('이 사진은 이미 사진첩에 보관되어 있습니다.');
+ const saved=await savePhotoBlob(id,blob,{title:metadata.title||f.name,artist:metadata.artist||(metadata.source?'저작자 원본 확인 필요':'사용자 제공'),license:metadata.license||'이용조건 확인 필요',licenseUrl:metadata.licenseUrl||'',source:metadata.source||''});
+ // Photo binary AND its metadata live in IndexedDB. Avoid large localStorage writes.
+ state.galleryIndex=Math.max(0,gallery(getLandmark(id)).length-1);render();if(state.detailId===id)updateModalPhoto();return saved;
+}
 async function keepCurrentPhoto(id){if(!state.admin)return;const f=getLandmark(id),p=gallery(f)[state.galleryIndex];if(!p||localKey(p.url))return notify('이미 앱에 저장된 사진입니다.');if(!confirm('현재 사진을 앱 내부에 복사해서 보관할까요? 사진 권리정보를 확인한 경우에만 진행해 주세요.'))return;try{const r=await fetch(p.url,{mode:'cors'});if(!r.ok)throw Error('다운로드 실패');const blob=await r.blob();await addPhotoToAlbum(id,blob,{title:p.title||f.name,artist:p.artist,license:p.license,source:p.source});notify('현재 사진을 앱에 복사해 누적 저장했습니다.');}catch(e){alert('외부 사진 서버가 직접 저장을 허용하지 않았습니다. 원본 사진을 파일 앱에 저장한 다음 「사진 파일 추가」를 이용해 주세요.\n'+e.message);}}
 async function importLocalPhotos(files,id){if(!state.admin)return;const arr=Array.from(files||[]).slice(0,20);if(!arr.length)return;let n=0;for(const file of arr){try{await addPhotoToAlbum(id,file,{title:file.name,artist:'사용자 사진',license:'개인 소장 사진 · 공개 이용권 별도 확인'});n++;}catch(e){alert(file.name+': '+e.message);break;}}notify('사진 '+n+'장을 앱 전용 보관함에 저장했습니다.');}
-async function storeCandidatePhoto(id,index){const f=getLandmark(id),ph=commonsCache.get(id)?.[index];if(!state.admin||!f||!ph)return;if(!ph.allowed)return alert('사용조건이 확인되지 않은 사진입니다.');if(!confirm('해당 명소의 사진이고 라이선스를 확인했나요? 사진을 다운로드하여 앱 전용 보관함에 저장합니다.'))return;try{notify('사진을 압축하고 저장하는 중입니다…');const response=await fetch(ph.url,{mode:'cors'});if(!response.ok)throw Error('사진 다운로드 실패');const blob=await response.blob();await addPhotoToAlbum(id,blob,{title:ph.title,artist:ph.artist,license:ph.license,source:ph.source});notify('사진 파일을 앱 안에 누적 저장했습니다.');}catch(e){alert('이미지 파일을 직접 저장하지 못했습니다. 외부 서버의 CORS 제한일 수 있습니다. 원본에서 사진을 저장한 뒤 「사진 파일 추가」를 이용해 주세요.\n'+e.message);}}
+async function storeCandidatePhoto(id,index){const f=getLandmark(id),ph=commonsCache.get(id)?.[index];if(!state.admin||!f||!ph)return;if(!ph.allowed)return alert('사용조건이 확인되지 않은 사진입니다.');if(!confirm('해당 명소의 사진이고 라이선스를 확인했나요? 사진을 다운로드하여 앱 전용 보관함에 저장합니다.'))return;try{notify('사진을 압축하고 저장하는 중입니다…');const response=await fetch(ph.thumb||ph.url,{mode:'cors'});if(!response.ok)throw Error('사진 다운로드 실패');const blob=await response.blob();await addPhotoToAlbum(id,blob,{title:ph.title,artist:ph.artist,license:ph.license,source:ph.source,licenseUrl:ph.licenseUrl});notify('사진 파일을 앱 안에 누적 저장했습니다.');}catch(e){alert('이미지 파일을 직접 저장하지 못했습니다. 외부 서버의 CORS 제한일 수 있습니다. 원본에서 사진을 저장한 뒤 「사진 파일 추가」를 이용해 주세요.\n'+e.message);}}
 function bytesLabel(n){return (n/1024/1024).toFixed(1)+' MB';}
 async function fileToDataURL(blob){return await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.readAsDataURL(blob);});}
 function dataURLToBlob(data){const parts=String(data).split(',');const mime=(parts[0].match(/data:([^;]+)/)||[])[1]||'image/jpeg';const raw=atob(parts[1]||'');const a=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)a[i]=raw.charCodeAt(i);return new Blob([a],{type:mime});}
 function uri(url){const key=localKey(url);if(key)return photoObjects.get(key)||'';try{const u=new URL(url,location.href);return /^https?:$/.test(u.protocol)?u.href:'';}catch(e){return '';}}
 function wikiLink(x){const lang=/^[a-z-]+$/.test(x.wikiLang||'')?x.wikiLang:'en';return 'https://'+lang+'.wikipedia.org/wiki/'+encodeURIComponent(String(x.wikiTitle||x.aliases?.[0]||x.name).replaceAll(' ','_'));}
-function namedPhoto(f){const selected=(f.photos||[]).find(p=>p.hero)||(f.photos||[])[0];return selected&&uri(selected.url)?{...selected,confirmed:true}:wikiCache.get(f.id)||null;}
+function namedPhoto(f){const selected=(f.photos||[]).find(p=>p.url===edits.overrides[f.id]?.preferredPhotoUrl)||(f.photos||[]).find(p=>p.hero)||(f.photos||[])[0];return selected&&uri(selected.url)?{...selected,confirmed:true}:wikiCache.get(f.id)||null;}
 function gallery(f){const out=[];for(const x of f.photos||[]){if(uri(x.url))out.push({...x,confirmed:true});}const base=wikiCache.get(f.id);if(base&&uri(base.url)&&!out.some(p=>p.url===base.url))out.push({...base,confirmed:false});return out;}
 const typeEmoji=id=>category(id).icon||'🏛️';
 function photoTag(f){const p=namedPhoto(f);return p?(p.confirmed?'✅ 확인된 사진':'🔎 참고사진 · 검토 전'):'📸 사진 준비 중';}
@@ -80,14 +95,14 @@ function renderPhotos(){let a=filteredByCat(allLandmarks(),state.photoCat).filte
 function searchText(f){return [f.name,f.region,cName(f.countryCode),...(f.aliases||[]),f.wikiTitle,category(f.category).name,...(f.extraCategories||[]).map(a=>category(a).name)].join(' ');}
 function renderSearch(){const arr=state.search?allLandmarks().filter(x=>match(searchText(x),state.search)):allLandmarks().slice(0,12);return `<section class="panel"><div class="section-head"><h2>🔎 세계 명소 검색</h2><small>한국어 · 영어 · 현지어 · 부분검색</small></div><form class="search-form" id="landmarkSearchForm"><input id="landmarkSearchInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="경, Eiffel, 清水寺, 박물관" value="${esc(state.search)}"><button>검색</button></form><p class="muted small">iPad 한글 입력 보호: 입력 중 화면을 다시 그리지 않고, 검색 버튼을 누르면 결과가 표시됩니다.</p><h3>${state.search?`“${esc(state.search)}” 검색 결과 ${arr.length}개`:'처음 만나볼 명소'}</h3>${arr.length?`<div class="card-grid">${arr.map(landmarkCard).join('')}</div>`:`<div class="blank"><span class="icon">🔎</span>등록된 명소 중에는 검색 결과가 없습니다. 부모모드에서 위키데이터로 새 후보를 찾아볼 수 있습니다.</div>`}</section>`;}
 function renderSaved(kind){const ids=kind==='wish'?edits.wish:edits.favorite;const title=kind==='wish'?'⭐ 가보고 싶어요':'❤️ 즐겨찾기';const a=ids.map(getLandmark).filter(Boolean);return `<section class="panel"><div class="section-head"><h2>${title}</h2><small>${a.length}곳</small></div>${a.length?`<div class="card-grid">${a.map(landmarkCard).join('')}</div>`:`<div class="blank"><span class="icon">${kind==='wish'?'⭐':'❤️'}</span>명소 상세화면에서 마음에 드는 장소를 저장해 보세요.</div>`}</section>`;}
-function renderParent(){const items=allLandmarks(),numConfirmed=items.filter(f=>f.verified).length,numPhotographed=items.filter(f=>(f.photos||[]).length).length,editable=state.editorId?getLandmark(state.editorId):null;return `<section class="panel"><div class="section-head"><h2>👨‍👩‍👧 부모모드</h2><small>Stage 1.3 · 앱 전용 사진 보관함 / 사진 포함 백업</small></div>${!state.admin?`<div class="info">위의 <b>부모모드 켜기</b>를 눌러 수정·검색·저장 기능을 사용해 주세요. 아이가 보는 동안에는 꺼 두면 좋습니다.</div>`:`<div class="parent-stats"><div class="parent-stat"><strong>101</strong>나라</div><div class="parent-stat"><strong>${items.length}</strong>명소 초안</div><div class="parent-stat"><strong>${numConfirmed}</strong>명소 설명 확인 완료</div><div class="parent-stat"><strong>${numPhotographed}</strong>사진첩 저장됨</div></div><div class="info">대표이름과 별칭은 검색엔진의 제안 및 국가 일치 확인 후 부모가 승인합니다. 기초 등록 명소는 자료 검증 상태를 구분해 표시하며, 검색 결과만으로 설명·사진이 검증되었다고 표시하지 않습니다. 사진은 위키미디어에서 찾아 직접 고릅니다.</div><div class="action-row"><button class="btn primary" data-act="parent-new">＋ 새 명소 등록</button><button class="btn green" data-act="download-backup">⬇ 전체 백업</button><label class="btn blue" style="cursor:pointer">⬆ 백업 복원<input type="file" id="importBackup" accept=".json,application/json" style="display:none"></label></div>`}</section>
+function renderParent(){const items=allLandmarks(),numConfirmed=items.filter(f=>f.verified).length,numPhotographed=items.filter(f=>(f.photos||[]).length).length,editable=state.editorId?getLandmark(state.editorId):null;return `<section class="panel"><div class="section-head"><h2>👨‍👩‍👧 부모모드</h2><small>Stage 1.5 · 사진첩 누적 저장 / 백업</small></div>${!state.admin?`<div class="info">위의 <b>부모모드 켜기</b>를 눌러 수정·검색·저장 기능을 사용해 주세요. 아이가 보는 동안에는 꺼 두면 좋습니다.</div>`:`<div class="parent-stats"><div class="parent-stat"><strong>101</strong>나라</div><div class="parent-stat"><strong>${items.length}</strong>명소 초안</div><div class="parent-stat"><strong>${numConfirmed}</strong>명소 설명 확인 완료</div><div class="parent-stat"><strong>${numPhotographed}</strong>사진첩 저장됨</div></div><div class="info">대표이름과 별칭은 검색엔진의 제안 및 국가 일치 확인 후 부모가 승인합니다. 기초 등록 명소는 자료 검증 상태를 구분해 표시하며, 검색 결과만으로 설명·사진이 검증되었다고 표시하지 않습니다. 사진은 위키미디어에서 찾아 직접 고릅니다.</div><div class="action-row"><button class="btn primary" data-act="parent-new">＋ 새 명소 등록</button><button class="btn green" data-act="download-backup">⬇ 전체 백업</button><label class="btn blue" style="cursor:pointer">⬆ 백업 복원<input type="file" id="importBackup" accept=".json,application/json" style="display:none"></label></div>`}</section>
  ${state.admin?`${renderSelectionEngine()}${renderWikidataSearch()}${renderEditor(editable)}${renderCountryEditor()}<section class="panel"><div class="section-head"><h2>🗂️ 등록 명소 관리</h2><small>이름·분류·별칭·설명 수정</small></div>${items.map(f=>`<div class="result-row"><div><b>${esc(COUNTRY_MAP.get(f.countryCode)?.flag)} ${esc(f.name)}</b><div class="muted small">${esc(f.region)} · ${esc(category(f.category).name)} · ${f.nameAudit?.countryStatus==='matched'?'이름·국가 부모확인':(f.verified?'설명 검토완료':'기초자료/확인 전')} · 사진 ${(f.photos||[]).length}장</div></div><div class="action-row" style="margin-top:0"><button class="btn btn-small" data-act="edit-place" data-id="${esc(f.id)}">수정</button><button class="btn btn-small" data-act="open-detail" data-id="${esc(f.id)}">사진</button></div></div>`).join('')}</section>`:''}`;}
 
 // Stage 0.2: Search engine joins selection, identity checking, multilingual aliases.
 // Search data is deliberately provisional until a parent reviews it.
-const WD_COUNTRY={KR:'Q884',CN:'Q148',JP:'Q17',TW:'Q865',FR:'Q142'};
-const NATIVE_LANG={KR:'ko',CN:'zh',JP:'ja',TW:'zh',FR:'fr'};
-const LANGS=['ko','en','zh','ja','fr'];
+const WD_COUNTRY={KR:'Q884',CN:'Q148',JP:'Q17',TW:'Q865',FR:'Q142',IT:'Q38',ES:'Q29',US:'Q30',GB:'Q145',DE:'Q183',CH:'Q39',TH:'Q869',VN:'Q881',SG:'Q334',AU:'Q408'};
+const NATIVE_LANG={KR:'ko',CN:'zh',JP:'ja',TW:'zh',FR:'fr',IT:'it',ES:'es',US:'en',GB:'en',DE:'de',CH:'de',TH:'th',VN:'vi',SG:'en',AU:'en'};
+const LANGS=['ko','en','zh','ja','fr','it','es','de','th','vi'];
 const WD_TYPE_GROUP={all:['Q570116','Q41176','Q33506','Q46169','Q34038','Q8502','Q23413','Q16560','Q44539','Q22698','Q839954','Q12518','Q12280','Q330284','Q2977'], nature:['Q46169','Q34038','Q8502'],heritage:['Q839954','Q23413'],traditional:['Q16560','Q44539','Q2977'],modern:['Q41176','Q12518','Q12280'],park:['Q22698'],market:['Q330284'],museum:['Q33506']};
 function wdURL(endpoint,params){const u=new URL(endpoint);Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,String(v)));return u;}
 function wdString(o,lang){return String(o?.[lang]?.value||'').trim();}
@@ -418,17 +433,26 @@ function detailNeighbors(f){const a=allLandmarks().filter(x=>x.countryCode===f.c
 function stepDetail(delta){const f=getLandmark(state.detailId);if(!f)return;const n=detailNeighbors(f);const dest=delta<0?n.prev:n.next;if(!dest)return;showDetail(dest.id);const modal=$('#detailOverlay');if(modal)modal.scrollTop=0;}
 function renderDetail(f){const photos=gallery(f),p=photos[state.galleryIndex]||photos[0];const isFav=edits.favorite.includes(f.id),isWish=edits.wish.includes(f.id);const approvedCount=(f.photos||[]).length,neighbors=detailNeighbors(f);$('#detailContent').innerHTML=`<div class="modal-top"><div><span class="eyebrow">${esc(COUNTRY_MAP.get(f.countryCode)?.flag)} ${esc(cName(f.countryCode))} · ${esc(f.region)}</span><h2>${esc(f.name)}</h2><div class="pill-row"><span class="pill ${f.verified?'green':'purple'}">${f.verified?'✅ 설명 확인':'🔎 이름·설명 검토 초안'}</span><span class="pill">${esc(typeEmoji(f.category))} ${esc(category(f.category).name)}</span>${(f.extraCategories||[]).map(k=>`<span class="pill blue">${esc(category(k).name)}</span>`).join('')}</div></div><button class="close" data-act="close-detail" aria-label="닫기">✕</button></div>
  <div class="modal-photo-main"><div class="detail-photo-toolbar"><button class="btn blue btn-small" data-act="search-commons" data-id="${esc(f.id)}">📷 다른 사진 찾아보기</button></div><div class="photo-frame landscape" data-act="expand-photo"><img src="${esc(uri(p?.url||''))}" alt="${esc(f.name)}" style="${p?'':'display:none'}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback" style="${p?'display:none':''}"><span class="symbol">${esc(typeEmoji(f.category))}</span><b>${esc(f.name)}</b><span class="small">사진을 찾아보세요</span></div></div></div>
- ${state.admin?`<div class="action-row" style="margin-top:10px"><label class="btn green" style="cursor:pointer">📁 사진 파일 추가 (최대 20장)<input type="file" accept="image/*" multiple data-local-upload="${esc(f.id)}" style="display:none"></label>${p&&!localKey(p.url)?`<button class="btn blue" data-act="keep-current" data-id="${esc(f.id)}">📥 현재 사진 보관</button>`:''}<span class="muted small">일반 사진 앱과 분리된 명소대백과 전용 저장소에 축소·압축하여 보관됩니다.</span></div>`:''}
+ ${state.admin?`<div class="action-row" style="margin-top:10px"><label class="btn green" style="cursor:pointer">📁 사진 파일 추가 (최대 20장)<input type="file" accept="image/*" multiple data-local-upload="${esc(f.id)}" style="display:none"></label>${p&&!localKey(p.url)?`<button class="btn blue" data-act="keep-current" data-id="${esc(f.id)}">📥 현재 사진 보관</button>`:''}${p?`<button class="btn" data-act="set-feature-photo" data-id="${esc(f.id)}">⭐ 대표사진으로 지정</button>`:''}<span class="muted small">일반 사진 앱과 분리된 명소대백과 전용 저장소에 축소·압축하여 보관됩니다.</span></div>`:''}
  <div class="photo-credit">${p?`${p.confirmed?'✅ 부모가 선택한 사진':'🔎 자동으로 찾은 참고사진 · 일치와 라이선스 미확인'} · ${esc(p.title||f.name)} · ${esc(p.artist||'저작자 표기 확인 필요')} · ${esc(p.license||'출처 확인 필요')} ${p.licenseUrl?`· <a class="link" target="_blank" rel="noopener noreferrer" href="${esc(uri(p.licenseUrl))}">라이선스 ↗</a>`:''} ${p.source?`· <a class="link" target="_blank" rel="noopener noreferrer" href="${esc(uri(p.source))}">원본 ↗</a>`:''}`:'대표사진 미확보 · 인터넷에 연결되어 있다면 명소 사진을 불러올 수 있습니다.'}</div>
  ${photos.length?`<div class="gallery-strip">${photos.map((ph,i)=>`<button class="gallery-thumb ${i===state.galleryIndex?'active':''}" data-act="pick-gallery" data-index="${i}" aria-label="사진 ${i+1}"><img src="${esc(uri(ph.thumb||ph.url))}" alt="사진 ${i+1}" loading="lazy"></button>`).join('')}</div>`:''}
 
- <div class="desc-section"><h3>📖 어떤 곳일까요?</h3><p class="lead">${esc((edits.overrides[f.id]&&Object.prototype.hasOwnProperty.call(edits.overrides[f.id],'description'))?f.description:(CARD_SUMMARIES[f.id]||f.description||'명소의 특징을 설명하는 자료를 준비하고 있습니다.'))}</p></div>
+ <div class="desc-section"><h3>📖 어떤 곳일까요?</h3><p class="lead">${esc(f.description||CARD_SUMMARIES[f.id]||'명소의 특징을 설명하는 자료를 준비하고 있습니다.')}</p></div>
  <div class="action-row"><button class="btn ${isWish?'primary':''}" data-act="toggle-wish" data-id="${esc(f.id)}">${isWish?'⭐ 가보고 싶어요 ✓':'☆ 가보고 싶어요'}</button><button class="btn ${isFav?'primary':''}" data-act="toggle-fav" data-id="${esc(f.id)}">${isFav?'❤️ 즐겨찾기 ✓':'♡ 즐겨찾기'}</button><a class="btn ghost" href="${esc(uri(wikiLink(f)))}" target="_blank" rel="noopener noreferrer" style="text-decoration:none">📚 출처 문서 보기 ↗</a>${state.admin?`<button class="btn blue" data-act="edit-place" data-id="${esc(f.id)}">✏️ 이름·설명 수정</button>`:''}</div>
  <div class="detail-place-navigation"><button class="btn" data-act="detail-prev" ${neighbors.prev?'':'disabled'}>← 이전 명소${neighbors.prev?` · ${esc(neighbors.prev.name)}`:''}</button><span class="detail-position">${neighbors.index+1} / ${neighbors.total}</span><button class="btn" data-act="detail-next" ${neighbors.next?'':'disabled'}>다음 명소${neighbors.next?` · ${esc(neighbors.next.name)}`:''} →</button></div>
  <div id="commonsArea">${state.commonsMsg?`<div class="loading">${esc(state.commonsMsg)}</div>`:''}${renderCommons(f)}</div>`;
 }
 function updateModalPhoto(){if(!state.detailId)return;const f=getLandmark(state.detailId);if(!f)return;const oldScroll=$('#detailOverlay').scrollTop;renderDetail(f);$('#detailOverlay').scrollTop=oldScroll;}
-function renderCommons(f){const cached=commonsCache.get(f.id);if(!cached)return '';return `<div class="line"></div><h3>🔍 추가 사진 후보 (${cached.length}장)</h3><div class="warning">⚠️ 자동검색 결과입니다. 다른 장소 또는 비슷한 사진이 섞여 있을 수 있습니다. <b>사진과 장소의 일치 여부 및 사용조건을 꼭 확인</b>해 주세요.</div>${cached.length?`<div class="photo-candidate-grid">${cached.map((ph,i)=>`<div class="candidate-photo"><img src="${esc(uri(ph.thumb||ph.url))}" alt="${esc(ph.title)}" loading="lazy"><p><b>${esc(ph.title)}</b></p><p><span class="pill blue">${esc(ph.sourceType||'위키미디어')}</span> · 이용조건: ${esc(ph.license||'정보 없음')}</p><a class="link small" href="${esc(uri(ph.source))}" target="_blank" rel="noopener noreferrer">원본·저작자 확인 ↗</a>${state.admin?`<div class="action-row"><button class="btn btn-small green" data-act="approve-photo" data-id="${esc(f.id)}" data-index="${i}" ${!ph.allowed?'disabled title="사진 사용조건을 먼저 확인해야 합니다"':''}>📥 앱에 사진 저장</button></div>`:'<p class="muted small">부모모드에서 사진을 선택할 수 있어요.</p>'}</div>`).join('')}</div>`:'<div class="blank">검색된 사진이 없습니다. 다른 자료원을 확인해 주세요.</div>'}${renderSourcePortals(f)}`;}
+function renderCommons(f){
+ const cached=commonsCache.get(f.id);if(!cached)return '';
+ const viewable=cached.filter(p=>p.allowed);const unconfirmed=cached.length-viewable.length;
+ const shown=cached.map((ph,index)=>({...ph,index})).filter(ph=>state.candidateFilter==='usable'?ph.allowed:state.candidateFilter==='review'?!ph.allowed:true);
+ return `<div class="line"></div><div class="section-head"><h3>🔍 다른 사진 후보 (${cached.length}장)</h3><small>기본 이용조건 감지: ${viewable.length}장</small></div>
+ <div class="info">위키미디어 사진 분류·다국어 이름·사진 내용 태그를 함께 찾았습니다. <b>실제 해당 명소인지 확인한 후 저장</b>하세요. 캡처·크롭도 원본 이용조건을 따라야 합니다.</div>
+ <div class="action-row candidate-tools"><button class="btn ${state.candidateFilter==='all'?'primary':''}" data-act="candidate-filter" data-filter="all">전체 ${cached.length}</button><button class="btn ${state.candidateFilter==='usable'?'primary':''}" data-act="candidate-filter" data-filter="usable">이용조건 감지 ${viewable.length}</button><button class="btn ${state.candidateFilter==='review'?'primary':''}" data-act="candidate-filter" data-filter="review">원본 확인 필요 ${unconfirmed}</button><button class="btn blue" data-act="candidate-slideshow" data-id="${esc(f.id)}" ${viewable.length?'':'disabled'}>▶ 후보 사진 슬라이드쇼</button></div>
+ ${shown.length?`<div class="photo-candidate-grid">${shown.map(ph=>`<div class="candidate-photo">${ph.allowed?`<img src="${esc(uri(ph.thumb||ph.url))}" alt="${esc(ph.title)}" loading="lazy">`:`<div class="candidate-external">🔎 저작권 정보를 먼저 확인해 주세요</div>`}<p><b>${esc(ph.title)}</b></p><p><span class="pill blue">${esc(ph.sourceType||'위키미디어')}</span> · ${ph.allowed?'<span class="pill green">라이선스 종류 감지 · 원본 확인 후 보관</span>':'<span class="pill purple">원본 확인·외부 열람</span>'}</p><p class="muted small">${esc(ph.license||'라이선스 정보 없음')}${ph.artist?' · '+esc(ph.artist):''}</p><a class="link small" href="${esc(uri(ph.source))}" target="_blank" rel="noopener noreferrer">원본·저작자·라이선스 확인 ↗</a>${state.admin&&ph.allowed?`<div class="action-row"><button class="btn btn-small green" data-act="approve-photo" data-id="${esc(f.id)}" data-index="${ph.index}">📥 사진첩에 저장</button></div>`:''}</div>`).join('')}</div>`:'<div class="blank">현재 조건에 맞는 후보가 없습니다. 전체 후보 또는 외부 자료원을 확인해 주세요.</div>'}
+ ${renderSourcePortals(f)}`;
+}
 function setGallery(n){const f=getLandmark(state.detailId),len=gallery(f).length;if(!len)return;state.galleryIndex=(n+len)%len;updateModalPhoto();}
 function openLightbox(){const f=getLandmark(state.detailId);if(!f)return;const photos=gallery(f);if(!photos.length)return;state.lightbox=photos;state.photoIndex=state.galleryIndex;state.zoom=1;$('#photoOverlay').classList.add('open');$('#photoOverlay').setAttribute('aria-hidden','false');updateLightbox();}
 function updateLightbox(){const p=state.lightbox[state.photoIndex];if(!p)return;$('#photoCounter').textContent=`${state.photoIndex+1} / ${state.lightbox.length}`;$('#lightboxImage').src=uri(p.url);$('#lightboxImage').style.transform=`scale(${state.zoom})`;$('#photoAttribution').textContent=`${p.title||''} · ${p.license||'이용조건 확인 필요'}${p.artist?' · '+p.artist:''}`;}
@@ -452,15 +476,10 @@ function photoRelevance(ph,f,query){
  const q=String(query||'').toLowerCase();
  return matching.length*4+(q&&title.includes(q)?10:0)+(ph.width>=1000?2:0)-(ph.width<650?5:0)-(ph.height<420?4:0);
 }
-async function searchCommonsQuery(query){
+async function searchCommonsQuery(query,sourceType='파일 이름 검색'){
  const u=new URL('https://commons.wikimedia.org/w/api.php');
- Object.entries({action:'query',format:'json',origin:'*',generator:'search',gsrsearch:query,gsrnamespace:'6',gsrlimit:'24',prop:'imageinfo',iiprop:'url|mime|size|extmetadata',iiurlwidth:'960',iiextmetadatafilter:'LicenseShortName|Artist|Credit|UsageTerms'}).forEach(([k,v])=>u.searchParams.set(k,v));
- const d=await fetchJSON(u);return Object.values(d.query?.pages||{}).map(p=>{
-  const x=p.imageinfo?.[0];if(!x||!/^image\/(jpeg|png|webp)$/i.test(x.mime||''))return null;
-  const meta=x.extmetadata||{},lic=stripMarkup(meta.LicenseShortName?.value||meta.UsageTerms?.value||'');
-  const author=stripMarkup(meta.Artist?.value||'');
-  return {title:p.title||'',url:x.url,thumb:x.thumburl||x.url,source:x.descriptionurl||'',license:lic,artist:author,width:x.width||0,height:x.height||0,allowed:/\bCC\s*(?:BY|0)|public\s*domain|^PD\b|GFDL/i.test(lic),query};
- }).filter(x=>x&&uri(x.url));
+ Object.entries({...COMMONS_IMAGE_PARAMS,generator:'search',gsrsearch:query,gsrnamespace:'6',gsrlimit:'48'}).forEach(([k,v])=>u.searchParams.set(k,v));
+ return mediaPages(await fetchJSON(u),query,sourceType);
 }
 // Stage 1.1: source diversity. Wikimedia Commons category members are a distinct
 // discovery path from filename search; national tourism archives are external research
@@ -481,19 +500,30 @@ function renderSourcePortals(f){
  return `<div class="source-portal"><h4>🌍 사진 자료원 더 찾아보기</h4><p class="muted small">공용 사진 후보 외에 관광청·정부의 공식 자료도 참고할 수 있습니다. 외부 사이트의 사진은 이용허락을 확인한 뒤 사용하세요. 외부 자료는 자동 저장되지 않습니다.</p><div class="action-row">${links.map(([label,url])=>`<a class="btn btn-small ghost" target="_blank" rel="noopener noreferrer" href="${esc(url)}">${esc(label)} ↗</a>`).join('')}</div></div>`;
 }
 // ImageInfo handling is shared by both file-title and Commons-category retrieval.
+function usageClass(license){
+ const text=String(license||'').toUpperCase().replace(/[_]/g,' ').trim();
+ if(/\b(?:NC|ND)(?:\b|[-\s])|NONCOMMERCIAL|NO\s*DERIVATIVES|ALL RIGHTS RESERVED/.test(text))return 'external';
+ if(/\bCC\s*0\b|PUBLIC\s+DOMAIN|^PD[-\s]|^CC\s*PDM/.test(text))return 'open';
+ if(/\bCC\s*BY[\s-]*SA\b/.test(text))return 'attribution';
+ if(/\bCC\s*BY\b/.test(text))return 'attribution';
+ return 'unknown';
+}
+function mediaMetadata(p,x,query,sourceType){
+ const m=x.extmetadata||{};const lic=stripMarkup(m.LicenseShortName?.value||m.UsageTerms?.value||'');
+ return {title:p.title||'',url:x.url,thumb:x.thumburl||x.url,source:x.descriptionurl||'',license:lic,licenseUrl:stripMarkup(m.LicenseUrl?.value||''),artist:stripMarkup(m.Artist?.value||''),width:x.width||0,height:x.height||0,allowed:(usageClass(lic)==='open'||(usageClass(lic)==='attribution'&&Boolean(stripMarkup(m.Artist?.value||'')))),usage:usageClass(lic),query,sourceType};
+}
 function mediaPages(d,query,sourceType){return Object.values(d.query?.pages||{}).map(p=>{
  const x=p.imageinfo?.[0];if(!x||!/^image\/(jpeg|png|webp)$/i.test(x.mime||''))return null;
- const meta=x.extmetadata||{},lic=stripMarkup(meta.LicenseShortName?.value||meta.UsageTerms?.value||'');
- return {title:p.title||'',url:x.url,thumb:x.thumburl||x.url,source:x.descriptionurl||'',license:lic,artist:stripMarkup(meta.Artist?.value||''),width:x.width||0,height:x.height||0,allowed:/\bCC\s*(?:BY|0)|public\s*domain|^PD\b|GFDL/i.test(lic),query,sourceType};
+ return mediaMetadata(p,x,query,sourceType);
  }).filter(x=>x&&uri(x.url));}
-const COMMONS_IMAGE_PARAMS={action:'query',format:'json',origin:'*',prop:'imageinfo',iiprop:'url|mime|size|extmetadata',iiurlwidth:'960',iiextmetadatafilter:'LicenseShortName|Artist|Credit|UsageTerms'};
+const COMMONS_IMAGE_PARAMS={action:'query',format:'json',origin:'*',prop:'imageinfo',iiprop:'url|mime|size|extmetadata',iiurlwidth:'1400',iiextmetadatafilter:'LicenseShortName|LicenseUrl|Artist|Credit|UsageTerms'};
 async function discoverCommonsCategories(f){
  const name=(f.wikiTitle||f.aliases?.find(v=>/[A-Za-z]/.test(v))||f.name).trim();
  const u=new URL('https://commons.wikimedia.org/w/api.php');
  Object.entries({action:'query',format:'json',origin:'*',list:'search',srsearch:name,srnamespace:'14',srlimit:'12'}).forEach(([k,v])=>u.searchParams.set(k,v));
  const d=await fetchJSON(u),records=d.query?.search||[];
  const tokens=name.toLowerCase().replace(/\([^)]*\)/g,'').split(/[^a-z\p{L}\p{N}]+/u).filter(t=>t.length>=4&&!['national','museum','palace','park','great','tower'].includes(t));
- return records.filter(c=>{const title=c.title.toLowerCase();return tokens.length?tokens.some(t=>title.includes(t)):title.includes(name.toLowerCase());}).slice(0,4).map(c=>c.title);
+ return records.filter(c=>{const title=c.title.toLowerCase();return tokens.length?tokens.some(t=>title.includes(t)):title.includes(name.toLowerCase());}).slice(0,6).map(c=>c.title);
 }
 // Stage 1.2: identity-first Commons discovery, without changing saved data.
 // Wikimedia Wikidata P373 links a landmark to its Commons category. Unlike
@@ -521,68 +551,107 @@ async function wikidataCommonsCategory(f){
 }
 async function commonsSubcategories(category){
  const u=new URL('https://commons.wikimedia.org/w/api.php');
- Object.entries({action:'query',format:'json',origin:'*',list:'categorymembers',cmtitle:category,cmtype:'subcat',cmlimit:'50'}).forEach(([k,v])=>u.searchParams.set(k,v));
+ Object.entries({action:'query',format:'json',origin:'*',list:'categorymembers',cmtitle:category,cmtype:'subcat',cmlimit:'100'}).forEach(([k,v])=>u.searchParams.set(k,v));
  const d=await fetchJSON(u);
  // Only categories directly underneath the identified landmark's category.
  // Parent approval remains mandatory, because these can include events/people.
- return (d.query?.categorymembers||[]).map(x=>x.title).filter(x=>x.startsWith('Category:')).slice(0,6);
+ return (d.query?.categorymembers||[]).map(x=>x.title).filter(x=>x.startsWith('Category:')).slice(0,10);
 }
 async function photosFromCommonsCategory(category){
  const u=new URL('https://commons.wikimedia.org/w/api.php');
- Object.entries({...COMMONS_IMAGE_PARAMS,generator:'categorymembers',gcmtitle:category,gcmtype:'file',gcmlimit:'50'}).forEach(([k,v])=>u.searchParams.set(k,v));
+ Object.entries({...COMMONS_IMAGE_PARAMS,generator:'categorymembers',gcmtitle:category,gcmtype:'file',gcmlimit:'100'}).forEach(([k,v])=>u.searchParams.set(k,v));
  return mediaPages(await fetchJSON(u),category,'위키미디어 분류');
 }
 function diversityBonus(ph){
  const x=ph.title.toLowerCase();
  return /(aerial|panorama|interior|inside|night|sunset|snow|detail|roof|garden|courtyard|winter|summer|view)/i.test(x)?3:0;
 }
+// Identity-aware alias discovery for new Content First records without English names.
+// Never write search suggestions to the parent's saved encyclopedia data.
+const WD15={KR:'Q884',CN:'Q148',JP:'Q17',TW:'Q865',FR:'Q142',IT:'Q38',ES:'Q29',US:'Q30',GB:'Q145',DE:'Q183',CH:'Q39',TH:'Q869',VN:'Q881',SG:'Q334',AU:'Q408'};
+const LOCAL_LANGS={KR:'ko',CN:'zh',JP:'ja',TW:'zh',FR:'fr',IT:'it',ES:'es',US:'en',GB:'en',DE:'de',CH:'de',TH:'th',VN:'vi',SG:'en',AU:'en'};
+const aliasLookupCache=new Map();
+async function searchAliasesFromWikidata(f){
+ if(aliasLookupCache.has(f.id))return aliasLookupCache.get(f.id);
+ if(f.qid||f.wikiTitle)return null;
+ const u=wdURL('https://www.wikidata.org/w/api.php',{action:'wbsearchentities',search:f.name,language:'ko',format:'json',origin:'*',limit:'8'});
+ const res=await fetchJSON(u);const match=(res.search||[]).find(a=>norm(a.label)===norm(f.name)&&/^Q\d+$/.test(a.id||''));
+ if(!match){aliasLookupCache.set(f.id,null);return null;}
+ const lang=LOCAL_LANGS[f.countryCode]||'en';
+ const e=await wdEntity(match.id);const countries=wdIds(e,'P17');
+ if(countries.length&&!countries.includes(WD15[f.countryCode])){aliasLookupCache.set(f.id,null);return null;}
+ const names=[wdString(e.labels,'en'),wdString(e.labels,lang),wdString(e.labels,'ko'),...(e.aliases?.en||[]).slice(0,3).map(a=>a.value),...(e.aliases?.[lang]||[]).slice(0,3).map(a=>a.value)].filter(Boolean);
+ // No country claim: use names for searching only; do not use uncertain QID as verified structured identity.
+ const result={qid:countries.includes(WD15[f.countryCode])?match.id:'',names:[...new Set(names)]};
+ aliasLookupCache.set(f.id,result);return result;
+}
+async function exactCommonsQid(f){
+ if(/^Q\d+$/.test(f.qid||''))return f.qid;
+ const site=(f.wikiLang||'en')+'wiki';
+ if(!f.wikiTitle)return '';
+ const u=wdURL('https://www.wikidata.org/w/api.php',{action:'wbgetentities',sites:site,titles:f.wikiTitle,props:'info',format:'json',origin:'*'});
+ const d=await fetchJSON(u);return Object.values(d.entities||{}).find(x=>!x.missing&&/^Q\d+$/.test(x.id||''))?.id||'';
+}
 async function findCommons(id){
  if(state.commonsLoading)return;const f=getLandmark(id);if(!f)return;
- state.commonsLoading=true;state.commonsMsg='위키미디어 사진 검색과 명소별 사진 분류를 함께 찾고 있습니다…';updateModalPhoto();
- const queries=distinctPhotoQueries(f),hits=new Map(),errors=[];
- let categories=[],categoryCount=0;
+ state.commonsLoading=true;state.commonsMsg='다국어 이름·명소 사진분류·사진 내용 태그를 탐색 중입니다. 연결 상태에 따라 조금 걸릴 수 있습니다…';updateModalPhoto();
+ let extra=null;try{extra=await searchAliasesFromWikidata(f);}catch(e){console.warn('추가 별칭 검색 실패',e);}
+ const searchF=extra?{...f,qid:extra.qid||f.qid,aliases:[...(f.aliases||[]),...extra.names],wikiTitle:extra.names.find(a=>/[A-Za-z]{3}/.test(a))||f.wikiTitle}:f;
+ const queries=distinctPhotoQueries(searchF),hits=new Map(),errors=[];
+ let categories=[],categoryCount=0,depictsCount=0,qid='';
  const add=(ph)=>{
   const key=(ph.source||ph.title).toLowerCase();if(!key)return;
-  // A Commons category is specific to a place; still requires manual confirmation.
-  const score=photoRelevance(ph,f,ph.query)+(ph.sourceType==='위키미디어 분류'?7:0)+diversityBonus(ph);
-  if(ph.sourceType!=='위키미디어 분류'&&score<4)return;
+  const isExact=ph.sourceType==='구조화된 명소 사진';
+  const category=ph.sourceType==='위키미디어 분류';
+  const score=photoRelevance(ph,searchF,ph.query)+(category?9:0)+(isExact?18:0)+diversityBonus(ph);
+  if(!category&&!isExact&&score<4)return;
   const old=hits.get(key);if(!old||score>old.score)hits.set(key,{...ph,score});
  };
  try{
-  // Preserve usable candidates if a particular Commons endpoint fails.
-  for(let n=0;n<queries.length;n+=2){
-   const groups=await Promise.allSettled(queries.slice(n,n+2).map(searchCommonsQuery));
-   for(const g of groups){if(g.status==='rejected'){errors.push(String(g.reason?.message||'접속 실패'));continue;}
-    g.value.forEach(ph=>add({...ph,sourceType:'파일 이름 검색'}));
-   }
-  }
-  // First inspect the category connected to the actual Wikidata entity.
-  // Fall back to title-based category discovery only if identity lookup fails.
   let linked=null;
-  try{linked=await wikidataCommonsCategory(f);}catch(e){errors.push('식별번호 분류: '+e.message);}
-  if(linked?.category){categories=[linked.category];}
-  else try{categories=await discoverCommonsCategories(f);}catch(e){errors.push('분류 검색: '+e.message);}
-  const collectCategories=async(names)=>{
+  try{linked=await wikidataCommonsCategory(searchF);}catch(e){errors.push('명소 분류: '+e.message);}
+  try{qid=linked?.qid||await exactCommonsQid(searchF);}catch(e){errors.push('명소 식별: '+e.message);}
+  // Structured Commons "depicts" (P180) also finds photos with anonymous file names.
+  if(/^Q\d+$/.test(qid)){
+   try{const photos=await searchCommonsQuery('haswbstatement:P180='+qid,'구조화된 명소 사진');depictsCount=photos.length;photos.forEach(add);}catch(e){errors.push('사진 태그: '+e.message);}
+  }
+  if(linked?.category)categories=[linked.category];
+  else try{categories=await discoverCommonsCategories(searchF);}catch(e){errors.push('분류 찾기: '+e.message);}
+  const collect=async(names)=>{
    for(let n=0;n<names.length;n+=2){
-    const groups=await Promise.allSettled(names.slice(n,n+2).map(photosFromCommonsCategory));
-    for(const g of groups){if(g.status==='rejected'){errors.push('분류 사진: '+g.reason?.message);continue;}
-     categoryCount+=g.value.length;g.value.forEach(add);
-    }
+    const settled=await Promise.allSettled(names.slice(n,n+2).map(photosFromCommonsCategory));
+    for(const r of settled){if(r.status==='rejected'){errors.push('분류 사진: '+String(r.reason?.message||r.reason));continue;}categoryCount+=r.value.length;r.value.forEach(add);}
    }
   };
-  await collectCategories(categories);
+  await collect(categories);
   let subcategories=[];
-  if(linked?.category){
-   try{subcategories=await commonsSubcategories(linked.category);}catch(e){errors.push('하위 분류: '+e.message);}
-   await collectCategories(subcategories);
+  for(const name of categories.slice(0,2)){
+   try{subcategories.push(...await commonsSubcategories(name));}catch(e){errors.push('하위 분류: '+e.message);}
   }
-  const items=[...hits.values()].sort((a,b)=>b.score-a.score||b.width-a.width).slice(0,90);
-  commonsCache.set(id,items);
-  state.commonsMsg=items.length?`이름 검색 ${queries.length}종 · 연결 분류 ${linked?.category?1:0}곳 · 하위 분류 ${subcategories.length}곳 · 분류 원본 ${categoryCount}장 확인 · 중복 제거 후 후보 ${items.length}장. 장소와 저작권은 등록 전 직접 확인해 주세요.`:errors.length?`확보된 후보가 없습니다. 일부 자료원에 연결하지 못했습니다(${errors.length}건). 아래 공식 관광 자료원도 확인해 주세요.`:'현재 확보된 사진 후보가 없습니다. 아래 사진 자료원을 참고하세요.';
+  subcategories=[...new Set(subcategories)].slice(0,12);
+  await collect(subcategories);
+  // Text search is a fallback and supplement; keep calls bounded for iPad.
+  for(let n=0;n<Math.min(queries.length,6);n+=2){
+   const groups=await Promise.allSettled(queries.slice(n,n+2).map(q=>searchCommonsQuery(q)));
+   for(const g of groups){if(g.status==='rejected'){errors.push('이름 검색: '+String(g.reason?.message||g.reason));continue;}g.value.forEach(add);}
+  }
+  const items=[...hits.values()].sort((a,b)=>b.score-a.score||b.width-a.width).slice(0,150);
+  commonsCache.set(id,items);state.candidateFilter='all';
+  const available=items.filter(p=>p.allowed).length;
+  state.commonsMsg=items.length?`명소 내용태그 ${depictsCount}장 · 사진 분류 ${categories.length+subcategories.length}곳 · 분류 검색 ${categoryCount}장 · 정리한 후보 ${items.length}장 (이용조건 확인 ${available}장). 명소 일치는 저장 전에 확인해 주세요.${errors.length?' 일부 검색 실패 '+errors.length+'건.':''}`: `후보를 찾지 못했습니다.${errors.length?' 요청 실패 '+errors.length+'건.':''} 명소의 영어·현지어 별칭과 위키백과 문서명을 점검해 주세요.`;
  }catch(e){state.commonsMsg='검색 중 오류: '+e.message;}
  finally{state.commonsLoading=false;updateModalPhoto();}
 }
 
+const slideState={id:'',items:[],index:0,playing:false};
+function stopCandidateTimer(){if(candidateTimer){clearInterval(candidateTimer);candidateTimer=null;}}
+function showCandidateSlide(id){const photos=(commonsCache.get(id)||[]).filter(x=>x.allowed);if(!photos.length)return notify('이용조건이 확인된 사진 후보가 없습니다.');
+ slideState.id=id;slideState.items=photos;slideState.index=0;slideState.playing=true;$('#candidateOverlay').classList.add('open');$('#candidateOverlay').setAttribute('aria-hidden','false');updateCandidateSlide();autoCandidateSlide();}
+function updateCandidateSlide(){const ph=slideState.items[slideState.index];if(!ph)return;$('#candidateImage').src=uri(ph.thumb||ph.url);$('#candidateImage').alt=ph.title||'명소 사진 후보';$('#candidateTitle').textContent=ph.title.replace(/^File:/,'').replace(/_/g,' ');$('#candidateCount').textContent=`${slideState.index+1} / ${slideState.items.length}`;$('#candidateRights').textContent=[ph.artist,ph.license,ph.sourceType].filter(Boolean).join(' · ');$('#candidateSource').href=uri(ph.source);$('#candidatePause').textContent=slideState.playing?'⏸ 일시정지':'▶ 재생';}
+function autoCandidateSlide(){stopCandidateTimer();if(!slideState.playing)return;candidateTimer=setInterval(()=>{if(!$('#candidateOverlay').classList.contains('open')){stopCandidateTimer();return;}slideState.index=(slideState.index+1)%slideState.items.length;updateCandidateSlide();},6500);}
+function shiftCandidateSlide(delta){slideState.index=(slideState.index+delta+slideState.items.length)%slideState.items.length;updateCandidateSlide();autoCandidateSlide();}
+function closeCandidateSlide(){stopCandidateTimer();$('#candidateOverlay').classList.remove('open');$('#candidateOverlay').setAttribute('aria-hidden','true');slideState.playing=false;$('#candidateImage').removeAttribute('src');}
+function makeFeaturePhoto(id){if(!state.admin)return;const f=getLandmark(id),p=gallery(f)[state.galleryIndex];if(!p||!p.confirmed)return notify('사진첩에 보관한 사진만 대표사진으로 지정할 수 있습니다.');edits.overrides[id]={...(edits.overrides[id]||{}),preferredPhotoUrl:p.url};if(save()){notify('대표사진을 지정했습니다.');updateModalPhoto();}}
 function approvePhoto(id,index){storeCandidatePhoto(id,index);}
 
 function setView(view){if(tourActive)stopCountryTour();if(view==='parent'&&!state.admin){state.view=view;render();return;}state.view=view;render();window.scrollTo({top:0,behavior:'instant'});}
@@ -590,8 +659,8 @@ function editRecord(id){if(!state.admin){notify('부모모드를 켜 주세요.'
 function addRecord(form){const fd=new FormData(form),id=String(fd.get('id')||'').trim(),name=String(fd.get('name')||'').trim(),countryCode=String(fd.get('countryCode')||'');if(!name||!COUNTRY_MAP.has(countryCode))return alert('명소 이름과 나라를 확인해 주세요.');const aliases=[...new Set(String(fd.get('aliases')||'').split(/[,\n;]+/).map(s=>s.trim()).filter(Boolean))];const record={countryCode,name,category:String(fd.get('category')||'nature'),extraCategories:fd.get('extraCategory')?[String(fd.get('extraCategory'))]:[],region:String(fd.get('region')||'').trim(),qid:String(fd.get('qid')||'').trim(),aliases,description:String(fd.get('description')||'').trim(),wikiLang:'en',wikiTitle:String(fd.get('wikiTitle')||'').trim(),verified:fd.get('verified')==='on',status:fd.get('verified')==='on'?'완성':'초안'};if(record.qid&&allLandmarks().some(x=>x.id!==id&&x.qid===record.qid))return alert('같은 위키데이터 QID가 다른 명소에 이미 등록되어 있습니다. 중복 항목을 먼저 확인해 주세요.');if(id){const old=getLandmark(id);if(!old)return alert('수정할 항목을 찾지 못했습니다.');if(old.countryCode!==countryCode)return alert('기존 항목의 나라 변경은 중복 방지를 위해 제한합니다. 새 항목으로 등록해 주세요.');if(!record.name)return; if(norm(old.name)!==norm(record.name)||(old.qid||'')!==(record.qid||'')||JSON.stringify(old.aliases||[])!==JSON.stringify(record.aliases)){record.nameAudit=null;record.selectionStatus='이름·별칭 직접 수정, 재검토 필요';} if(seedMap.has(id))edits.overrides[id]={...(edits.overrides[id]||{}),...record};else{const a=edits.added.findIndex(x=>x.id===id);if(a<0)return;edits.added[a]={...edits.added[a],...record};}}else{if(allLandmarks().some(x=>x.countryCode===countryCode&&norm(x.name)===norm(name)))return alert('같은 나라에 동일한 명소 이름이 등록되어 있습니다.');record.id=countryCode+'-U'+Date.now().toString(36);record.photos=[];record.source='user';edits.added.push(record);}if(save()){state.pendingResearch=null;const itemId=id||record.id;state.editorId=itemId;notify('명소 정보를 안전하게 저장했습니다.');render();}}
 async function findWikidata(q){if(state.wikidataLoading)return;state.wikidataLoading=true;state.wikidataMessage='위키데이터 검색 중…';state.wikidataResults=[];render();try{let a=[];for(const language of ['ko','en']){const u=new URL('https://www.wikidata.org/w/api.php');Object.entries({action:'wbsearchentities',format:'json',origin:'*',language,uselang:language,search:q,limit:'8'}).forEach(([k,v])=>u.searchParams.set(k,v));const d=await fetchJSON(u);a.push(...(d.search||[]));}const m=new Map();a.forEach(v=>{if(!m.has(v.id))m.set(v.id,{id:v.id,label:v.label||'',description:v.description||''});});state.wikidataResults=[...m.values()].slice(0,12);state.wikidataMessage=`${state.wikidataResults.length}개 후보를 찾았습니다. 관광지인지, 나라가 맞는지 원본을 확인하세요.`;}catch(e){state.wikidataResults=[];state.wikidataMessage='위키데이터에 연결하지 못했습니다. 인터넷과 사이트 연결을 확인해 주세요.';}finally{state.wikidataLoading=false;render();}}
 function useWikidata(qid){const r=state.wikidataResults.find(x=>x.id===qid);if(!r)return;inspectResearch(qid,'',state.researchCountry,null);}
-async function downloadBackup(){if(!state.admin)return;try{notify('사진을 포함한 백업파일을 생성하는 중입니다…');const entries=await dbAll();const images=[];for(const p of entries)images.push({id:p.id,placeId:p.placeId,created:p.created,blob:await fileToDataURL(p.blob)});const exportData={format:'world-landmarks-photo-library-backup-v2',app:'세계 명소대백과',version:BASE.version,exported:new Date().toISOString(),edits,images};const blob=new Blob([JSON.stringify(exportData)],{type:'application/json'});const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='World_Landmarks_Photos_Backup_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);alert('사진 '+images.length+'장 포함 / 백업파일 '+bytesLabel(blob.size)+'\n파일 앱의 iCloud Drive / 세계 명소대백과 폴더에 보관하세요. 자동 iCloud 저장은 아닙니다.');}catch(e){alert('사진 백업 실패: '+e.message);}}
-async function restoreBackup(file){if(!file||!state.admin)return;let raw;try{raw=JSON.parse(await file.text());}catch(e){return alert('읽을 수 있는 JSON 파일이 아닙니다.');}if(!['world-landmarks-stage01-backup-v1','world-landmarks-photo-library-backup-v2'].includes(raw.format)||!raw.edits||!Array.isArray(raw.edits.added)||!Array.isArray(raw.edits.favorite)||!Array.isArray(raw.edits.wish))return alert('명소대백과 백업 형식이 아닙니다.');const photos=raw.images||[];if(!Array.isArray(photos))return alert('사진 백업 형식이 올바르지 않습니다.');if(!confirm(`기존 자료를 백업으로 교체합니다. 먼저 현재 백업을 만들어 두셨나요?\n백업 사진: ${photos.length}장`))return;try{for(const p of photos){if(!p.id||!p.blob)throw Error('사진 자료 누락');const entry={id:p.id,placeId:p.placeId,created:p.created,blob:dataURLToBlob(p.blob)};await dbPut(entry);photoObject(entry);}const next={added:raw.edits.added,overrides:raw.edits.overrides||{},countryOverviews:raw.edits.countryOverviews||{},favorite:raw.edits.favorite,wish:raw.edits.wish};const before=edits;edits=next;if(!save()){edits=before;throw Error('명소 메타데이터 저장 실패');}state.editorId='';render();notify('명소와 사진 '+photos.length+'장을 복원했습니다.');}catch(e){alert('복원 실패: '+e.message+'\n이미 저장된 기존 자료를 먼저 확인해 주세요.');}}
+async function downloadBackup(){if(!state.admin)return;try{notify('사진을 포함한 백업파일을 생성하는 중입니다…');const entries=await dbAll();const images=[];for(const p of entries)images.push({...p,blob:await fileToDataURL(p.blob)});const exportData={format:'world-landmarks-photo-library-backup-v2',app:'세계 명소대백과',version:BASE.version,exported:new Date().toISOString(),edits,images};const blob=new Blob([JSON.stringify(exportData)],{type:'application/json'});const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='World_Landmarks_Photos_Backup_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);alert('사진 '+images.length+'장 포함 / 백업파일 '+bytesLabel(blob.size)+'\n파일 앱의 iCloud Drive / 세계 명소대백과 폴더에 보관하세요. 자동 iCloud 저장은 아닙니다.');}catch(e){alert('사진 백업 실패: '+e.message);}}
+async function restoreBackup(file){if(!file||!state.admin)return;let raw;try{raw=JSON.parse(await file.text());}catch(e){return alert('읽을 수 있는 JSON 파일이 아닙니다.');}if(!['world-landmarks-stage01-backup-v1','world-landmarks-photo-library-backup-v2'].includes(raw.format)||!raw.edits||!Array.isArray(raw.edits.added)||!Array.isArray(raw.edits.favorite)||!Array.isArray(raw.edits.wish))return alert('명소대백과 백업 형식이 아닙니다.');const photos=raw.images||[];if(!Array.isArray(photos))return alert('사진 백업 형식이 올바르지 않습니다.');if(!confirm(`기존 자료를 백업으로 교체합니다. 먼저 현재 백업을 만들어 두셨나요?\n백업 사진: ${photos.length}장`))return;try{for(const p of photos){if(!p.id||!p.blob)throw Error('사진 자료 누락');const entry={...p,blob:dataURLToBlob(p.blob)};await dbPut(entry);photoObject(entry);}const next={added:raw.edits.added,overrides:raw.edits.overrides||{},countryOverviews:raw.edits.countryOverviews||{},favorite:raw.edits.favorite,wish:raw.edits.wish};const before=edits;edits=next;if(!save()){edits=before;throw Error('명소 메타데이터 저장 실패');}state.editorId='';render();notify('명소와 사진 '+photos.length+'장을 복원했습니다.');}catch(e){alert('복원 실패: '+e.message+'\n이미 저장된 기존 자료를 먼저 확인해 주세요.');}}
 
 const listen=(sel,fn)=>document.addEventListener('change',e=>{if(e.target.matches(sel))fn(e.target)});
 listen('[data-local-upload]',input=>{importLocalPhotos(input.files,input.dataset.localUpload);input.value='';});
@@ -602,9 +671,9 @@ listen('#researchCountrySelect',input=>{state.researchCountry=input.value;state.
 listen('#researchCategorySelect',input=>{state.researchCategory=input.value;state.researchDiscovery=[];state.researchPreview=null;state.researchMessage='';render();});
 $('#parentToggle').addEventListener('click',()=>{state.admin=!state.admin;if(!state.admin&&state.view==='parent')state.editorId='';render();notify(state.admin?'부모모드를 켰습니다.':'부모모드를 껐습니다.');});
 document.addEventListener('submit',e=>{const id=e.target.getAttribute('id');if(!['countryForm','landmarkSearchForm','wikidataForm','placeEditForm','overviewForm'].includes(id))return;e.preventDefault();if(id==='countryForm'){state.countrySearch=$('#countryInput').value.trim();render();}if(id==='landmarkSearchForm'){state.search=$('#landmarkSearchInput').value.trim();render();}if(id==='wikidataForm'){const q=$('#wikidataInput').value.trim();state.wikidataQuery=q;if(q)findWikidata(q);else notify('검색어를 입력해 주세요.');}if(id==='placeEditForm'&&state.admin)addRecord(e.target);if(id==='overviewForm'&&state.admin){const fd=new FormData(e.target),code=String(fd.get('code'));if(COUNTRY_MAP.has(code)){edits.countryOverviews[code]=String(fd.get('overview')||'').trim();if(save()){notify('나라 공통설명을 저장했습니다.');render();}}}});
-document.addEventListener('click',e=>{if(e.target.id==='detailOverlay'){closeDetail();return;}const el=e.target.closest('[data-go],[data-act]');if(!el)return;const id=el.dataset.id,act=el.dataset.act,go=el.dataset.go;if(go){setView(go);return;}switch(act){case 'open-detail':showDetail(id);break;case 'close-detail':closeDetail();break;case 'detail-prev':stepDetail(-1);break;case 'detail-next':stepDetail(1);break;case 'toggle-wish':toggleList('wish',id);break;case 'toggle-fav':toggleList('favorite',id);break;case 'cat-go':state.cat=el.dataset.cat;setView('landmarks');break;case 'filter-cat':state.cat=el.dataset.cat;render();break;case 'filter-photo-cat':state.photoCat=el.dataset.cat;render();break;case 'set-country':state.country=el.dataset.code;state.countrySearch='';state.countryCardsVisible=false;state.countryFilter='all';render();break;case 'country-go':state.country=el.dataset.code;state.countrySearch='';state.countryCardsVisible=false;state.countryFilter='all';setView('countries');break;case 'country-clear':state.countrySearch='';render();break;case 'toggle-all-countries':showAllCountries=!showAllCountries;state.countryExpanded=false;render();break;case 'start-country-tour':startCountryTour(el.dataset.code);break;case 'tour-close':if(tourFinishing)showCountryAfterTour();else stopCountryTour();break;case 'tour-next':if(tourFinishing)showCountryAfterTour();else advanceCountryTour(1);break;case 'tour-prev':advanceCountryTour(-1);break;case 'tour-toggle':toggleCountryTour();break;case 'toggle-country-list':state.countryExpanded=!state.countryExpanded;render();break;case 'toggle-country-cards':state.countryCardsVisible=!state.countryCardsVisible;render();break;case 'country-filter':state.countryFilter=el.dataset.cat;render();break;case 'guide-start':guideStart();break;case 'guide-stop':guideStop();updateModalPhoto();break;case 'guide-read':guideStop();state.guidePlaying=true;guideStep(++guideRun,true);break;case 'pick-gallery':guideStop();state.galleryIndex=Number(el.dataset.index)||0;updateModalPhoto();break;case 'gallery-prev':guideStop();setGallery(state.galleryIndex-1);break;case 'gallery-next':guideStop();setGallery(state.galleryIndex+1);break;case 'expand-photo':openLightbox();break;case 'close-photo':$('#photoOverlay').classList.remove('open');$('#photoOverlay').setAttribute('aria-hidden','true');break;case 'photo-prev':state.photoIndex=(state.photoIndex+state.lightbox.length-1)%state.lightbox.length;state.zoom=1;updateLightbox();break;case 'photo-next':state.photoIndex=(state.photoIndex+1)%state.lightbox.length;state.zoom=1;updateLightbox();break;case 'photo-zoom-in':state.zoom=Math.min(3,state.zoom+.4);updateLightbox();break;case 'photo-zoom-out':state.zoom=Math.max(1,state.zoom-.4);updateLightbox();break;case 'search-commons':findCommons(id);break;case 'approve-photo':approvePhoto(id,Number(el.dataset.index));break;case 'keep-current':keepCurrentPhoto(id);break;case 'edit-guide-caption':editGuideCaption(id);break;case 'inspect-seed':inspectSeed(id);break;case 'inspect-discovery':inspectDiscovery(el.dataset.qid);break;case 'discover-landmarks':discoverLandmarks();break;case 'approve-research':approveResearch();break;case 'research-to-editor':researchToEditor();break;case 'clear-research':state.researchPreview=null;state.researchPreviewError='';render();break;case 'parent-new':state.pendingResearch=null;state.editorId='';state.view='parent';render();$('#editArea')?.scrollIntoView({behavior:'smooth'});break;case 'edit-place':editRecord(id);break;case 'use-wikidata':useWikidata(el.dataset.qid);break;case 'download-backup':downloadBackup();break;case 'delete-added':if(state.admin&&!seedMap.has(id)&&confirm('사용자가 추가한 이 명소를 삭제할까요? 삭제 전 백업을 권장합니다.')){edits.added=edits.added.filter(f=>f.id!==id);edits.wish=edits.wish.filter(k=>k!==id);edits.favorite=edits.favorite.filter(k=>k!==id);delete edits.overrides[id];if(save()){state.editorId='';render();}}break;}});
-function closeDetail(){guideStop();$('#detailOverlay').classList.remove('open');$('#detailOverlay').setAttribute('aria-hidden','true');state.detailId='';}
-document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#countryTour')?.classList.contains('open')){stopCountryTour();return;}if($('#photoOverlay').classList.contains('open')){$('#photoOverlay').classList.remove('open');return;}if($('#detailOverlay').classList.contains('open'))closeDetail();});
+document.addEventListener('click',e=>{if(e.target.id==='detailOverlay'){closeDetail();return;}const el=e.target.closest('[data-go],[data-act]');if(!el)return;const id=el.dataset.id,act=el.dataset.act,go=el.dataset.go;if(go){setView(go);return;}switch(act){case 'open-detail':showDetail(id);break;case 'close-detail':closeDetail();break;case 'detail-prev':stepDetail(-1);break;case 'detail-next':stepDetail(1);break;case 'toggle-wish':toggleList('wish',id);break;case 'toggle-fav':toggleList('favorite',id);break;case 'cat-go':state.cat=el.dataset.cat;setView('landmarks');break;case 'filter-cat':state.cat=el.dataset.cat;render();break;case 'filter-photo-cat':state.photoCat=el.dataset.cat;render();break;case 'set-country':state.country=el.dataset.code;state.countrySearch='';state.countryCardsVisible=false;state.countryFilter='all';render();break;case 'country-go':state.country=el.dataset.code;state.countrySearch='';state.countryCardsVisible=false;state.countryFilter='all';setView('countries');break;case 'country-clear':state.countrySearch='';render();break;case 'toggle-all-countries':showAllCountries=!showAllCountries;state.countryExpanded=false;render();break;case 'start-country-tour':startCountryTour(el.dataset.code);break;case 'tour-close':if(tourFinishing)showCountryAfterTour();else stopCountryTour();break;case 'tour-next':if(tourFinishing)showCountryAfterTour();else advanceCountryTour(1);break;case 'tour-prev':advanceCountryTour(-1);break;case 'tour-toggle':toggleCountryTour();break;case 'toggle-country-list':state.countryExpanded=!state.countryExpanded;render();break;case 'toggle-country-cards':state.countryCardsVisible=!state.countryCardsVisible;render();break;case 'country-filter':state.countryFilter=el.dataset.cat;render();break;case 'guide-start':guideStart();break;case 'guide-stop':guideStop();updateModalPhoto();break;case 'guide-read':guideStop();state.guidePlaying=true;guideStep(++guideRun,true);break;case 'pick-gallery':guideStop();state.galleryIndex=Number(el.dataset.index)||0;updateModalPhoto();break;case 'gallery-prev':guideStop();setGallery(state.galleryIndex-1);break;case 'gallery-next':guideStop();setGallery(state.galleryIndex+1);break;case 'expand-photo':openLightbox();break;case 'close-photo':$('#photoOverlay').classList.remove('open');$('#photoOverlay').setAttribute('aria-hidden','true');break;case 'photo-prev':state.photoIndex=(state.photoIndex+state.lightbox.length-1)%state.lightbox.length;state.zoom=1;updateLightbox();break;case 'photo-next':state.photoIndex=(state.photoIndex+1)%state.lightbox.length;state.zoom=1;updateLightbox();break;case 'photo-zoom-in':state.zoom=Math.min(3,state.zoom+.4);updateLightbox();break;case 'photo-zoom-out':state.zoom=Math.max(1,state.zoom-.4);updateLightbox();break;case 'search-commons':findCommons(id);break;case 'candidate-filter':state.candidateFilter=el.dataset.filter||'all';updateModalPhoto();break;case 'candidate-slideshow':showCandidateSlide(id);break;case 'candidate-close':closeCandidateSlide();break;case 'candidate-prev':shiftCandidateSlide(-1);break;case 'candidate-next':shiftCandidateSlide(1);break;case 'candidate-pause':slideState.playing=!slideState.playing;updateCandidateSlide();autoCandidateSlide();break;case 'set-feature-photo':makeFeaturePhoto(id);break;case 'approve-photo':approvePhoto(id,Number(el.dataset.index));break;case 'keep-current':keepCurrentPhoto(id);break;case 'edit-guide-caption':editGuideCaption(id);break;case 'inspect-seed':inspectSeed(id);break;case 'inspect-discovery':inspectDiscovery(el.dataset.qid);break;case 'discover-landmarks':discoverLandmarks();break;case 'approve-research':approveResearch();break;case 'research-to-editor':researchToEditor();break;case 'clear-research':state.researchPreview=null;state.researchPreviewError='';render();break;case 'parent-new':state.pendingResearch=null;state.editorId='';state.view='parent';render();$('#editArea')?.scrollIntoView({behavior:'smooth'});break;case 'edit-place':editRecord(id);break;case 'use-wikidata':useWikidata(el.dataset.qid);break;case 'download-backup':downloadBackup();break;case 'delete-added':if(state.admin&&!seedMap.has(id)&&confirm('사용자가 추가한 이 명소를 삭제할까요? 삭제 전 백업을 권장합니다.')){edits.added=edits.added.filter(f=>f.id!==id);edits.wish=edits.wish.filter(k=>k!==id);edits.favorite=edits.favorite.filter(k=>k!==id);delete edits.overrides[id];if(save()){state.editorId='';render();}}break;}});
+function closeDetail(){if($('#candidateOverlay').classList.contains('open'))closeCandidateSlide();guideStop();$('#detailOverlay').classList.remove('open');$('#detailOverlay').setAttribute('aria-hidden','true');state.detailId='';}
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#candidateOverlay').classList.contains('open')){closeCandidateSlide();return;}if($('#countryTour')?.classList.contains('open')){stopCountryTour();return;}if($('#photoOverlay').classList.contains('open')){$('#photoOverlay').classList.remove('open');return;}if($('#detailOverlay').classList.contains('open'))closeDetail();});
 let startTouch=null;
 $('#photoOverlay').addEventListener('touchstart',e=>{if(e.touches.length===1)startTouch=e.touches[0].clientX;else startTouch=null;},{passive:true});
 $('#photoOverlay').addEventListener('touchend',e=>{if(startTouch===null||state.zoom>1||!e.changedTouches[0])return;const dx=e.changedTouches[0].clientX-startTouch;startTouch=null;if(Math.abs(dx)>65&&state.lightbox.length){state.photoIndex=(state.photoIndex+(dx<0?1:-1)+state.lightbox.length)%state.lightbox.length;updateLightbox();}},{passive:true});
