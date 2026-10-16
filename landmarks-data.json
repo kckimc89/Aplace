@@ -1,7 +1,7 @@
 {
   "title": "세계 명소대백과",
-  "version": "Stage 1.2",
-  "release": "Stage 1.2 · Stage 1.1 데이터 보존 · 연결 Commons 분류와 하위 분류 탐색",
+  "version": "Stage 1.3",
+  "release": "Stage 1.3 · Stage 1.1 데이터 보존 · 연결 Commons 분류와 하위 분류 탐색",
   "basedOn": "Stage 0.1 (40개 명소 초안과 사진/화면 보존)",
   "categories": [
     {
