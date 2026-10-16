@@ -48,3 +48,22 @@
 
 /* Stage 1.6: preserve paragraph breaks in parent-added information */
 .desc-section .lead{white-space:pre-line;line-height:1.85;overflow-wrap:anywhere}
+
+/* Stage 1.7: generous, beautiful first-page story card; separate photo page. */
+.story-header{padding:6px 3px 14px}.story-header h2{font-size:clamp(27px,4vw,39px);letter-spacing:-.055em;color:#5b3019}
+.story-tabbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:18px;background:#f8eddb;padding:7px;margin:10px 0 19px}
+.story-tab{border:0;border-radius:13px;background:transparent;color:#775640;font-weight:900;font-size:clamp(15px,2.2vw,19px);min-height:53px;cursor:pointer}
+.story-tab.selected{background:#fff;color:#84451b;box-shadow:0 2px 9px rgba(95,55,17,.12)}
+.story-paper{background:linear-gradient(165deg,#fffdfa 0%,#fff8eb 100%);border:1px solid #e9d5b8;box-shadow:inset 0 0 0 5px rgba(255,255,255,.4);border-radius:25px;padding:clamp(21px,4vw,42px) clamp(20px,5vw,55px);color:#513929}
+.story-ornament{text-align:center;color:#b58d55;font-size:14px;letter-spacing:.1em;font-weight:800}
+.story-kicker{text-align:center;margin:25px 0 8px;color:#a77646;font-size:16px;font-weight:850;letter-spacing:.04em}
+.story-heading{text-align:center;font-size:clamp(27px,4vw,39px);line-height:1.3;letter-spacing:-.05em;color:#673918;margin:0 0 23px}
+.story-rule{margin:0 auto 27px;width:62px;border-top:3px solid #d9af76}
+.story-prose{font-size:clamp(19px,2.3vw,23px);line-height:1.99;word-break:keep-all;overflow-wrap:break-word;letter-spacing:-.021em}
+.story-prose p{margin:0 0 1.32em}.story-prose p:last-child{margin-bottom:0}
+.story-tail{text-align:center;color:#c49b68;font-size:26px;margin:25px 0 0}
+.story-next{text-align:center;margin:24px 0}.story-photo-button{font-size:18px;min-height:56px;border-radius:16px;padding:14px 22px}
+.photo-return{margin:14px 0 20px;text-align:center}.photo-return>.btn{min-height:46px}
+#candidateSave{background:#266f40!important;border-color:#62ae78!important;color:#fff!important;min-height:43px}
+#candidateSave[hidden]{display:none!important}
+@media(max-width:560px){.story-paper{padding:27px 20px}.story-prose{font-size:19px;line-height:1.92}.story-tab{font-size:15px;min-height:50px}.story-heading{font-size:29px}.story-next .btn{font-size:16px}}

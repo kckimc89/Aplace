@@ -1,7 +1,7 @@
 {
   "title": "세계 명소대백과",
-  "version": "Stage 1.6",
-  "release": "Stage 1.6 · GROWING ENCYCLOPEDIA · 374개 명소별 상세설명 · 사진 누적관리 · 안전한 백업",
+  "version": "1.7",
+  "release": "Stage 1.7 STORY FIRST",
   "basedOn": "Stage 1.5 SEARCH & STORY 전체 기준 (기본 ID·사진·사용자 저장 구조 유지)",
   "categories": [
     {
