@@ -902,7 +902,37 @@ async function restoreBackup(file){
    wish:[...new Set([...edits.wish,...incoming.wish])]
   };
   const previous=edits;edits=next;if(!save()){edits=previous;throw Error('설명·설정 저장 실패');}
-  if(raw.albumFeatures&&typeof raw.albumFeatures==='object'){for(const [placeId,url] of Object.entries(raw.albumFeatures)){if(typeof url==='string'&&!albumFeatures.has(placeId))await commitAlbumFeature(placeId,url);}}if(raw.albumOrders&&typeof raw.albumOrders==='object'){for(const [placeId,order] of Object.entries(raw.albumOrders)){if(Array.isArray(order)&&!albumOrders.has(placeId))await commitAlbumOrder(placeId,order);}}state.editorId='';render();notify('기존 자료를 유지하고 사진 '+addedPhotos+'장을 추가 복원했습니다.');
+  // Restore explicit album settings from the selected backup even if a local
+  // albumSettings record already exists. The old implementation restored the
+  // feature first (creating an empty order), then skipped the actual order
+  // because albumOrders.has(placeId) was already true.
+  // A legacy backup lacking these fields must leave local settings untouched.
+  const backupOrders=raw.albumOrders&&typeof raw.albumOrders==='object'&&!Array.isArray(raw.albumOrders)?raw.albumOrders:{};
+  const backupFeatures=raw.albumFeatures&&typeof raw.albumFeatures==='object'&&!Array.isArray(raw.albumFeatures)?raw.albumFeatures:{};
+  const albumIds=[...new Set([...Object.keys(backupOrders),...Object.keys(backupFeatures)])];
+  let restoredOrders=0,restoredFeatures=0;
+  if(albumIds.length){
+   const d=await db();
+   const records=[];
+   for(const placeId of albumIds){
+    const backedOrder=backupOrders[placeId];
+    const backedFeature=backupFeatures[placeId];
+    if(Object.hasOwn(backupOrders,placeId)&&(!Array.isArray(backedOrder)||!backedOrder.every(url=>typeof url==='string')))throw Error('백업 사진 순서 정보가 올바르지 않습니다: '+placeId);
+    if(Object.hasOwn(backupFeatures,placeId)&&typeof backedFeature!=='string')throw Error('백업 대표사진 정보가 올바르지 않습니다: '+placeId);
+    const order=Object.hasOwn(backupOrders,placeId)?backedOrder.slice():orderedPhotoUrls(placeId).slice();
+    const preferredPhotoUrl=Object.hasOwn(backupFeatures,placeId)?backedFeature:featurePhotoUrl(placeId);
+    records.push({placeId,order,preferredPhotoUrl,updated:new Date().toISOString()});
+   }
+   await new Promise((resolve,reject)=>{
+    const tx=d.transaction(ALBUM_STORE,'readwrite');
+    for(const record of records)tx.objectStore(ALBUM_STORE).put(record);
+    tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);
+   });
+   for(const record of records){albumOrders.set(record.placeId,record.order);if(record.preferredPhotoUrl)albumFeatures.set(record.placeId,record.preferredPhotoUrl);else albumFeatures.delete(record.placeId);}
+   restoredOrders=Object.keys(backupOrders).length;
+   restoredFeatures=Object.keys(backupFeatures).length;
+  }
+  state.editorId='';render();notify('사진 '+addedPhotos+'장 추가 · 사진순서 '+restoredOrders+'곳 · 대표사진 '+restoredFeatures+'곳 복원');alert('복원이 완료되었습니다.\n추가된 사진: '+addedPhotos+'장\n백업 순서 적용: '+restoredOrders+'개 명소\n대표사진 적용: '+restoredFeatures+'개 명소\n\n백업에 포함된 순서가 있으면 기존 기기의 순서보다 우선 적용합니다.');
  }catch(e){alert('복원 중단: '+e.message+'\n기존 자료를 삭제하지 않았습니다. 저장 상태를 확인해 주세요.');}
 }
 
