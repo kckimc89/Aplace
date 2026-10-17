@@ -1,7 +1,7 @@
 {
   "title": "세계 명소대백과",
-  "version": "2.3.14",
-  "release": "Stage 2.3.14 KOREA CHINA VIETNAM PHOTO DISCOVERY",
+  "version": "2.3.15",
+  "release": "Stage 2.3.15 TH TW IT ES MULTILINGUAL PHOTO SEARCH",
   "basedOn": "Stage 1.5 SEARCH & STORY 전체 기준 (기본 ID·사진·사용자 저장 구조 유지)",
   "categories": [
     {
@@ -4003,7 +4003,11 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Lungshan Temple of Manka Taipei",
+        "艋舺龍山寺",
+        "龍山寺 台北"
+      ],
       "description": "타이베이의 오래된 사찰로 화려한 지붕 장식과 향 연기로 유명합니다. 지역 주민의 신앙과 생활문화가 함께 이어지는 공간입니다. 타이베이 완화구에 있는 오래된 사찰로 불교·도교 등 여러 신앙의 모습이 공존합니다. 화려한 지붕 장식과 향을 피우는 마당은 일상과 깊이 연결된 대만의 신앙 문화를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4011,7 +4015,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Lungshan Temple of Manka Taipei",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-002",
@@ -4020,7 +4026,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Dihua Street Taipei",
+        "迪化街",
+        "大稻埕 迪化街"
+      ],
       "description": "타이베이 다다오청의 옛 상업 거리입니다. 전통 약재·건어물 가게와 근대식 상점 건축이 이어집니다. 타이베이의 옛 상업거리로 한약재·건어물·직물 등을 파는 상점이 이어집니다. 길쭉한 상가 건물의 입면에는 여러 시대의 건축 양식이 남아 있어 대만의 상업 역사를 느낄 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4028,7 +4038,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Dihua Street Taipei",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-003",
@@ -4037,7 +4049,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Shifen Waterfall",
+        "十分瀑布"
+      ],
       "description": "신베이시 핑시 지역의 넓은 계단형 폭포입니다. 떨어지는 물줄기와 푸른 계곡이 어우러져 있습니다. 대만 북부의 하천이 넓은 바위턱에서 떨어지는 폭포로, 주변의 숲과 계곡이 유명합니다. 옛 철도마을 스펀과 가까워 자연풍경과 탄광·철도 지역의 생활 흔적을 함께 살펴볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4045,7 +4060,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Shifen Waterfall",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-004",
@@ -4054,7 +4071,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Yehliu Geopark",
+        "野柳地質公園"
+      ],
       "description": "바닷바람과 파도에 깎인 독특한 암석이 해안에 모여 있습니다. 여왕머리 바위처럼 모양을 닮은 이름이 붙은 바위가 유명합니다. 북부 해안의 바위들이 바람과 파도에 깎이면서 독특한 모양을 만들었습니다. 여왕머리 바위처럼 이름 붙은 형태들은 침식이 오랜 시간 지형을 바꾸는 과정을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4062,7 +4082,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Yehliu Geopark",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-005",
@@ -4071,7 +4093,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Tamsui Old Street",
+        "淡水老街"
+      ],
       "description": "타이베이 북서쪽 강 하구의 오래된 항구 거리입니다. 강변 산책로와 역사적 건물, 일몰 풍경이 조화를 이룹니다. 단수이강 하구에 자리한 항구도시의 옛거리입니다. 개항기 건물과 강변 산책로, 붉게 물드는 석양이 유명하며, 바다와 강을 통한 대만의 교류 역사가 남아 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4079,7 +4104,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Tamsui Old Street",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-008",
@@ -4088,7 +4115,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Qingjing Farm",
+        "Cingjing Farm",
+        "清境農場"
+      ],
       "description": "대만 중부의 고지대 초원 목장입니다. 구릉을 따라 펼쳐진 잔디밭과 멀리 보이는 산봉우리가 특징입니다. 대만 중부의 높은 산에 있는 초원형 관광농장으로 양들이 풀을 뜯는 모습이 알려져 있습니다. 주변 능선과 구름이 만드는 풍경은 해안의 열대 이미지와 다른 대만의 산악 환경을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4096,7 +4127,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Qingjing Farm",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-009",
@@ -4105,7 +4138,10 @@
       "category": "museum",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "National Taichung Theater",
+        "臺中國家歌劇院"
+      ],
       "description": "직선 벽보다 흐르는 형태를 강조한 건축이 눈길을 끕니다. 곡선 벽과 동굴 같은 내부 공간이 특징인 현대 공연예술 건축물입니다. 설계자 이토 도요의 유기적인 구조 덕분에 평범한 직선 복도 대신 흐르는 듯한 공간을 경험하게 됩니다.",
       "photos": [],
       "status": "초안",
@@ -4113,7 +4149,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "National Taichung Theater",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-010",
@@ -4122,7 +4160,10 @@
       "category": "traditional",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Dragon and Tiger Pagodas Kaohsiung",
+        "龍虎塔 高雄"
+      ],
       "description": "화려한 색채와 전통 민속 상징이 특징입니다. 가오슝 연지담 호숫가에 세워진 용과 호랑이 모양의 입구가 있는 탑입니다. 화려한 색채와 전통적인 상징이 어우러져 남부 대만의 신앙·관광 문화를 대표하는 장소가 되었습니다.",
       "photos": [],
       "status": "초안",
@@ -4130,7 +4171,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Dragon and Tiger Pagodas Kaohsiung",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-011",
@@ -4139,7 +4182,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Pier-2 Art Center Kaohsiung",
+        "駁二藝術特區"
+      ],
       "description": "대형 설치미술과 전시, 거리 예술이 어우러집니다. 가오슝 항구의 오래된 창고를 전시장과 공공예술 공간으로 바꾼 문화지구입니다. 산업시설을 헐지 않고 새로운 용도로 활용해, 항구도시의 과거와 현대 예술을 연결합니다.",
       "photos": [],
       "status": "초안",
@@ -4147,7 +4193,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Pier-2 Art Center Kaohsiung",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-012",
@@ -4156,7 +4204,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Chihkan Tower Tainan",
+        "赤崁樓"
+      ],
       "description": "타이난의 역사적 건축물로 여러 시대의 흔적이 겹쳐 있습니다. 네덜란드 통치기의 요새 터 위에 중국식 건축이 들어선 역사를 보여줍니다. 대만 남부 타이난에 있는 역사유적으로, 네덜란드 식민지 시기의 요새 터에 후대의 중국식 건축물이 들어섰습니다. 서로 다른 시대의 건물이 겹친 모습이 섬의 복잡한 역사를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4164,7 +4215,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Chihkan Tower Tainan",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-013",
@@ -4173,7 +4226,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Anping Old Fort Tainan",
+        "安平古堡"
+      ],
       "description": "타이난 안핑의 옛 해안 요새 유적입니다. 타이난의 옛 항구에 남은 요새 유적으로, 네덜란드 동인도회사 시기의 흔적과 이후의 역사가 겹쳐 있습니다. 오래된 벽과 주변 거리에서 대만의 해상무역 역사를 이해할 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4181,7 +4237,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Anping Old Fort Tainan",
+      "wikiLang": "en"
     },
     {
       "id": "TW-CF-014",
@@ -4190,7 +4248,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Kenting National Park Taiwan",
+        "墾丁國家公園"
+      ],
       "description": "대만 남쪽 끝의 해안과 열대 숲을 포함하는 국립공원입니다. 푸른 바다, 산호초, 초원과 바위 해안이 다채롭습니다. 대만 최남단의 국립공원으로 산호초 해안과 해변, 숲이 함께 펼쳐집니다. 따뜻한 기후 속에 다양한 생물이 살며, 등대와 바닷길 등 남쪽 해안의 특징적인 풍경도 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4198,7 +4259,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Kenting National Park Taiwan",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-001",
@@ -4207,7 +4270,11 @@
       "category": "traditional",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Grand Palace Bangkok",
+        "พระบรมมหาราชวัง",
+        "Phra Borom Maha Ratcha Wang"
+      ],
       "description": "방콕 왕궁은 태국 수도 방콕의 차오프라야강 가까이에 자리한 왕실 건축단지입니다. 왕궁 건물과 의식 공간, 불교 사원이 어우러져 태국 궁정문화의 특징을 보여 줍니다. 금빛 지붕 장식과 뾰족한 첨탑, 세밀한 벽화가 화려한 분위기를 만듭니다. 왕궁 안에는 에메랄드 불상을 모신 왓 프라깨우가 있어 국가적 의미가 큽니다. 관광명소이지만 종교적 예의를 지켜야 하는 공간이기도 합니다.",
       "photos": [],
       "status": "초안",
@@ -4215,7 +4282,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요"
+      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요",
+      "wikiTitle": "Grand Palace Bangkok",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-002",
@@ -4224,7 +4293,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Phra Kaew",
+        "Temple of the Emerald Buddha",
+        "วัดพระแก้ว"
+      ],
       "description": "지붕과 벽면의 금빛 장식과 신화적 조형물이 아름답습니다. 방콕 왕궁 안에 있는 중요한 불교 사원으로, 에메랄드 불상을 모신 곳으로 알려져 있습니다. 황금빛 지붕과 화려한 모자이크 장식은 태국 왕실과 불교 신앙이 깊이 연결된 문화를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4232,7 +4305,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Wat Phra Kaew",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-003",
@@ -4241,7 +4316,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Arun",
+        "Temple of Dawn Bangkok",
+        "วัดอรุณ"
+      ],
       "description": "왓 아룬은 방콕 차오프라야강 서쪽 강변에 있는 불교 사원입니다. 높은 중앙 탑과 주변의 작은 탑들이 하늘로 뻗어 있으며 표면에는 도자기 조각을 활용한 섬세한 장식이 있습니다. 강 건너편에서 보면 뾰족한 탑이 수면에 비쳐 아름다운 실루엣을 만듭니다. 사원 이름에는 새벽이라는 뜻이 담겨 있어 일출·일몰 풍경과 함께 많이 소개됩니다.",
       "photos": [],
       "status": "초안",
@@ -4249,7 +4328,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요"
+      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요",
+      "wikiTitle": "Wat Arun",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-004",
@@ -4258,7 +4339,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Pho",
+        "Wat Phra Chetuphon",
+        "วัดโพธิ์"
+      ],
       "description": "거대한 와불상과 전통 사원 건축으로 유명합니다. 누운 불상의 규모와 발바닥 장식에서 태국 불교미술의 특징을 볼 수 있습니다. 방콕의 오래된 사찰로 거대한 누운 부처상인 와불이 유명합니다. 화려한 발바닥 문양과 많은 불상, 전통 지식의 기록이 남아 있어 태국의 종교와 교육 역사를 함께 알 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4266,7 +4351,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Wat Pho",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-005",
@@ -4275,7 +4362,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Saket",
+        "Golden Mount Bangkok",
+        "วัดสระเกศ"
+      ],
       "description": "방콕 구도심 언덕에 있는 황금산 사원입니다. 계단을 올라가면 사원 탑과 주변 도시가 내려다보입니다. 방콕의 인공 언덕 위에 자리한 불교 사원으로 황금빛 탑이 멀리서도 보입니다. 나선형 계단을 따라 올라가면 도시의 지붕과 운하가 내려다보여 평지에 자리한 방콕의 풍경을 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4283,7 +4374,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Wat Saket",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-006",
@@ -4292,7 +4385,11 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Chatuchak Weekend Market",
+        "Chatuchak Market",
+        "ตลาดนัดจตุจักร"
+      ],
       "description": "주말마다 수많은 상점이 열리는 방콕의 대형 시장입니다. 옷과 공예품, 식물과 먹거리 등 다양한 일상문화를 만날 수 있습니다. 방콕의 대형 주말시장으로 옷과 공예품, 식물과 음식 등 다양한 물건을 판매합니다. 구역별로 수많은 가게가 모여 있어 태국 사람들의 일상적인 소비문화와 활기찬 시장 풍경을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4300,7 +4397,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Chatuchak Weekend Market",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-007",
@@ -4309,7 +4408,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Damnoen Saduak Floating Market",
+        "ตลาดน้ำดำเนินสะดวก"
+      ],
       "description": "물길이 생활과 상업의 통로였던 모습을 보여줍니다. 방콕 근교 운하 위로 작은 배들이 오가며 과일과 음식을 판매하는 시장입니다. 도로가 발달하기 전 물길을 따라 물건을 운반하던 태국의 생활문화에서 유래한 모습이 남아 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4317,7 +4419,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Damnoen Saduak Floating Market",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-008",
@@ -4326,7 +4430,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Ayutthaya Historical Park",
+        "อุทยานประวัติศาสตร์พระนครศรีอยุธยา"
+      ],
       "description": "아유타야 역사공원은 한때 태국의 수도였던 아유타야 왕국의 사원과 궁전 유적을 보존하는 지역입니다. 오래된 붉은 벽돌 탑과 부처상, 무너진 벽이 넓은 평지에 남아 있습니다. 이곳은 여러 강이 만나는 지역에 자리해 한때 활발한 국제무역을 이끌었습니다. 오늘날 유적을 걸으면 번성했던 도시의 규모와 이후 파괴를 겪은 역사를 함께 느낄 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4334,7 +4441,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요"
+      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요",
+      "wikiTitle": "Ayutthaya Historical Park",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-009",
@@ -4343,7 +4452,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Mahathat Ayutthaya",
+        "วัดมหาธาตุ พระนครศรีอยุธยา"
+      ],
       "description": "아유타야 유적의 사원으로 나무뿌리에 감싸인 불상 머리가 유명합니다. 오래된 건축과 자연이 긴 세월 동안 함께 변해 온 모습입니다. 아유타야의 오래된 불교 사찰 유적으로 붉은 벽돌 탑과 불상들이 남아 있습니다. 특히 나무뿌리 사이에 감싸인 불상 머리가 유명하며, 과거 왕국의 번영과 전쟁의 흔적을 함께 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4351,7 +4463,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Wat Mahathat Ayutthaya",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-010",
@@ -4360,7 +4474,10 @@
       "category": "modern",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Bridge over the River Kwai Kanchanaburi",
+        "สะพานข้ามแม่น้ำแคว"
+      ],
       "description": "제2차 세계대전 시기 철도 건설의 역사를 간직한 다리입니다. 아름다운 강 풍경 이면에 강제노동과 전쟁의 비극이 담겨 있습니다. 제2차 세계대전 중 건설된 태국·미얀마 철도와 관련된 다리입니다. 많은 강제노동과 희생의 역사가 담겨 있어 단순한 풍경 명소를 넘어 전쟁의 고통을 기억하게 하는 장소입니다.",
       "photos": [],
       "status": "초안",
@@ -4368,7 +4485,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Bridge over the River Kwai Kanchanaburi",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-011",
@@ -4377,7 +4496,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Phra That Doi Suthep",
+        "วัดพระธาตุดอยสุเทพ"
+      ],
       "description": "치앙마이 외곽 산 위에 자리한 사원입니다. 황금빛 탑과 높은 곳에서 내려다보는 도시 풍경이 유명합니다. 치앙마이 북쪽 산 위에 자리한 불교 사원으로 황금빛 탑과 장식적인 계단이 유명합니다. 높은 위치에서 도시를 내려다볼 수 있으며, 북부 태국의 신앙과 전통 건축을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4385,7 +4507,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Wat Phra That Doi Suthep",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-012",
@@ -4394,7 +4518,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Chiang Mai Old City",
+        "เมืองเก่าเชียงใหม่"
+      ],
       "description": "옛 성곽과 해자 안에 사찰과 전통 골목이 이어집니다. 북부 란나 왕국의 문화가 남아 있습니다. 옛 란나 왕국의 중심이었던 치앙마이의 성곽도시 구역입니다. 성문과 해자 일부가 남아 있고 수많은 오래된 사원이 모여 있어 방콕과 다른 북부 태국의 역사를 느낄 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4402,7 +4529,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Chiang Mai Old City",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-013",
@@ -4411,7 +4540,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Rong Khun",
+        "White Temple Chiang Rai",
+        "วัดร่องขุ่น"
+      ],
       "description": "치앙라이의 눈부시게 하얀 현대 사원입니다. 거울 조각과 세밀한 장식으로 만든 환상적인 외관이 특징입니다. 치앙라이에 있는 하얀색 현대 불교 예술 사원으로, 건물과 조각에 흰빛·거울 장식이 반짝입니다. 전통 사원 형식을 현대 예술가가 재해석하여 독특한 종교·미술 공간을 만들었습니다.",
       "photos": [],
       "status": "초안",
@@ -4419,7 +4552,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Wat Rong Khun",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-014",
@@ -4428,7 +4563,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Wat Rong Suea Ten",
+        "Blue Temple Chiang Rai",
+        "วัดร่องเสือเต้น"
+      ],
       "description": "현대적 색감 속에 불교 상징이 녹아 있습니다. 치앙라이의 파란색 사원으로 푸른 벽과 황금빛 장식이 뚜렷하게 대비됩니다. 내부의 큰 흰색 불상과 섬세한 벽화가 현대 태국 사원 예술의 색다른 모습을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4436,7 +4575,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Wat Rong Suea Ten",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-015",
@@ -4445,7 +4586,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Sukhothai Historical Park",
+        "อุทยานประวัติศาสตร์สุโขทัย"
+      ],
       "description": "타이 초기 왕국의 사원과 불상, 연못이 남은 유적지입니다. 연꽃 모양 탑과 부드러운 불상 얼굴이 특징입니다. 태국의 옛 수코타이 왕국 도읍터로 사원과 불상, 연못이 넓은 평원에 남아 있습니다. 초기 태국 불교 미술과 왕국 건축의 특징을 볼 수 있으며, 붉은 벽돌 유적이 역사 분위기를 더합니다.",
       "photos": [],
       "status": "초안",
@@ -4453,7 +4597,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Sukhothai Historical Park",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-016",
@@ -4462,7 +4608,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Patong Beach Phuket",
+        "หาดป่าตอง"
+      ],
       "description": "푸껫의 대표적인 관광 해변입니다. 긴 백사장과 활기찬 거리, 바다에서 즐기는 활동으로 알려져 있습니다. 태국 푸껫섬의 대표 해변으로 길게 펼쳐진 모래사장과 활기찬 관광거리가 특징입니다. 아름다운 바다뿐 아니라 국제적인 휴양도시의 모습을 보여 주며, 지역 자연환경을 지키는 일도 중요해지고 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4470,7 +4619,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Patong Beach Phuket",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-017",
@@ -4479,7 +4630,11 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Phi Phi Islands Krabi",
+        "Ko Phi Phi",
+        "หมู่เกาะพีพี"
+      ],
       "description": "석회암 절벽이 바다 위로 솟고 푸른 만이 형성된 섬들입니다. 아름다운 해양환경을 지키기 위한 방문 규정도 중요합니다. 안다만해의 석회암 절벽과 투명한 바닷물로 알려진 섬들입니다. 좁은 만과 높은 암벽이 극적인 해안 경관을 이루며, 관광객 증가로 인한 산호·해양환경 보전도 중요한 과제입니다.",
       "photos": [],
       "status": "초안",
@@ -4487,7 +4642,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Phi Phi Islands Krabi",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-018",
@@ -4496,7 +4653,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Phang Nga Bay",
+        "อ่าวพังงา"
+      ],
       "description": "바다에서 가파른 석회암 봉우리들이 섬처럼 솟아 있습니다. 카약과 배에서 바라보는 기묘한 바위 풍경이 유명합니다. 푸껫 북쪽의 바다에 뾰족한 석회암 바위섬들이 솟아 있는 지역입니다. 카르스트 지형이 바다에 잠기며 생긴 풍경으로 동굴과 맹그로브 숲 등 해안 생태계를 함께 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -4504,7 +4664,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Phang Nga Bay",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-019",
@@ -4513,7 +4675,11 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Railay Beach Krabi",
+        "Rai Leh Beach",
+        "หาดไร่เลย์"
+      ],
       "description": "암벽등반과 잔잔한 바다, 해질녘 풍경이 어우러집니다. 석회암 절벽에 둘러싸여 주로 배를 타고 접근하는 끄라비의 해변입니다. 고운 모래와 청록색 바다, 높이 솟은 암벽이 어우러져 수영과 암벽등반으로 모두 유명합니다.",
       "photos": [],
       "status": "초안",
@@ -4521,7 +4687,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Railay Beach Krabi",
+      "wikiLang": "en"
     },
     {
       "id": "TH-CF-020",
@@ -4530,7 +4698,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Ko Tao Island",
+        "Koh Tao",
+        "เกาะเต่า"
+      ],
       "description": "맑은 바다와 산호초로 알려진 태국만의 작은 섬입니다. 스노클링과 다이빙을 통해 해양 생물을 관찰하기 좋습니다. 태국만의 작은 섬으로 맑은 바닷물과 산호초 때문에 스노클링·다이빙 장소로 알려져 있습니다. 바닷속에는 여러 종류의 열대어와 해양생물이 살아 해양생태계의 아름다움과 보전 필요성을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -4538,7 +4710,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Ko Tao Island",
+      "wikiLang": "en"
     },
     {
       "id": "VN-CF-001",
@@ -5657,7 +5831,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Spanish Steps Rome",
+        "Scalinata di Trinità dei Monti"
+      ],
       "description": "계단을 따라 펼쳐지는 도시 풍경이 유명합니다. 로마 스파냐 광장과 트리니타 데이 몬티 성당을 잇는 넓은 계단입니다. 곡선으로 펼쳐진 계단과 광장의 분수가 어우러져 도시의 유명한 만남 장소가 되었으며, 이름은 인근 스페인 대사관과 관련이 있습니다.",
       "photos": [],
       "status": "초안",
@@ -5665,7 +5842,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Spanish Steps Rome",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-002",
@@ -5674,7 +5853,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Piazza Navona Rome",
+        "Piazza Navona"
+      ],
       "description": "베르니니의 분수와 바로크 교회가 둘러싸고 있습니다. 고대 로마 경기장 자리에 조성된 길쭉한 광장입니다. 베르니니의 네 강의 분수와 화려한 바로크 교회들이 남아 있어 고대 유적의 흔적 위에 새로운 도시공간이 만들어진 과정을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -5682,7 +5864,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Piazza Navona Rome",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-003",
@@ -5691,7 +5875,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Castel Sant'Angelo Rome",
+        "Mole Adriana"
+      ],
       "description": "처음에는 로마 황제의 영묘로 세워졌다가 요새와 성으로 쓰인 건물입니다. 테베레강과 천사상 다리의 풍경이 인상적입니다. 테베레강가에 서 있는 둥근 석조 건물로 로마 황제 하드리아누스의 영묘에서 시작되었습니다. 이후 요새와 교황의 피난처 등으로 쓰였으며, 다리의 천사 조각과 함께 로마의 여러 시대를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -5699,7 +5886,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Castel Sant'Angelo Rome",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-005",
@@ -5708,7 +5897,10 @@
       "category": "modern",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Ponte Vecchio Florence",
+        "Ponte Vecchio Firenze"
+      ],
       "description": "다리 자체가 하나의 거리처럼 보이는 독특한 풍경입니다. 피렌체 아르노강 위에 놓인 오래된 다리로, 다리 위 양쪽에 보석상과 상점이 붙어 있습니다. 건축물과 다리, 상업공간이 한 몸처럼 이어지는 모습이 다른 다리와 뚜렷하게 다릅니다.",
       "photos": [],
       "status": "초안",
@@ -5716,7 +5908,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Ponte Vecchio Florence",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-006",
@@ -5725,7 +5919,10 @@
       "category": "museum",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Uffizi Gallery Florence",
+        "Galleria degli Uffizi"
+      ],
       "description": "르네상스 미술을 대표하는 작품들이 모인 피렌체의 미술관입니다. 보티첼리의 작품을 비롯한 예술유산이 풍부합니다. 피렌체 메디치 가문과 관련된 미술관으로 르네상스 회화의 걸작을 많이 소장합니다. 보티첼리의 작품 등을 통해 신화와 종교 이야기를 새롭게 표현하던 유럽 미술의 변화를 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -5733,7 +5930,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Uffizi Gallery Florence",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-007",
@@ -5742,7 +5941,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Piazzale Michelangelo Florence",
+        "Piazzale Michelangelo"
+      ],
       "description": "피렌체의 지붕과 두오모, 아르노강을 바라보는 언덕 전망대입니다. 도시 전체가 한 장의 풍경화처럼 펼쳐집니다. 피렌체를 내려다보는 언덕 위 광장으로 아르노강과 붉은 지붕, 두오모의 둥근 돔이 한눈에 보입니다. 도시 전체를 하나의 풍경처럼 감상할 수 있어 피렌체의 대표 전망 장소가 되었습니다.",
       "photos": [],
       "status": "초안",
@@ -5750,7 +5952,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Piazzale Michelangelo Florence",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-008",
@@ -5759,7 +5963,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Piazza del Campo Siena",
+        "Piazza del Campo"
+      ],
       "description": "부채꼴 모양의 붉은 벽돌 광장으로 주변 중세 건물이 둘러싸고 있습니다. 시에나의 전통 경마 축제가 열리는 공간입니다. 조개껍데기처럼 둥글게 펼쳐진 시에나의 중앙 광장입니다. 붉은 벽돌 바닥과 높은 시청탑이 어우러지며, 전통 경마 행사인 팔리오가 열리는 장소이기도 합니다.",
       "photos": [],
       "status": "초안",
@@ -5767,7 +5974,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Piazza del Campo Siena",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-009",
@@ -5776,7 +5985,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Historic Centre of San Gimignano",
+        "San Gimignano medieval towers"
+      ],
       "description": "중세 상인 가문들이 세운 높은 석탑이 도시 위로 솟아 있습니다. 탑의 실루엣 때문에 중세의 맨해튼이라고도 불립니다. 토스카나 언덕 위의 중세 마을로, 멀리서도 여러 개의 높은 돌탑이 눈에 띕니다. 한때 유력 가문들이 세운 탑이 부와 권력을 나타냈으며, 지금은 중세 도시의 모습을 간직한 대표 명소입니다.",
       "photos": [],
       "status": "초안",
@@ -5784,7 +5996,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Historic Centre of San Gimignano",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-010",
@@ -5793,7 +6007,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "St Mark's Basilica Venice",
+        "Basilica di San Marco Venezia"
+      ],
       "description": "베네치아의 화려한 모자이크와 여러 돔으로 유명한 성당입니다. 동서 문화가 교류한 도시의 성격이 건축에 담겨 있습니다. 베네치아의 중심 광장에 자리한 성당으로, 여러 개의 둥근 돔과 금빛 모자이크가 특징입니다. 동방 비잔틴 문화의 영향을 받은 장식은 베네치아가 지중해 무역을 통해 성장한 역사를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -5801,7 +6018,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "St Mark's Basilica Venice",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-011",
@@ -5810,7 +6029,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "St Mark's Square Venice",
+        "Piazza San Marco Venezia"
+      ],
       "description": "바다와 도시가 만나는 역사적 공간입니다. 베네치아의 대표 광장으로 산마르코 대성당과 종탑, 두칼레 궁전이 둘러싸고 있습니다. 물의 도시에서 드물게 넓은 열린 공간이며, 바닷물이 높아질 때 광장 일부에 물이 차기도 합니다.",
       "photos": [],
       "status": "초안",
@@ -5818,7 +6040,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "St Mark's Square Venice",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-012",
@@ -5827,7 +6051,10 @@
       "category": "modern",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Rialto Bridge Venice",
+        "Ponte di Rialto"
+      ],
       "description": "다리 양쪽에 상점이 이어져 있으며 베네치아의 상징적 풍경입니다. 베네치아 대운하를 가로지르는 대표적인 석조 다리입니다. 다리의 큰 아치와 중앙 상점들이 특징이며, 오래전부터 시장과 상업지구를 연결하는 중요한 통로였습니다.",
       "photos": [],
       "status": "초안",
@@ -5835,7 +6062,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Rialto Bridge Venice",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-013",
@@ -5844,7 +6073,10 @@
       "category": "traditional",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Doge's Palace Venice",
+        "Palazzo Ducale Venezia"
+      ],
       "description": "베네치아 공화국의 통치 중심이었던 궁전입니다. 섬세한 고딕 외벽과 화려한 회의실에서 해상도시의 권력을 엿볼 수 있습니다. 베네치아 공화국의 최고 지도자인 도제가 머물고 정무를 보던 궁전입니다. 아치가 반복되는 외관과 호화로운 내부 장식이 아름답지만, 동시에 법정과 감옥으로 이어지는 역사도 간직합니다.",
       "photos": [],
       "status": "초안",
@@ -5852,7 +6084,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Doge's Palace Venice",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-015",
@@ -5861,7 +6095,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Galleria Vittorio Emanuele II Milan",
+        "Galleria Vittorio Emanuele II"
+      ],
       "description": "유리 지붕과 철제 구조물로 덮인 19세기 실내 쇼핑거리입니다. 모자이크 바닥과 웅장한 아치가 특징입니다. 밀라노 두오모 옆에 있는 19세기 유리 지붕 아케이드입니다. 철과 유리로 만든 높은 천장 아래 상점과 카페가 이어져, 현대 쇼핑몰의 선구적인 형태를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -5869,7 +6106,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Galleria Vittorio Emanuele II Milan",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-016",
@@ -5878,7 +6117,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Verona Arena",
+        "Arena di Verona"
+      ],
       "description": "오래된 돌계단에서 현대의 음악과 오페라가 울려 퍼집니다. 로마 시대에 지어진 타원형 원형극장으로, 지금도 공연장으로 사용됩니다. 수천 년 가까이 남은 석조 객석과 무대 공간은 고대 건축물이 새로운 문화공간으로 이어진 모습을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -5886,7 +6128,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Verona Arena",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-017",
@@ -5895,7 +6139,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Lake Como Italy",
+        "Lago di Como"
+      ],
       "description": "높은 산과 오래된 마을이 둘러싼 북이탈리아의 긴 호수입니다. 알프스 산기슭에 길게 뻗은 호수로, 가파른 산과 작은 호숫가 마을들이 어우러집니다. 물가의 오래된 별장과 정원은 아름다운 자연 속에서 발달한 휴양문화를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -5903,7 +6150,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Lake Como Italy",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-018",
@@ -5912,7 +6161,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Dolomites Italy",
+        "Dolomiti UNESCO"
+      ],
       "description": "뾰족한 석회암·백운암 봉우리와 푸른 초원이 대비되는 알프스 산지입니다. 해질 무렵 붉게 물드는 산벽이 인상적입니다. 이탈리아 북동부 알프스의 산악지역으로, 창처럼 솟은 밝은색 암봉이 특징입니다. 옛 바닷속에서 형성된 암석이 지각운동으로 높이 솟아올라 지금의 극적인 산세를 이루었습니다.",
       "photos": [],
       "status": "초안",
@@ -5920,7 +6172,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Dolomites Italy",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-019",
@@ -5929,7 +6183,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Pompeii Archaeological Park",
+        "Scavi di Pompei"
+      ],
       "description": "폼페이는 이탈리아 남부 베수비오산 기슭에 있던 고대 로마 도시입니다. 서기 79년 화산 폭발로 화산재와 분출물이 도시를 덮으면서 많은 건물과 길, 생활 흔적이 오랫동안 묻혀 있었습니다. 발굴된 거리에서는 집과 상점, 목욕탕, 벽화와 모자이크 등을 볼 수 있습니다. 이 유적이 특별한 이유는 황제의 궁전이 아니라 당시 평범한 사람들의 도시생활을 구체적으로 보여 준다는 점입니다.",
       "photos": [],
       "status": "초안",
@@ -5937,7 +6194,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요"
+      "descriptionNote": "편집 보강 원고 · 개별 문헌 검증 필요",
+      "wikiTitle": "Pompeii Archaeological Park",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-020",
@@ -5946,7 +6205,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Mount Vesuvius Naples",
+        "Monte Vesuvio"
+      ],
       "description": "나폴리만 근처에 있는 활화산입니다. 서기 79년의 거대한 분출로 폼페이와 헤르쿨라네움을 덮었던 역사로 유명합니다. 나폴리만 근처에 솟은 활화산으로, 서기 79년의 분화가 폼페이 도시를 덮친 역사로 널리 알려져 있습니다. 산비탈과 분화구를 통해 지구 내부의 힘이 인간의 생활에 어떤 영향을 주는지 이해할 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -5954,7 +6216,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Mount Vesuvius Naples",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-021",
@@ -5963,7 +6227,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Blue Grotto Capri",
+        "Grotta Azzurra Capri"
+      ],
       "description": "바닷물이 들어오는 좁은 입구를 지나면 내부가 푸른빛으로 물듭니다. 물속에서 반사된 햇빛이 만들어내는 자연의 광학 현상입니다. 카프리섬의 바닷물이 동굴 입구 아래로 들어오는 빛을 받아 푸르게 빛나는 장소입니다. 낮은 입구를 지나면 어두운 동굴 안에서 물빛이 갑자기 환해 보여 특별한 자연현상을 경험하게 됩니다.",
       "photos": [],
       "status": "초안",
@@ -5971,7 +6238,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Blue Grotto Capri",
+      "wikiLang": "en"
     },
     {
       "id": "IT-CF-022",
@@ -5980,7 +6249,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Trulli of Alberobello",
+        "Trulli di Alberobello"
+      ],
       "description": "원뿔형 돌지붕의 하얀 집들이 모여 있는 남이탈리아 마을입니다. 모르타르를 쓰지 않는 전통 석조 건축이 특징입니다. 이탈리아 남부의 작은 마을로, 하얀 벽 위에 회색 원뿔 지붕을 얹은 트룰리 집들이 빽빽하게 모여 있습니다. 돌을 쌓아 만든 전통 주택은 이 지역의 독특한 생활과 건축 기술을 전합니다.",
       "photos": [],
       "status": "초안",
@@ -5988,7 +6260,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Trulli of Alberobello",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-001",
@@ -5997,7 +6271,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Casa Milà Barcelona",
+        "La Pedrera Barcelona"
+      ],
       "description": "물결치는 돌 외벽과 독특한 옥상 굴뚝으로 유명한 가우디 건축물입니다. 직선보다 곡선을 강조한 디자인이 자연의 형태를 연상시킵니다. 바르셀로나의 가우디 건축물로 직선보다 굽이치는 돌 외벽과 독특한 굴뚝들이 눈에 띕니다. 물결치는 바위처럼 보이는 형태와 내부 채광 구조는 자연을 건축 설계에 반영한 사례입니다.",
       "photos": [],
       "status": "초안",
@@ -6005,7 +6282,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Casa Milà Barcelona",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-002",
@@ -6014,7 +6293,10 @@
       "category": "museum",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Palau de la Música Catalana Barcelona",
+        "Palau de la Música Catalana"
+      ],
       "description": "화려한 모자이크와 유리 천장을 가진 공연장입니다. 자연 채광이 들어오는 중앙 홀에서 카탈루냐 모더니즘 건축의 장식을 볼 수 있습니다. 바르셀로나의 화려한 공연장으로, 색유리 천장과 꽃무늬 장식이 실내를 가득 채웁니다. 카탈루냐 모더니즘 건축의 대표작으로 공연 공간 전체가 하나의 예술작품처럼 꾸며졌습니다.",
       "photos": [],
       "status": "초안",
@@ -6022,7 +6304,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Palau de la Música Catalana Barcelona",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-003",
@@ -6031,7 +6315,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Montjuïc Castle Barcelona",
+        "Castell de Montjuïc"
+      ],
       "description": "성벽과 전망대에서 바다와 도시의 관계를 살펴볼 수 있습니다. 바르셀로나 항구를 내려다보는 몬주익 언덕의 요새입니다. 오래전 항구를 방어하기 위한 시설이었으며, 오늘날에는 높은 성벽 위에서 바다와 도시를 함께 조망할 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6039,7 +6326,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Montjuïc Castle Barcelona",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-004",
@@ -6048,7 +6337,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Mercat de la Boqueria Barcelona",
+        "La Boqueria"
+      ],
       "description": "과일과 해산물, 향신료가 가득한 진열대에서 현지 식문화를 만납니다. 바르셀로나 람블라스 거리의 전통 식품시장입니다. 과일과 채소, 해산물과 햄 등을 파는 화려한 가게들이 모여 있으며, 지중해 지역의 먹거리와 시장 문화를 체험하는 장소입니다.",
       "photos": [],
       "status": "초안",
@@ -6056,7 +6348,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Mercat de la Boqueria Barcelona",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-005",
@@ -6065,7 +6359,10 @@
       "category": "museum",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Prado Museum Madrid",
+        "Museo del Prado"
+      ],
       "description": "벨라스케스와 고야 등 스페인 거장들의 작품을 소장한 미술관입니다. 그림을 통해 왕실과 사회, 사람들의 모습을 만날 수 있습니다. 마드리드의 대표 미술관으로 스페인 왕실이 모은 회화 작품이 소장되어 있습니다. 벨라스케스와 고야의 작품 등을 통해 왕실의 초상과 역사, 화가들의 새로운 시선을 살펴볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6073,7 +6370,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Prado Museum Madrid",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-006",
@@ -6082,7 +6381,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "El Retiro Park Madrid",
+        "Parque del Buen Retiro"
+      ],
       "description": "시민들의 일상적인 휴식 공간입니다. 마드리드 도심의 넓은 녹지공간으로 호수와 크리스털 궁전, 산책길이 이어집니다. 왕실 정원에서 시민 공원으로 변화한 역사와 함께 도시의 여유로운 일상을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -6090,7 +6392,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "El Retiro Park Madrid",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-007",
@@ -6099,7 +6403,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Plaza Mayor Madrid",
+        "Plaza Mayor de Madrid"
+      ],
       "description": "붉은 건물로 둘러싸인 마드리드의 사각형 광장입니다. 여러 시대에 시장과 행사, 도시생활의 중심이었습니다. 마드리드 옛도심의 직사각형 광장으로 붉은 벽돌 건물과 아치가 둘러싸고 있습니다. 과거에는 시장과 공개행사 등이 열렸으며, 오늘날에도 사람들이 만나는 대표적인 도시 공간입니다.",
       "photos": [],
       "status": "초안",
@@ -6107,7 +6414,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Plaza Mayor Madrid",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-008",
@@ -6116,7 +6425,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Puerta del Sol Madrid",
+        "Puerta del Sol"
+      ],
       "description": "마드리드 중심의 바쁜 광장으로 도시의 상징물과 거리 표지가 있습니다. 스페인 주요 도로의 거리 기준점으로도 알려져 있습니다. 마드리드 한가운데 위치한 광장으로 여러 길과 사람이 모이는 교통·문화의 중심지입니다. 스페인 도로 거리의 기준점과 새해맞이 행사 등 도시 생활의 상징적인 의미를 지니고 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6124,7 +6436,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Puerta del Sol Madrid",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-009",
@@ -6133,7 +6447,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Aqueduct of Segovia",
+        "Acueducto de Segovia"
+      ],
       "description": "거대한 화강암 아치가 도시 한가운데 이어지는 로마시대 수도교입니다. 정교한 돌쌓기가 고대 토목기술을 보여줍니다. 고대 로마인들이 도시로 물을 보내기 위해 세운 높은 석조 수도교입니다. 거대한 돌 아치가 여러 층으로 반복되며, 당시 정밀한 건축기술을 오늘날 도시 한복판에서 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6141,7 +6458,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Aqueduct of Segovia",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-010",
@@ -6150,7 +6469,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Alcázar of Segovia",
+        "Alcázar de Segovia"
+      ],
       "description": "바위 위에 세워진 성으로 뾰족한 탑과 배 모양의 성곽이 독특합니다. 왕실 거처와 군사시설로 사용된 역사가 있습니다. 바위 능선 위에 자리한 세고비아의 성으로, 뾰족한 지붕의 탑들이 동화 속 성처럼 보입니다. 왕실의 거처이자 군사시설로 쓰인 역사가 있어, 방어와 장식이 한 건물에 결합되어 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6158,7 +6480,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Alcázar of Segovia",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-011",
@@ -6167,7 +6491,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Royal Monastery of San Lorenzo de El Escorial",
+        "Monasterio de El Escorial"
+      ],
       "description": "스페인 왕실의 수도원·궁전·왕실 묘역이 모인 거대한 건축 단지입니다. 엄격한 대칭 구조와 절제된 외관이 특징입니다. 마드리드 근교에 세워진 거대한 왕실 수도원·궁전 복합건축물입니다. 펠리페 2세의 시대에 조성되었으며, 엄격한 대칭 구조와 왕실 묘역이 스페인 제국의 정치·종교 역사를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -6175,7 +6502,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Royal Monastery of San Lorenzo de El Escorial",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-012",
@@ -6184,7 +6513,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Generalife Granada",
+        "Jardines del Generalife"
+      ],
       "description": "분수와 수로, 꽃밭이 물의 소리와 그늘을 중심으로 꾸며져 있습니다. 그라나다 알함브라 궁전 옆의 옛 왕실 여름 별궁 정원입니다. 좁은 수로와 분수, 꽃과 나무 사이로 물소리가 이어져 건조한 지역에서 물을 귀하게 다루던 이슬람 정원문화를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -6192,7 +6524,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Generalife Granada",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-014",
@@ -6201,7 +6535,10 @@
       "category": "traditional",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Seville Cathedral",
+        "Catedral de Sevilla"
+      ],
       "description": "거대한 고딕 대성당으로 오랜 도시 역사를 담고 있습니다. 높은 천장과 제단, 종탑이 안달루시아의 문화적 변화를 보여줍니다. 세비야의 거대한 고딕 성당으로 원래 모스크가 있던 자리에 세워졌습니다. 높이 솟은 히랄다 탑과 넓은 내부 공간에서 스페인의 종교·문화 변화가 건축에 어떻게 남았는지 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6209,7 +6546,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Seville Cathedral",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-015",
@@ -6218,7 +6557,10 @@
       "category": "traditional",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Giralda Seville",
+        "La Giralda Sevilla"
+      ],
       "description": "서로 다른 시대의 건축 양식이 한 건물에 남아 있습니다. 세비야 대성당에 딸린 높은 종탑으로 이슬람 시기의 미나렛에서 시작되었습니다. 후대의 종탑 부분이 더해져 서로 다른 시대의 건축이 하나의 탑에 겹쳐 있는 모습이 특징입니다.",
       "photos": [],
       "status": "초안",
@@ -6226,7 +6568,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Giralda Seville",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-016",
@@ -6235,7 +6579,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Royal Alcázar of Seville",
+        "Real Alcázar de Sevilla"
+      ],
       "description": "무데하르 양식이 아름다운 왕궁으로 정교한 타일과 정원이 유명합니다. 이슬람과 기독교의 건축 전통이 오랜 시간 겹쳐 있습니다. 세비야의 왕궁으로 이슬람 건축의 영향을 받은 무데하르 양식이 화려하게 남아 있습니다. 섬세한 타일과 아치, 안뜰과 정원은 여러 문화가 만나 만들어진 독특한 궁전 건축을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -6243,7 +6590,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Royal Alcázar of Seville",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-017",
@@ -6252,7 +6601,10 @@
       "category": "modern",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Puente Nuevo Ronda",
+        "Puente Nuevo de Ronda"
+      ],
       "description": "깊은 타호 협곡 위에 놓인 거대한 돌다리입니다. 절벽 양쪽의 마을을 연결하며 아찔한 높이를 보여줍니다. 깊은 타호 협곡을 가로질러 론다의 옛도심과 신시가지를 잇는 돌다리입니다. 높은 절벽 사이에 여러 아치가 세워져 다리 아래로 내려다보이는 풍경이 인상적입니다.",
       "photos": [],
       "status": "초안",
@@ -6260,7 +6612,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Puente Nuevo Ronda",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-018",
@@ -6269,7 +6623,10 @@
       "category": "market",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Old Town of Cádiz",
+        "Casco antiguo de Cádiz"
+      ],
       "description": "성곽과 성당, 바다를 향한 골목이 해양도시의 역사를 전합니다. 대서양으로 뻗은 반도 위에 자리한 오래된 항구도시의 중심지입니다. 좁은 골목과 해안 방어시설, 광장이 어우러져 지중해와 대서양 무역의 역사를 전합니다.",
       "photos": [],
       "status": "초안",
@@ -6277,7 +6634,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Old Town of Cádiz",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-020",
@@ -6286,7 +6645,10 @@
       "category": "museum",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Guggenheim Museum Bilbao",
+        "Museo Guggenheim Bilbao"
+      ],
       "description": "빛나는 곡면 금속 외피로 유명한 현대 미술관입니다. 조각처럼 휘어지는 건축이 도시 재생의 상징이 되었습니다. 빌바오 강변에 세워진 현대 미술관으로, 반짝이는 금속 곡면이 물고기 비늘처럼 겹쳐 있습니다. 프랭크 게리의 건축은 산업도시의 이미지를 바꾸고 도시재생의 상징이 되었습니다.",
       "photos": [],
       "status": "초안",
@@ -6294,7 +6656,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Guggenheim Museum Bilbao",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-021",
@@ -6303,7 +6667,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "City of Arts and Sciences Valencia",
+        "Ciudad de las Artes y las Ciencias"
+      ],
       "description": "흰색의 유선형 건물이 물 위에 떠 있는 듯한 문화·과학 단지입니다. 미래적인 건축이 도시 풍경을 바꾸었습니다. 발렌시아의 옛 강바닥 일대에 세워진 미래적인 문화·과학 건축단지입니다. 커다란 흰색 곡선 지붕과 수면 반사가 특징이며, 과학관과 공연장, 해양관 등이 모여 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6311,7 +6678,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "City of Arts and Sciences Valencia",
+      "wikiLang": "en"
     },
     {
       "id": "ES-CF-022",
@@ -6320,7 +6689,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Teide National Park Tenerife",
+        "Parque Nacional del Teide"
+      ],
       "description": "높은 화산과 검붉은 용암 벌판에서 독특한 자연환경을 볼 수 있습니다. 카나리아 제도 테네리페섬의 화산 국립공원으로 테이데산이 높이 솟아 있습니다. 검은 화산암과 붉은 용암지형이 펼쳐져 지구 밖 다른 행성처럼 보이는 풍경을 만날 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -6328,7 +6700,9 @@
       "source": "Stage 1.4 CONTENT FIRST editorial draft",
       "selectionStatus": "편집 목록 (식별정보·대표사진 확인 전)",
       "researchProvenance": "명소별 사실관계 및 별칭 별도 확인 예정",
-      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요"
+      "descriptionNote": "Stage 1.6 명소별 서술 보강 초안 · 출처/세부 사실 최종 대조 필요",
+      "wikiTitle": "Teide National Park Tenerife",
+      "wikiLang": "en"
     },
     {
       "id": "GB-CF-001",
