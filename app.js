@@ -82,7 +82,7 @@ function autoBuildHtml(){
  const b=autoBuild,code=state.country,curr=COUNTRY_MAP.get(code),places=allLandmarks().filter(x=>x.countryCode===code);
  const resume=b&&!b.done,active=b&&b.code===code;
  const progress=active?`<p><b>${esc(b.message||'준비됨')}</b></p><progress max="${b.ids.length||1}" value="${Math.min(b.cursor,b.ids.length)}" style="width:100%"></progress><p class="muted small">명소 ${Math.min(b.cursor,b.ids.length)}/${b.ids.length} · 이번 작업 새 사진 ${b.saved||0}장 · 실패 ${b.failed||0}장 · 추가 확인 ${b.review||0}곳</p>`:'';
- return `<section class="panel" style="border:2px solid #e7b96c;background:#fffbf1"><div class="section-head"><h2>✨ ${esc(curr?.name||code)} 자동 사진여행 만들기</h2><small>Stage 2.3.9 · PHOTO AUTO BUILD</small></div><p>기존 명소 ${places.length}곳의 사진첩을 살펴보고, 풍경 중심의 사진을 <b>명소별 최대 30장</b>까지 보강합니다. 기존 사진·순서·대표사진·설명·여행기는 바꾸지 않습니다.</p>${progress}${state.admin?`<div class="action-row"><button class="btn green" data-act="auto-build-start" ${autoBuildRunning?'disabled':''}>${resume&&active?'▶ 멈춘 곳부터 이어하기':'🌍 이 나라 자동보강 시작'}</button><button class="btn" data-act="auto-build-pause" ${!autoBuildRunning?'disabled':''}>⏸ 잠시 멈추기</button><button class="btn" data-act="auto-build-report">📋 결과 보기</button></div>`:`<div class="info">🧒 자동 제작과정은 함께 감상할 수 있습니다. 자동저장을 시작하려면 부모모드를 켜 주세요.</div>`}<p class="muted small">연결 실패는 건너뛰고 기록합니다. 앱이 닫힌 동안에는 실행되지 않으며, 다시 열어 이어할 수 있습니다. 사진의 실제 명소 일치·라이선스는 부모의 최종 확인이 필요합니다.</p>${!places.length?'<p class="warning">이 나라는 등록된 명소가 없습니다. 대표 명소와 설명을 검증해 등록한 후 사진 자동보강을 시작할 수 있습니다. 무검증 자동 설명 생성은 제공하지 않습니다.</p>':''}</section>`;
+ return `<section class="panel" style="border:2px solid #e7b96c;background:#fffbf1"><div class="section-head"><h2>✨ ${esc(curr?.name||code)} 자동 사진여행 만들기</h2><small>Stage 2.3.10 · PHOTO AUTO BUILD</small></div><p>기존 명소 ${places.length}곳의 사진첩을 살펴보고, 풍경 중심의 사진을 <b>명소별 최대 30장</b>까지 보강합니다. 기존 사진·순서·대표사진·설명·여행기는 바꾸지 않습니다.</p>${progress}${state.admin?`<div class="action-row"><button class="btn green" data-act="auto-build-start" ${autoBuildRunning?'disabled':''}>${resume&&active?'▶ 멈춘 곳부터 이어하기':'🌍 이 나라 자동보강 시작'}</button><button class="btn" data-act="auto-build-pause" ${!autoBuildRunning?'disabled':''}>⏸ 잠시 멈추기</button><button class="btn" data-act="auto-build-report">📋 결과 보기</button></div>`:`<div class="info">🧒 자동 제작과정은 함께 감상할 수 있습니다. 자동저장을 시작하려면 부모모드를 켜 주세요.</div>`}<p class="muted small">연결 실패는 건너뛰고 기록합니다. 앱이 닫힌 동안에는 실행되지 않으며, 다시 열어 이어할 수 있습니다. 사진의 실제 명소 일치·라이선스는 부모의 최종 확인이 필요합니다.</p>${!places.length?'<p class="warning">이 나라는 등록된 명소가 없습니다. 대표 명소와 설명을 검증해 등록한 후 사진 자동보강을 시작할 수 있습니다. 무검증 자동 설명 생성은 제공하지 않습니다.</p>':''}</section>`;
 }
 function updateAutoBuildUi(){if(state.view==='countries'){const root=document.getElementById('autoBuildHost');if(root)root.innerHTML=autoBuildHtml();}}
 async function autoBuildCountry(){
@@ -347,7 +347,7 @@ function renderPhotos(){let a=filteredByCat(allLandmarks(),state.photoCat).filte
 function searchText(f){return [f.name,f.region,cName(f.countryCode),...(f.aliases||[]),f.wikiTitle,category(f.category).name,...(f.extraCategories||[]).map(a=>category(a).name)].join(' ');}
 function renderSearch(){const arr=state.search?allLandmarks().filter(x=>match(searchText(x),state.search)):allLandmarks().slice(0,12);return `<section class="panel"><div class="section-head"><h2>🔎 세계 명소 검색</h2><small>한국어 · 영어 · 현지어 · 부분검색</small></div><form class="search-form" id="landmarkSearchForm"><input id="landmarkSearchInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="경, Eiffel, 清水寺, 박물관" value="${esc(state.search)}"><button>검색</button></form><p class="muted small">iPad 한글 입력 보호: 입력 중 화면을 다시 그리지 않고, 검색 버튼을 누르면 결과가 표시됩니다.</p><h3>${state.search?`“${esc(state.search)}” 검색 결과 ${arr.length}개`:'처음 만나볼 명소'}</h3>${arr.length?`<div class="card-grid">${arr.map(landmarkCard).join('')}</div>`:`<div class="blank"><span class="icon">🔎</span>등록된 명소 중에는 검색 결과가 없습니다. 부모모드에서 위키데이터로 새 후보를 찾아볼 수 있습니다.</div>`}</section>`;}
 function renderSaved(kind){const ids=kind==='wish'?edits.wish:edits.favorite;const title=kind==='wish'?'⭐ 가보고 싶어요':'❤️ 즐겨찾기';const a=ids.map(getLandmark).filter(Boolean);return `<section class="panel"><div class="section-head"><h2>${title}</h2><small>${a.length}곳</small></div>${a.length?`<div class="card-grid">${a.map(landmarkCard).join('')}</div>`:`<div class="blank"><span class="icon">${kind==='wish'?'⭐':'❤️'}</span>명소 상세화면에서 마음에 드는 장소를 저장해 보세요.</div>`}</section>`;}
-function renderParent(){const items=allLandmarks(),numConfirmed=items.filter(f=>f.verified).length,numPhotographed=items.filter(f=>(f.photos||[]).length).length,editable=state.editorId?getLandmark(state.editorId):null;return `<section class="panel"><div class="section-head"><h2>👨‍👩‍👧 부모모드</h2><small>Stage 2.3.9 · 안전한 명소 카드 관리</small></div>${!state.admin?`<div class="info">위의 <b>부모모드 켜기</b>를 눌러 수정·검색·저장 기능을 사용해 주세요. 아이가 보는 동안에는 꺼 두면 좋습니다.</div>`:`<div class="parent-stats"><div class="parent-stat"><strong>101</strong>나라</div><div class="parent-stat"><strong>${items.length}</strong>명소 초안</div><div class="parent-stat"><strong>${numConfirmed}</strong>명소 설명 확인 완료</div><div class="parent-stat"><strong>${numPhotographed}</strong>사진 연결된 명소</div></div><div class="info">📁 <b>앱 전용 사진보관함:</b> ${storedPhotoRecords.size}장 · 약 ${bytesLabel([...storedPhotoRecords.values()].reduce((n,p)=>n+(p.blob?.size||0),0))} 사용. Safari와 홈화면 앱이 별도로 저장할 수 있으므로 iCloud Drive → 세계 명소대백과 폴더에 정기적으로 백업하세요. 저장은 자동 동기화가 아닙니다.</div><div class="info">대표이름과 별칭은 검색엔진의 제안 및 국가 일치 확인 후 부모가 승인합니다. 기초 등록 명소는 자료 검증 상태를 구분해 표시하며, 검색 결과만으로 설명·사진이 검증되었다고 표시하지 않습니다. 사진은 위키미디어에서 찾아 직접 고릅니다.</div><div class="action-row"><button class="btn primary" data-act="parent-new">＋ 새 명소 등록</button><button class="btn green" data-act="download-backup">⬇ 사진 포함 백업 (기존 방식)</button><button class="btn green" data-act="zip-backup">📦 원터치 ZIP 백업</button><button class="btn blue" id="zipSaveButton" data-act="zip-save" style="display:none">⬇ 완성 ZIP 다운로드</button><label class="btn blue" style="cursor:pointer">🔍 ZIP 백업 안전검사<input type="file" id="verifyZipInput" accept=".zip,application/zip" style="display:none"></label><label class="btn blue" style="cursor:pointer">🧪 ZIP 가상복원 검사<input type="file" id="dryRunZipInput" accept=".zip,application/zip" style="display:none"></label><span id="dryRunZipStatus" class="small muted" role="status">실제 사진 저장소 변경 없이 복원 절차를 검사합니다</span><label class="btn green" style="cursor:pointer">🧪 Blob·바이너리 저장 비교 (10장)<input type="file" id="isolatedZipInput" accept=".zip,application/zip" style="display:none"></label><label class="btn blue" style="cursor:pointer">⛔ 전체 사진 시험 (비활성화)<input type="file" id="isolatedFullZipInput" disabled title="10장 시험이 안정화될 때까지 전체 시험은 중단합니다" accept=".zip,application/zip" style="display:none"></label><span id="isolatedRestoreStatus" class="small muted" role="status">Blob·ArrayBuffer 비교 / 개별 사진 오류 기록 · 원본 사진첩 변경 없음</span><span id="verifyZipStatus" class="small muted" role="status">ZIP 검사 대기 중 · 앱 자료 변경 없음</span><button class="btn green" data-act="chunk-start">🧩 분할 백업 준비</button><button class="btn blue" data-act="chunk-next">⬇ 다음 사진 묶음 저장</button><span id="zipStatus" class="small muted" role="status">ZIP 백업 대기 중</span><span id="chunkStatus" class="small muted">분할 백업 대기 중</span><label class="btn blue" style="cursor:pointer">⬆ 백업 합쳐서 복원<input type="file" id="importBackup" accept=".json,.zip,application/json,application/zip" multiple style="display:none"></label></div>`}</section>
+function renderParent(){const items=allLandmarks(),numConfirmed=items.filter(f=>f.verified).length,numPhotographed=items.filter(f=>(f.photos||[]).length).length,editable=state.editorId?getLandmark(state.editorId):null;return `<section class="panel"><div class="section-head"><h2>👨‍👩‍👧 부모모드</h2><small>Stage 2.3.10 · 안전한 명소 카드 관리</small></div>${!state.admin?`<div class="info">위의 <b>부모모드 켜기</b>를 눌러 수정·검색·저장 기능을 사용해 주세요. 아이가 보는 동안에는 꺼 두면 좋습니다.</div>`:`<div class="parent-stats"><div class="parent-stat"><strong>101</strong>나라</div><div class="parent-stat"><strong>${items.length}</strong>명소 초안</div><div class="parent-stat"><strong>${numConfirmed}</strong>명소 설명 확인 완료</div><div class="parent-stat"><strong>${numPhotographed}</strong>사진 연결된 명소</div></div><div class="info">📁 <b>앱 전용 사진보관함:</b> ${storedPhotoRecords.size}장 · 약 ${bytesLabel([...storedPhotoRecords.values()].reduce((n,p)=>n+(p.blob?.size||0),0))} 사용. Safari와 홈화면 앱이 별도로 저장할 수 있으므로 iCloud Drive → 세계 명소대백과 폴더에 정기적으로 백업하세요. 저장은 자동 동기화가 아닙니다.</div><div class="info">대표이름과 별칭은 검색엔진의 제안 및 국가 일치 확인 후 부모가 승인합니다. 기초 등록 명소는 자료 검증 상태를 구분해 표시하며, 검색 결과만으로 설명·사진이 검증되었다고 표시하지 않습니다. 사진은 위키미디어에서 찾아 직접 고릅니다.</div><div class="action-row"><button class="btn primary" data-act="parent-new">＋ 새 명소 등록</button><button class="btn green" data-act="download-backup">⬇ 사진 포함 백업 (기존 방식)</button><button class="btn green" data-act="zip-backup">📦 원터치 ZIP 백업</button><button class="btn blue" id="zipSaveButton" data-act="zip-save" style="display:none">⬇ 완성 ZIP 다운로드</button><label class="btn blue" style="cursor:pointer">🔍 ZIP 백업 안전검사<input type="file" id="verifyZipInput" accept=".zip,application/zip" style="display:none"></label><label class="btn blue" style="cursor:pointer">🧪 ZIP 가상복원 검사<input type="file" id="dryRunZipInput" accept=".zip,application/zip" style="display:none"></label><span id="dryRunZipStatus" class="small muted" role="status">실제 사진 저장소 변경 없이 복원 절차를 검사합니다</span><label class="btn green" style="cursor:pointer">🧪 🧪 30장 복원 저장 비교<input type="file" id="isolatedZipInput" accept=".zip,application/zip" style="display:none"></label><label class="btn blue" style="cursor:pointer">🧪 100장 바이너리 저장 시험<input type="file" id="isolatedFullZipInput" title="30장 시험 성공 후 진행하세요. 시험 저장소에만 기록합니다" accept=".zip,application/zip" style="display:none"></label><span id="isolatedRestoreStatus" class="small muted" role="status">30장 Blob·바이너리 비교 / 100장 바이너리 시험 · 원본 사진첩 변경 없음</span><span id="verifyZipStatus" class="small muted" role="status">ZIP 검사 대기 중 · 앱 자료 변경 없음</span><button class="btn green" data-act="chunk-start">🧩 분할 백업 준비</button><button class="btn blue" data-act="chunk-next">⬇ 다음 사진 묶음 저장</button><span id="zipStatus" class="small muted" role="status">ZIP 백업 대기 중</span><span id="chunkStatus" class="small muted">분할 백업 대기 중</span><label class="btn blue" style="cursor:pointer">⬆ 백업 합쳐서 복원<input type="file" id="importBackup" accept=".json,.zip,application/json,application/zip" multiple style="display:none"></label></div>`}</section>
  ${state.admin?`${renderSelectionEngine()}${renderWikidataSearch()}${renderEditor(editable)}${renderCountryEditor()}<section class="panel"><div class="section-head"><h2>🗂️ 등록 명소 관리</h2><small>이름·분류·별칭·설명 수정</small></div>${items.map(f=>`<div class="result-row"><div><b>${esc(COUNTRY_MAP.get(f.countryCode)?.flag)} ${esc(f.name)}</b><div class="muted small">${esc(f.region)} · ${esc(category(f.category).name)} · ${f.nameAudit?.countryStatus==='matched'?'이름·국가 부모확인':(f.verified?'설명 검토완료':'기초자료/확인 전')} · 사진 ${(f.photos||[]).length}장</div></div><div class="action-row" style="margin-top:0"><button class="btn btn-small" data-act="edit-place" data-id="${esc(f.id)}">수정</button><button class="btn btn-small" data-act="open-detail" data-id="${esc(f.id)}">사진</button></div></div>`).join('')}</section>`:''}`;}
 
 // Stage 0.2: Search engine joins selection, identity checking, multilingual aliases.
@@ -998,7 +998,7 @@ function addRecord(form){const fd=new FormData(form),id=String(fd.get('id')||'')
 async function findWikidata(q){if(state.wikidataLoading)return;state.wikidataLoading=true;state.wikidataMessage='위키데이터 검색 중…';state.wikidataResults=[];render();try{let a=[];for(const language of ['ko','en']){const u=new URL('https://www.wikidata.org/w/api.php');Object.entries({action:'wbsearchentities',format:'json',origin:'*',language,uselang:language,search:q,limit:'8'}).forEach(([k,v])=>u.searchParams.set(k,v));const d=await fetchJSON(u);a.push(...(d.search||[]));}const m=new Map();a.forEach(v=>{if(!m.has(v.id))m.set(v.id,{id:v.id,label:v.label||'',description:v.description||''});});state.wikidataResults=[...m.values()].slice(0,12);state.wikidataMessage=`${state.wikidataResults.length}개 후보를 찾았습니다. 관광지인지, 나라가 맞는지 원본을 확인하세요.`;}catch(e){state.wikidataResults=[];state.wikidataMessage='위키데이터에 연결하지 못했습니다. 인터넷과 사이트 연결을 확인해 주세요.';}finally{state.wikidataLoading=false;render();}}
 function useWikidata(qid){const r=state.wikidataResults.find(x=>x.id===qid);if(!r)return;inspectResearch(qid,'',state.researchCountry,null);}
 
-// Stage 2.3.9: single ZIP download, no base64 copies of photos.
+// Stage 2.3.10: single ZIP download, no base64 copies of photos.
 // ZIP uses STORE (no re-compression of JPEGs); Blob parts reference photo binaries.
 let zipBusy=false,zipReady=null;
 const ZIP_ENC=new TextEncoder();
@@ -1069,7 +1069,7 @@ async function prepareZipBackup(){
 }
 async function zipSlice(file,start,length){return new Uint8Array(await file.slice(start,start+length).arrayBuffer());}
 
-// Stage 2.3.9: read-only ZIP audit. Does NOT open or modify IndexedDB.
+// Stage 2.3.10: read-only ZIP audit. Does NOT open or modify IndexedDB.
 // Each photo CRC is verified from a limited-size slice; no whole-archive buffer.
 let zipAuditBusy=false;
 function auditStatus(text){const el=document.getElementById('verifyZipStatus');if(el)el.textContent=text;}
@@ -1189,7 +1189,7 @@ async function auditZipFile(file,mode="audit"){
  finally{zipAuditBusy=false;}
 }
 
-// Stage 2.3.9: isolated IndexedDB WRITE/READ verification. Never open or modify PHOTO_DB.
+// Stage 2.3.10: isolated IndexedDB WRITE/READ verification. Never open or modify PHOTO_DB.
 const ISOLATED_RESTORE_DB='world_landmarks_zip_restore_test_v239';
 let isolatedRestoreBusy=false;
 function isolatedStatus(message){const el=document.getElementById('isolatedRestoreStatus');if(el)el.textContent=message;}
@@ -1221,7 +1221,7 @@ function isolatedClear(database){return new Promise((resolve,reject)=>{
 });}
 async function testIsolatedZipRestore(file,full){
  if(!state.admin)return;
- if(full){alert('안전을 위해 전체 사진 쓰기 시험은 비활성화했습니다. 먼저 10장 진단 결과를 확인합니다.');return;}
+ if(full&&!confirm('100장의 사진을 별도 시험 저장소에 기록한 후 다시 읽어 검사합니다. 기존 사진은 건드리지 않지만 임시 저장용량이 필요합니다. 30장 시험이 성공했고 저장공간이 충분한 경우에만 진행해 주세요.'))return;
  if(isolatedRestoreBusy||zipAuditBusy||zipBusy||backupBusy||chunkBusy||autoBuildRunning)return alert('다른 작업이나 백업을 먼저 멈춰 주세요.');
  isolatedRestoreBusy=true;
  let trialDb=null, step='ZIP 읽기';
@@ -1240,11 +1240,11 @@ async function testIsolatedZipRestore(file,full){
   if(zipCRC(bytes)!==hv.getUint32(14,true))throw Error('기본자료 CRC 불일치');
   const manifest=JSON.parse(new TextDecoder().decode(bytes));
   if(manifest.format!=='world-landmarks-zip-backup-v1'||!Array.isArray(manifest.photos)||!Array.isArray(manifest.catalogEntries))throw Error('백업 형식 불일치');
-  const limit=Math.min(10,manifest.photos.length);
+  const limit=Math.min(full?100:30,manifest.photos.length);
   step='시험용 DB 열기';trialDb=await isolatedDbOpen();
   step='시험용 DB 초기화';await isolatedClear(trialDb);
   // Prove that basic IndexedDB writes are possible before comparing photo types.
-  step='작은 텍스트 기록';await isolatedPut(trialDb,'trialMetadata','health',{ok:true,stamp:'2.3.9'});
+  step='작은 텍스트 기록';await isolatedPut(trialDb,'trialMetadata','health',{ok:true,stamp:'2.3.10'});
   if(!(await isolatedGet(trialDb,'trialMetadata','health'))?.ok)throw Error('소형 데이터 읽기 실패');
   let offset=begin+size,blobOK=0,arrayOK=0,blobFailures=0,arrayFailures=0;
   for(let i=0;i<limit;i++){
@@ -1264,7 +1264,7 @@ async function testIsolatedZipRestore(file,full){
    if(zipCRC(raw)!==crc)throw Error('사진 '+(i+1)+' 원본 CRC 실패');
    const key=spec.record.id;
    let b='성공',a='성공';
-   try{
+   if(!full)try{
     step='사진 '+(i+1)+' Blob 기록';
     const blob=new Blob([raw],{type:spec.record.mimeType||'image/jpeg'});
     await isolatedPut(trialDb,'trialPhotos',null,{id:'blob:'+key,placeId:spec.record.placeId,blob});
@@ -1272,6 +1272,7 @@ async function testIsolatedZipRestore(file,full){
     if(!reread?.blob||zipCRC(new Uint8Array(await reread.blob.arrayBuffer()))!==crc)throw Error('Blob 재읽기 CRC 불일치');
     blobOK++;
    }catch(e){blobFailures++;b=(e.name||'Error')+': '+(e.message||e);}
+   if(full)b='미시험';
    try{
     step='사진 '+(i+1)+' ArrayBuffer 기록';
     // Copy to exact-sized independent buffer; avoid storing Safari File-slice backed Blob.
@@ -1283,18 +1284,18 @@ async function testIsolatedZipRestore(file,full){
    }catch(e){arrayFailures++;a=(e.name||'Error')+': '+(e.message||e);}
    outcomes.push({i:i+1,name:fname,size:sz,blob:b,array:a});
    offset=pos+sz;
-   isolatedStatus('🧪 '+(i+1)+'/'+limit+'장 비교 · Blob '+blobOK+'장 · 바이너리 '+arrayOK+'장 · 실패 '+(blobFailures+arrayFailures)+'건');
+   isolatedStatus('🧪 '+(i+1)+'/'+limit+'장 · '+(full?'바이너리':'Blob·바이너리')+' 저장·재읽기 · 성공 '+arrayOK+'장 · 실패 '+(blobFailures+arrayFailures)+'건');
    await new Promise(r=>setTimeout(r,0));
   }
-  const failDetails=outcomes.filter(x=>x.blob!=='성공'||x.array!=='성공').map(x=>x.i+'번 / '+Math.round(x.size/1024)+'KB: Blob '+x.blob+' / ArrayBuffer '+x.array).slice(0,6);
-  const report='사진 '+limit+'장 방식별 실제 저장·재읽기 결과\nBlob 성공 '+blobOK+'/'+limit+'장\nArrayBuffer 성공 '+arrayOK+'/'+limit+'장\n'+(failDetails.length?'\n실패 상세\n'+failDetails.join('\n'):'\n두 방식 모두 CRC32 재검증 통과')+'\n\n원본 사진첩은 변경하지 않았습니다. 이 결과는 전체 복원 성공을 의미하지 않습니다.';
-  isolatedStatus('🧪 비교 완료 · Blob '+blobOK+'/'+limit+'장 · ArrayBuffer '+arrayOK+'/'+limit+'장 · 사진첩 변경 없음');
+  const failDetails=outcomes.filter(x=>(!full&&x.blob!=='성공')||x.array!=='성공').map(x=>x.i+'번 / '+Math.round(x.size/1024)+'KB: Blob '+x.blob+' / ArrayBuffer '+x.array).slice(0,6);
+  const report='사진 '+limit+'장 실제 저장·재읽기 결과\n'+(full?'Blob: 이번 시험에서 제외\n':'Blob 성공 '+blobOK+'/'+limit+'장\n')+'ArrayBuffer 성공 '+arrayOK+'/'+limit+'장\n'+(failDetails.length?'\n실패 상세\n'+failDetails.join('\n'):'\n두 방식 모두 CRC32 재검증 통과')+'\n\n원본 사진첩은 변경하지 않았습니다. 이 결과는 전체 복원 성공을 의미하지 않습니다.';
+  isolatedStatus('🧪 '+limit+'장 시험 완료 · '+(full?'바이너리 '+arrayOK:('Blob '+blobOK+' · 바이너리 '+arrayOK))+'/'+limit+'장 · 사진첩 변경 없음');
   alert(report);
  }catch(e){
   const detail=step+' → '+(e.name||'Error')+': '+(e.message||e);
   isolatedStatus('⚠ 비교 중단 · '+detail);
   alert('저장 방식 비교 실패\n'+detail+'\n기존 사진첩은 변경하지 않았습니다.');
- }finally{try{trialDb?.close();}catch{}isolatedRestoreBusy=false;}
+ }finally{if(trialDb){try{await isolatedClear(trialDb);}catch(e){isolatedStatus('⚠ 시험 자료 정리에 실패했습니다: '+e.message+' · 기존 사진첩 변경 없음');}try{trialDb.close();}catch{}}isolatedRestoreBusy=false;}
 }
 async function restoreZipBackup(file){
  if(!state.admin)return;
@@ -1341,7 +1342,7 @@ async function restoreZipBackup(file){
  finally{zipBusy=false;}
 }
 
-// Stage 2.3.9: independent JSON metadata + small photo chunks.
+// Stage 2.3.10: independent JSON metadata + small photo chunks.
 // Existing single-file backup is preserved. Never delete user photo data here.
 const CHUNK_PHOTOS=25;
 let chunkJob=null,chunkBusy=false;
@@ -1534,6 +1535,7 @@ listen('[data-personal-upload]',input=>{importPersonalPhotos(input.files,input.d
 listen('#verifyZipInput',input=>{const file=input.files?.[0];if(file)auditZipFile(file);input.value='';});
 listen('#dryRunZipInput',input=>{const file=input.files?.[0];if(file)auditZipFile(file,'dry-run');input.value='';});
 listen('#isolatedZipInput',input=>{const file=input.files?.[0];if(file)testIsolatedZipRestore(file,false);input.value='';});
+listen('#isolatedFullZipInput',input=>{const file=input.files?.[0];if(file)testIsolatedZipRestore(file,true);input.value='';});
 listen('#isolatedFullZipInput',input=>{const file=input.files?.[0];if(file)testIsolatedZipRestore(file,true);input.value='';});
 listen('#importBackup',input=>{const files=[...(input.files||[])];if(files.length===1&&/\.zip$/i.test(files[0].name))restoreZipBackup(files[0]);else restoreChunkedFiles(files);input.value='';});
 listen('#overviewCode',input=>{state.country=input.value;const t=$('#overviewText');if(t)t.value=countryIntro(COUNTRY_MAP.get(input.value));});
