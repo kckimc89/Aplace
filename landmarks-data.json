@@ -1,7 +1,7 @@
 {
   "title": "세계 명소대백과",
-  "version": "2.3.15",
-  "release": "Stage 2.3.15 TH TW IT ES MULTILINGUAL PHOTO SEARCH",
+  "version": "2.3.17",
+  "release": "Stage 2.3.17 COUNTRY ALBUM JOURNEY + VERIFIED DESCRIPTION DRAFT + JAPAN SEARCH",
   "basedOn": "Stage 1.5 SEARCH & STORY 전체 기준 (기본 ID·사진·사용자 저장 구조 유지)",
   "categories": [
     {
@@ -3646,7 +3646,10 @@
       "category": "modern",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Tokyo Tower",
+        "東京タワー"
+      ],
       "description": "파리 에펠탑의 구조를 떠올리게 하는 붉고 흰 전파탑입니다. 쇼와시대 도쿄의 성장과 현대화의 상징으로 사랑받아 왔습니다. 전후 일본의 방송과 도시 발전을 상징하는 철탑으로, 붉은색과 흰색으로 칠해진 외관이 특징입니다. 에펠탑에서 영감을 받은 형태로 알려져 있으며, 주변 고층 건물과 도심의 변화를 함께 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -3663,7 +3666,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Sensō-ji",
+        "Sensoji Temple Asakusa",
+        "浅草寺"
+      ],
       "description": "도쿄 아사쿠사의 유서 깊은 불교 사찰입니다. 커다란 붉은 등불이 달린 가미나리몬과 나카미세 상점가가 유명합니다. 도쿄 아사쿠사의 오래된 불교 사찰로 커다란 붉은 제등이 걸린 가미나리몬이 입구를 알립니다. 나카미세 상점가를 지나 본당으로 이어지는 길은 전통 신앙과 활기찬 거리 문화를 함께 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -3680,7 +3687,10 @@
       "category": "traditional",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Meiji Jingu Shrine",
+        "明治神宮"
+      ],
       "description": "도심의 큰 숲길과 거대한 도리이가 차분한 분위기를 만듭니다. 메이지 천황과 쇼켄 황태후를 기리는 도쿄의 신사로, 큰 나무들이 둘러싼 숲길 안에 자리합니다. 복잡한 시부야·하라주쿠 근처에 있으면서도 고요한 숲과 전통 신사 건축을 경험할 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -3697,7 +3707,10 @@
       "category": "modern",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Shibuya Scramble Crossing",
+        "渋谷スクランブル交差点"
+      ],
       "description": "많은 사람이 한꺼번에 여러 방향으로 건너는 도쿄의 교차로입니다. 건물과 전광판이 둘러싼 장면은 현대 대도시의 활기를 상징합니다. 보행자 신호가 바뀌면 여러 방향에서 동시에 많은 사람이 길을 건너는 도쿄의 유명한 교차로입니다. 주변 대형 전광판과 고층 건물, 빠른 도시의 움직임이 하나의 풍경을 만듭니다.",
       "photos": [],
       "status": "초안",
@@ -3714,7 +3727,10 @@
       "category": "modern",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Tokyo Station Marunouchi Building",
+        "東京駅丸の内駅舎"
+      ],
       "description": "붉은 벽돌로 지어진 도쿄역의 역사적인 정면 건물입니다. 복원된 돔과 긴 외벽에 일본 근대 철도사의 흔적이 남아 있습니다. 붉은 벽돌로 지은 도쿄역의 마루노우치역사는 일본 근대 철도와 수도 발전의 상징입니다. 대칭을 이루는 긴 정면과 돔 지붕을 복원하여, 도심의 현대 건물 사이에서 옛 건축의 분위기를 전합니다.",
       "photos": [],
       "status": "초안",
@@ -3731,7 +3747,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Ueno Park Tokyo",
+        "上野恩賜公園"
+      ],
       "description": "박물관과 미술관, 연못이 모여 있는 도쿄의 큰 공원입니다. 봄에는 벚꽃 명소로 알려져 있습니다. 도쿄의 넓은 공원 안에 박물관과 미술관, 동물원이 모여 있습니다. 봄 벚꽃 명소로도 유명하며, 전통 사찰의 흔적과 일본의 근대 문화시설이 한곳에 공존합니다.",
       "photos": [],
       "status": "초안",
@@ -3748,7 +3767,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Tokyo Disney Resort Urayasu",
+        "東京ディズニーリゾート"
+      ],
       "description": "도쿄 동쪽 지바현 우라야스시에 자리한 대형 테마파크 단지입니다. 동화 속 공간을 재현한 시설과 다양한 공연이 특징입니다. 지바현 우라야스에 조성된 대규모 테마파크 리조트로 도쿄 디즈니랜드와 디즈니씨 등이 있습니다. 이야기 속 세계를 건축과 놀이기구, 공연으로 구현하여 실제 장소를 걷는 듯한 경험을 제공합니다.",
       "photos": [],
       "status": "초안",
@@ -3765,7 +3787,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Great Buddha of Kamakura",
+        "Kamakura Daibutsu Kōtoku-in",
+        "鎌倉大仏 高徳院"
+      ],
       "description": "하늘 아래 앉은 불상의 차분한 표정과 비례가 인상적입니다. 가마쿠라 고토쿠인에 있는 커다란 청동 좌불상입니다. 과거에는 불상을 덮던 건물이 있었지만 현재는 야외에 자리하고 있어, 오래된 불상의 규모와 차분한 표정을 가까이에서 볼 수 있습니다.",
       "photos": [],
       "status": "초안",
@@ -3782,7 +3808,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Lake Ashi Hakone",
+        "Ashinoko",
+        "芦ノ湖 箱根"
+      ],
       "description": "화산 지형 속에 형성된 하코네의 호수입니다. 맑은 날에는 호수와 도리이, 멀리 후지산이 한 장면에 담깁니다. 화산지형 속에 형성된 하코네의 호수로, 맑은 날에는 후지산이 물 너머에 솟아 있는 모습을 볼 수 있습니다. 주변 온천과 신사, 산악도로는 일본 화산지대의 자연과 생활 문화를 이어 줍니다.",
       "photos": [],
       "status": "초안",
@@ -3799,7 +3829,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Ginkaku-ji Kyoto",
+        "Jishō-ji",
+        "銀閣寺 慈照寺"
+      ],
       "description": "모래를 정교하게 다듬은 은사탄이 특히 인상적입니다. 교토의 히가시야마 산기슭에 있는 사찰로, 은빛으로 덮인 건물이 아니라 절제된 목조 건축과 정원으로 유명합니다. 모래를 정교하게 다듬은 정원과 이끼 풍경은 일본의 조용한 미적 감각을 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -3816,7 +3850,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Nijō Castle Kyoto",
+        "Nijo-jo",
+        "二条城 京都"
+      ],
       "description": "화려한 실내 장식과 걸을 때 소리가 나는 마루로도 알려져 있습니다. 에도 시대 도쿠가와 쇼군이 교토를 방문할 때 사용한 성입니다. 장식이 화려한 니노마루 궁전과 걸을 때 소리가 나는 마룻바닥이 특징이며, 막부 정치와 궁정의 관계를 보여 줍니다.",
       "photos": [],
       "status": "초안",
@@ -3833,7 +3871,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Byōdō-in Temple Uji",
+        "Byodoin Phoenix Hall",
+        "平等院 鳳凰堂"
+      ],
       "description": "교토부 우지의 사찰로 연못 앞에 날개를 펼친 듯한 봉황당이 유명합니다. 헤이안시대 귀족 문화와 불교 이상세계를 건축에 담았습니다. 우지에 있는 평안 시대 불교 건축물로, 연못을 향해 날개처럼 펼쳐진 봉황당이 유명합니다. 극락정토를 지상에 표현하려는 신앙이 건물과 정원 배치에 반영되었으며 일본 10엔 동전에도 등장합니다.",
       "photos": [],
       "status": "초안",
@@ -3850,7 +3892,11 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Tōdai-ji Temple Nara",
+        "Todaiji Great Buddha Hall",
+        "東大寺 大仏殿"
+      ],
       "description": "나라의 거대한 목조 대불전과 청동 대불로 유명한 사찰입니다. 나라시대 불교의 국가적 위상을 보여주는 대표 유적입니다. 나라 시대의 대형 불교 사찰로 거대한 청동 대불을 모신 대불전이 특히 유명합니다. 국가의 평화와 안녕을 기원하던 불교 정책과 당시 목조건축 기술을 보여 주는 장소입니다.",
       "photos": [],
       "status": "초안",
@@ -3867,7 +3913,10 @@
       "category": "park",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Hiroshima Peace Memorial Park",
+        "広島平和記念公園"
+      ],
       "description": "원폭 돔과 위령비, 박물관이 전쟁의 비극을 전합니다. 1945년 원자폭탄 피해를 기억하고 평화를 기원하기 위해 조성된 공원입니다. 원폭 돔과 자료관, 위령 시설은 전쟁이 시민들의 삶에 남긴 흔적을 전하며, 국제 평화의 중요성을 생각하게 합니다.",
       "photos": [],
       "status": "초안",
@@ -3884,7 +3933,10 @@
       "category": "traditional",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Itsukushima Shrine Miyajima",
+        "厳島神社 宮島"
+      ],
       "description": "미야지마 해안의 물 위에 선 듯한 신사와 붉은 대형 도리이로 유명합니다. 조수에 따라 해변 풍경이 크게 달라집니다. 히로시마현 미야지마에 있는 신사로, 바닷물 속에 선 것처럼 보이는 붉은 도리이문이 유명합니다. 밀물 때는 물 위에 떠 있는 듯하고 썰물 때는 바닥이 드러나, 같은 건축물도 조수에 따라 다르게 보입니다.",
       "photos": [],
       "status": "초안",
@@ -3901,7 +3953,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Kenrokuen Garden Kanazawa",
+        "兼六園 金沢"
+      ],
       "description": "일본의 대표적인 전통 정원 가운데 하나입니다. 연못, 돌다리, 소나무와 계절별 식물이 조화롭게 배치되어 있습니다. 에도 시대 지방 영주가 가꾸던 일본의 대표적인 정원입니다. 연못, 다리, 돌등롱, 오래된 소나무가 조화를 이루며, 계절마다 정원의 시선과 분위기가 달라집니다.",
       "photos": [],
       "status": "초안",
@@ -3918,7 +3973,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Shirakawa-go Gassho-zukuri Village",
+        "白川郷 合掌造り"
+      ],
       "description": "지붕이 두 손을 모은 모양처럼 가파른 전통 가옥이 모여 있습니다. 눈이 많이 오는 지역의 생활환경에 맞춘 건축 방식입니다. 기후현 산골짜기에 가파른 삼각형 초가지붕 가옥들이 모여 있습니다. 눈이 많이 내리는 지역의 기후에 맞춘 지붕 구조가 특징이며, 여러 세대가 함께 살아가던 산촌의 생활양식을 전해 줍니다.",
       "photos": [],
       "status": "초안",
@@ -3935,7 +3993,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Nikko Toshogu Shrine",
+        "日光東照宮"
+      ],
       "description": "정교한 나무 조각과 금빛 채색이 산림 속 건축물에 담겨 있습니다. 에도 막부를 연 도쿠가와 이에야스를 기리는 신사입니다. 화려한 목조 조각과 색채가 특징이며, 세 마리 원숭이와 잠자는 고양이 조각에는 다양한 이야기가 담겨 있습니다.",
       "photos": [],
       "status": "초안",
@@ -3952,7 +4013,10 @@
       "category": "nature",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Shirogane Blue Pond Biei",
+        "美瑛 白金青い池"
+      ],
       "description": "물속 성분과 빛의 산란에 따라 푸르게 보이는 인공 연못입니다. 물에 잠긴 나무 줄기가 독특한 풍경을 만듭니다. 홋카이도 비에이의 물빛이 파랗게 보이는 인공 호수입니다. 물에 섞인 미세한 입자와 빛의 산란이 독특한 색을 만들며, 물속에 서 있는 마른 나무들이 신비로운 풍경을 이룹니다.",
       "photos": [],
       "status": "초안",
@@ -3969,7 +4033,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Shuri Castle Okinawa",
+        "首里城 沖縄"
+      ],
       "description": "류큐왕국의 정치와 문화를 상징하는 성입니다. 일본 본토와 다른 붉은 전각과 독특한 양식이 특징이며 복원 상태를 확인해야 합니다. 류큐 왕국의 중심 성곽이자 궁전으로, 일본 본토와 다른 붉은색 건축과 장식이 인상적입니다. 중국과 동남아시아 사이의 교역으로 성장한 섬 왕국의 역사를 보여 주며, 화재 이후 복원 작업도 이어지고 있습니다.",
       "photos": [],
       "status": "초안",
@@ -3986,7 +4053,10 @@
       "category": "heritage",
       "extraCategories": [],
       "region": "",
-      "aliases": [],
+      "aliases": [
+        "Glover Garden Nagasaki",
+        "グラバー園 長崎"
+      ],
       "description": "나가사키 언덕에 서양식 근대 주택이 모여 있는 정원입니다. 개항기 국제교류와 항구의 역사를 보여줍니다. 나가사키 항구가 내려다보이는 언덕에 서양식 주택과 정원이 남아 있습니다. 개항 이후 외국 상인들이 생활하던 공간으로, 일본과 다른 나라가 교류했던 근대 항구도시의 모습이 담겨 있습니다.",
       "photos": [],
       "status": "초안",

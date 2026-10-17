@@ -125,3 +125,12 @@
 .broadcast-bottom{padding:12px 16px calc(16px + env(safe-area-inset-bottom));background:#281c15;text-align:center}.broadcast-bottom h3{font-size:clamp(18px,2.9vw,26px);color:#fff3da;margin:5px 0}.broadcast-bottom p{margin:6px 0}.broadcast-bottom small{display:block;margin-top:10px;color:#e4cbad;font-size:12px}.broadcast-bottom progress{display:block;margin:10px auto 0;width:min(100%,900px);height:12px;accent-color:#f9ae51}
 .broadcast-strip{display:flex;justify-content:center;gap:7px;margin:10px auto;max-width:850px;overflow-x:auto}.broadcast-strip img{width:92px;height:65px;object-fit:cover;border-radius:8px;border:1px solid #d4ad72}.broadcast-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:10px auto}.broadcast-actions button:nth-child(2){background:#a7ddba}
 @media(max-width:550px){.broadcast-stage{max-height:48vh}.broadcast-stage img{max-height:48vh}.broadcast-strip img{height:48px;width:68px}.broadcast-top h2{font-size:17px}.broadcast-bottom h3{font-size:17px}}
+
+/* Stage 2.3.17 photo journey controls */
+.album-country-speed{display:flex;gap:8px;justify-content:center;align-items:center;margin:8px 0;flex-wrap:wrap}.album-country-speed button{border:1px solid #edd2aa;border-radius:9px;background:#fff6e7;color:#67360f;min-width:55px;min-height:38px;font-weight:700}.country-tour .tour-photo{object-fit:contain}
+
+/* Stage 2.3.18: quiet photo-only country journey. Keep essential photo title/control, hide repeated narration/credit overlays. */
+.country-tour.album-country-mode .tour-caption,.country-tour.album-country-mode .tour-credit{display:none!important}
+.country-tour.album-country-mode .tour-bottom{background:linear-gradient(0deg,rgba(0,0,0,.80),transparent);padding:8px 12px env(safe-area-inset-bottom)}
+.country-tour.album-country-mode .tour-top{background:linear-gradient(180deg,rgba(0,0,0,.62),transparent)}
+.album-country-speed button.selected{background:#874719;color:#fff;border-color:#eac28e}
