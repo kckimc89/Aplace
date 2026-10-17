@@ -1,7 +1,7 @@
 {
   "title": "세계 명소대백과",
-  "version": "2.3.17",
-  "release": "Stage 2.3.17 COUNTRY ALBUM JOURNEY + VERIFIED DESCRIPTION DRAFT + JAPAN SEARCH",
+  "version": "2.3.20",
+  "release": "Stage 2.3.20 COUNTRY ALBUM JOURNEY + VERIFIED DESCRIPTION DRAFT + JAPAN SEARCH",
   "basedOn": "Stage 1.5 SEARCH & STORY 전체 기준 (기본 ID·사진·사용자 저장 구조 유지)",
   "categories": [
     {
