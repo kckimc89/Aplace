@@ -34,10 +34,49 @@ const candidateSelected=new Map();
 // Stage 2.3: restartable, foreground-only country photo enrichment.
 // Existing descriptions and user photos are deliberately never overwritten.
 const AUTO_BUILD_KEY='world_landmarks_auto_build_stage23_v1';
-let autoBuild=null,autoBuildRunning=false,autoBuildStop=false;
-function readAutoBuild(){try{const x=JSON.parse(localStorage.getItem(AUTO_BUILD_KEY)||'null');return x&&x.code&&Array.isArray(x.ids)?x:null;}catch(_){return null;}}
-function writeAutoBuild(){try{if(autoBuild)localStorage.setItem(AUTO_BUILD_KEY,JSON.stringify(autoBuild));return true;}catch(e){autoBuildStop=true;alert('자동제작 진행 기록을 저장하지 못했습니다. 사진은 이미 저장된 상태일 수 있습니다.\n'+e.message);return false;}}
-autoBuild=readAutoBuild();
+// AUTO BUILD progress stays in a small dedicated IndexedDB record, not in the
+// already-full localStorage used by the encyclopedia metadata.
+const AUTO_PROGRESS_DB='world_landmarks_auto_progress_v231';
+let autoBuild=null,autoBuildRunning=false,autoBuildStop=false,autoBuildReady=false;
+function openAutoProgressDb(){return new Promise((resolve,reject)=>{
+ const req=indexedDB.open(AUTO_PROGRESS_DB,1);
+ req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains('progress'))db.createObjectStore('progress');};
+ req.onsuccess=()=>resolve(req.result);
+ req.onerror=()=>reject(req.error||Error('진행 기록 저장소 열기 실패'));
+ req.onblocked=()=>reject(Error('다른 Safari 탭에서 데이터베이스를 사용 중입니다.'));
+});}
+async function readAutoBuild(){
+ let db;
+ try{db=await openAutoProgressDb();const data=await new Promise((resolve,reject)=>{
+  const tx=db.transaction('progress','readonly'),r=tx.objectStore('progress').get('current');
+  r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error);tx.onabort=()=>reject(tx.error||Error('읽기 중단'));
+ });
+ if(data&&data.code&&Array.isArray(data.ids))return data;
+ }catch(e){console.warn('자동 진행 기록 읽기 실패',e);}finally{if(db)db.close();}
+ // One-time compatibility with Stage 2.3 checkpoints if they exist.
+ try{const old=JSON.parse(localStorage.getItem(AUTO_BUILD_KEY)||'null');return old&&old.code&&Array.isArray(old.ids)?old:null;}catch(_){return null;}
+}
+async function writeAutoBuild(){
+ if(!autoBuild)return true;
+ let db;
+ try{
+  db=await openAutoProgressDb();
+  const snapshot=JSON.parse(JSON.stringify(autoBuild));
+  await new Promise((resolve,reject)=>{
+   const tx=db.transaction('progress','readwrite');
+   tx.objectStore('progress').put(snapshot,'current');
+   tx.oncomplete=resolve;
+   tx.onabort=()=>reject(tx.error||Error('기록 저장 중단'));
+   tx.onerror=()=>reject(tx.error||Error('기록 저장 오류'));
+  });
+  return true;
+ }catch(e){
+  autoBuildStop=true;
+  alert('자동제작 진행 기록 저장에 실패했습니다. 작업을 중단합니다. 기존 사진은 삭제되지 않습니다.\n'+(e.message||e));
+  return false;
+ }finally{if(db)db.close();}
+}
+(async()=>{autoBuild=await readAutoBuild();autoBuildReady=true;updateAutoBuildUi();})();
 function countStored(id){return [...storedPhotoRecords.values()].filter(x=>x.placeId===id).length;}
 function autoBuildHtml(){
  const b=autoBuild,code=state.country,curr=COUNTRY_MAP.get(code),places=allLandmarks().filter(x=>x.countryCode===code);
@@ -53,9 +92,9 @@ async function autoBuildCountry(){
  for(;autoBuild.cursor<autoBuild.ids.length;){
   if(autoBuildStop)break;
   const id=autoBuild.ids[autoBuild.cursor],f=getLandmark(id);
-  if(!f){autoBuild.cursor++;writeAutoBuild();continue;}
+  if(!f){autoBuild.cursor++;if(!await writeAutoBuild())break;continue;}
   let existing=countStored(id);
-  if(existing>=30){autoBuild.message=`✓ ${f.name} · 이미 사진 ${existing}장`;autoBuild.cursor++;writeAutoBuild();updateAutoBuildUi();continue;}
+  if(existing>=30){autoBuild.message=`✓ ${f.name} · 이미 사진 ${existing}장`;autoBuild.cursor++;if(!await writeAutoBuild())break;updateAutoBuildUi();continue;}
   autoBuild.message=`🔎 ${f.name} · 사진 검색 중 (${autoBuild.cursor+1}/${autoBuild.ids.length})`;
   updateAutoBuildUi();
   try{
@@ -77,25 +116,26 @@ async function autoBuildCountry(){
      autoBuild.saved++;
     }catch(e){autoBuild.failed++;if(autoBuild.notes.length<80)autoBuild.notes.push(`${f.name}: ${String(e.message||e).slice(0,90)}`);}
     // Checkpoint after every image so transient failures do not discard progress.
-    writeAutoBuild();await new Promise(r=>setTimeout(r,80));
+    if(!await writeAutoBuild())break;await new Promise(r=>setTimeout(r,80));
    }
   }catch(e){autoBuild.failed++;if(autoBuild.notes.length<80)autoBuild.notes.push(`${f.name}: 검색 실패 ${e.message}`);}
   if(autoBuildStop)break;
-  autoBuild.cursor++;autoBuild.message=`✅ ${f.name} 점검 완료 · 저장 ${autoBuild.saved}장`;writeAutoBuild();updateAutoBuildUi();
+  autoBuild.cursor++;autoBuild.message=`✅ ${f.name} 점검 완료 · 저장 ${autoBuild.saved}장`;if(!await writeAutoBuild())break;updateAutoBuildUi();
   await new Promise(r=>setTimeout(r,180));
  }
- if(autoBuild.cursor>=autoBuild.ids.length){autoBuild.done=true;autoBuild.message=`🎉 ${cName(autoBuild.code)} 자동 사진보강 완료! 새 사진 ${autoBuild.saved}장 · 실패 ${autoBuild.failed}건`;writeAutoBuild();}
+ if(!autoBuildStop&&autoBuild.cursor>=autoBuild.ids.length){autoBuild.done=true;autoBuild.message=`🎉 ${cName(autoBuild.code)} 자동 사진보강 완료! 새 사진 ${autoBuild.saved}장 · 실패 ${autoBuild.failed}건`;await writeAutoBuild();}
  }finally{autoBuildRunning=false;updateAutoBuildUi();}
 }
-function startAutoBuild(){
+async function startAutoBuild(){
  if(!state.admin)return notify('자동 사진저장은 부모모드에서 시작해 주세요.');
+ if(!autoBuildReady)return notify('진행 기록을 불러오는 중입니다. 잠시 후 다시 눌러주세요.');
  if(autoBuildRunning)return;
  if(autoBuild&&!autoBuild.done&&autoBuild.code===state.country){autoBuildCountry();return;}
  const places=allLandmarks().filter(f=>f.countryCode===state.country);
  if(!places.length)return alert('이 나라는 아직 등록된 명소가 없습니다. 대표명소 및 사실 확인된 설명을 먼저 준비해야 합니다.');
  if(!confirm(`${cName(state.country)}의 등록 명소 ${places.length}곳을 순서대로 검색하여 명소당 최대 30장까지 사진을 보강할까요?\n\n사진 제목·메타데이터 기반 선별이므로 사람·지도·엉뚱한 명소 사진이 완전히 제외된다고 보장하지는 않습니다. 결과를 부모가 검토해 주세요.\n\n기존 사진과 순서·설명은 변경하지 않습니다.`))return;
  autoBuild={code:state.country,ids:places.map(x=>x.id),cursor:0,saved:0,failed:0,review:0,notes:[],done:false,message:'탐험을 준비하고 있습니다.'};
- if(writeAutoBuild())autoBuildCountry();
+ if(await writeAutoBuild())autoBuildCountry();
 }
 function showAutoBuildReport(){if(!autoBuild)return alert('아직 자동 사진보강 기록이 없습니다.');alert(`${cName(autoBuild.code)} · ${autoBuild.done?'완료':'진행 중 / 중단'}\n명소 ${autoBuild.cursor}/${autoBuild.ids.length}\n새 사진 ${autoBuild.saved}장 · 저장 실패 ${autoBuild.failed}건 · 후보 부족 ${autoBuild.review}곳\n\n${autoBuild.notes.slice(-14).join('\n')||'특이사항 없음'}\n\n기존 사진·순서·설명은 보존됩니다.`);}
 
