@@ -141,3 +141,9 @@
 
 /* Stage 2.3.21.3: compact country selection, only countries with saved data. */
 .country-backup-picker{width:100%;padding:14px;border:1px solid #dfd8c7;border-radius:15px;background:#faf8f2;margin-top:10px}.backup-country-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:7px;margin-top:10px;max-height:230px;overflow:auto;padding:3px}.backup-country-choice{display:flex;gap:5px;align-items:center;padding:9px 8px;background:white;border:1px solid #d8d8d2;border-radius:10px;cursor:pointer;font-size:14px}.backup-country-choice:has(input:checked){background:#e7f5e9;border-color:#5eac83}.backup-country-choice input{width:17px;height:17px;flex:none}.backup-country-choice small{color:#6b6b6b;margin-left:auto;font-size:11px}.country-backup-picker .action-row{margin-top:8px}
+
+/* 15-country fixed overview; no horizontal scrolling */
+.country-picker,.country-picker.collapsed{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;gap:8px;scroll-snap-type:none;}
+@media(max-width:700px){.country-picker,.country-picker.collapsed{grid-template-columns:repeat(3,minmax(0,1fr));}}
+.pilot-country-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
+@media(max-width:560px){.pilot-country-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
